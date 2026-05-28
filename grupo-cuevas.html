@@ -1,0 +1,1580 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Smartway x Grupo Cuevas | SmartOrder Fresh</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+
+:root{--dark:#243C36;--green:#31715B;--lg:#CDE7A1;--mint:#EEF1EA;--white:#FFF;--black:#0A0F0D;--yellow:#FFD712;--coral:#F47C6D;--grey:#E2E0E3;--t:all .4s cubic-bezier(.16,1,.3,1)}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth;touch-action:manipulation}
+body{font-family:'Poppins',sans-serif;color:var(--dark);background:var(--black);overflow-x:hidden;-webkit-font-smoothing:antialiased;touch-action:manipulation}
+::selection{background:var(--green);color:var(--white)}
+img{max-width:100%;display:block}
+.cinema{position:relative;width:100%;height:300vh}
+.cinema-sticky{position:sticky;top:0;width:100%;height:100vh;overflow:hidden}
+.cinema-video{position:absolute;inset:0;z-index:0}
+.cinema-video video{width:100%;height:100%;object-fit:cover;filter:brightness(.55) saturate(1.3)}
+.cinema-darken{position:absolute;inset:0;z-index:1;background:rgba(10,15,13,.65);opacity:0;will-change:opacity;pointer-events:none}
+.cinema-vignette{position:absolute;inset:0;z-index:2;background:radial-gradient(ellipse 80% 60% at 50% 50%,transparent 20%,rgba(10,15,13,.4) 65%,rgba(10,15,13,.85) 100%);pointer-events:none}
+.cinema-floats{position:absolute;inset:0;z-index:3;pointer-events:none;overflow:hidden}
+.hf{position:absolute;font-size:2.5rem;opacity:0;animation:hfUp 14s ease-in-out infinite}
+.hf:nth-child(1){left:5%;bottom:-60px;animation-delay:0s;font-size:3rem}.hf:nth-child(2){left:15%;bottom:-60px;animation-delay:2s}.hf:nth-child(3){left:28%;bottom:-60px;animation-delay:4.5s;font-size:2rem}.hf:nth-child(4){right:8%;bottom:-60px;animation-delay:1.5s;font-size:3.5rem}.hf:nth-child(5){right:20%;bottom:-60px;animation-delay:3.5s}.hf:nth-child(6){right:35%;bottom:-60px;animation-delay:5.5s;font-size:2rem}.hf:nth-child(7){left:42%;bottom:-60px;animation-delay:7s;font-size:1.8rem}.hf:nth-child(8){left:58%;bottom:-60px;animation-delay:6s;font-size:2.2rem}
+@keyframes hfUp{0%{opacity:0;transform:translateY(0) rotate(0)}10%{opacity:.12}50%{opacity:.08}90%{opacity:0}100%{opacity:0;transform:translateY(-110vh) rotate(20deg)}}
+.doors-layer{position:absolute;inset:0;z-index:10}
+.door{position:absolute;top:0;width:50%;height:100%;will-change:transform;overflow:hidden}
+.door-left{left:0}.door-right{right:0}
+.door-glass{position:absolute;inset:0;background:rgba(18,32,28,.82);backdrop-filter:blur(8px) saturate(120%);-webkit-backdrop-filter:blur(8px) saturate(120%)}
+.door-frame{position:absolute;inset:0;z-index:1;pointer-events:none}
+.door-left .door-frame::after{content:'';position:absolute;top:0;right:0;width:6px;height:100%;background:linear-gradient(180deg,#4a5e58,#2d4a42,#4a5e58);box-shadow:2px 0 12px rgba(0,0,0,.3)}
+.door-right .door-frame::after{content:'';position:absolute;top:0;left:0;width:6px;height:100%;background:linear-gradient(180deg,#4a5e58,#2d4a42,#4a5e58);box-shadow:-2px 0 12px rgba(0,0,0,.3)}
+.door-handle{position:absolute;top:50%;width:3px;height:80px;background:linear-gradient(180deg,#8a9e98,#5a6e68,#8a9e98);border-radius:2px;transform:translateY(-50%);z-index:2}
+.door-left .door-handle{right:24px}.door-right .door-handle{left:24px}
+.door-reflect{position:absolute;top:8%;width:1px;height:55%;background:linear-gradient(180deg,transparent,rgba(255,255,255,.05),transparent);z-index:2}
+.door-left .door-reflect{right:30%}.door-right .door-reflect{left:30%}
+.door-text{position:absolute;top:0;left:0;right:0;bottom:0;z-index:3;display:flex;flex-direction:column;padding:48px;padding-top:38%;color:var(--white)}
+.door-left .door-text{align-items:flex-end;text-align:right;padding-right:56px}
+.door-right .door-text{align-items:flex-start;text-align:left;padding-left:56px}
+.door-text .d-logo{margin-bottom:20px}.door-text .d-logo img{height:44px}
+.door-left .door-text .d-logo img{margin-left:auto}
+.door-text .d-title{font-size:clamp(1.2rem,2.8vw,1.8rem);font-weight:700;line-height:1.25;letter-spacing:-.02em;max-width:380px}
+.door-right .door-text .d-title em{font-style:normal;background:linear-gradient(135deg,var(--lg),#8FD88F);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.door-text .d-sub{font-size:.78rem;color:rgba(255,255,255,.3);font-weight:300;line-height:1.6;margin-top:14px;max-width:300px}
+.door-scroll{position:absolute;bottom:48px;left:50%;transform:translateX(-50%);z-index:12;display:flex;flex-direction:column;align-items:center;gap:10px}
+.door-scroll .label{font-size:.68rem;font-weight:600;text-transform:uppercase;letter-spacing:.12em;color:rgba(255,255,255,.25)}
+.door-scroll .arrow{width:18px;height:18px;border-right:2px solid rgba(255,255,255,.2);border-bottom:2px solid rgba(255,255,255,.2);transform:rotate(45deg);animation:sBounce 2s ease infinite}
+@keyframes sBounce{0%,100%{transform:rotate(45deg) translateY(0)}50%{transform:rotate(45deg) translateY(6px)}}
+.fog{position:absolute;bottom:0;left:0;right:0;height:50%;z-index:9;pointer-events:none;opacity:0;transition:opacity .5s ease;overflow:hidden}
+.fog.active{opacity:1}.fog.fade{opacity:0;transition:opacity 3s ease .8s}
+.fog-p{position:absolute;bottom:-20px;border-radius:50%;background:radial-gradient(circle,rgba(255,255,255,.1),transparent 70%);filter:blur(30px);animation:fogRise 3s ease-out forwards}
+@keyframes fogRise{0%{opacity:0;transform:translateY(0) scale(.8)}30%{opacity:1}100%{opacity:0;transform:translateY(-200px) scale(1.5)}}
+.hero-content{position:absolute;inset:0;z-index:8;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:0 32px;opacity:0;will-change:opacity}
+.hero-badge{display:inline-flex;align-items:center;gap:8px;padding:8px 22px;border-radius:100px;background:rgba(205,231,161,.1);border:1px solid rgba(205,231,161,.2);font-size:.78rem;font-weight:500;color:var(--lg);margin-bottom:40px}
+.hero-badge .dot{width:6px;height:6px;border-radius:50%;background:var(--lg);animation:pulse 2s ease infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+.hero-logos{display:flex;align-items:center;justify-content:center;gap:16px;margin-bottom:48px}
+.hero-logos img{height:34px}.hero-logos .x-mark{color:rgba(255,255,255,.3);font-size:1.4rem;font-weight:300}
+.hero-h1{font-size:clamp(2rem,5vw,3.2rem);font-weight:700;color:var(--white);line-height:1.15;letter-spacing:-.03em;margin-bottom:24px;max-width:860px}
+.hero-h1 em{font-style:normal;background:linear-gradient(135deg,var(--lg),#8FD88F);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.hero-sub{font-size:clamp(.92rem,1.4vw,1.05rem);color:rgba(255,255,255,.5);font-weight:300;line-height:1.75;max-width:620px;margin-bottom:48px}
+.hero-ctas{display:flex;gap:16px;justify-content:center;flex-wrap:wrap}
+.hero-scroll-ind{position:absolute;bottom:36px;left:50%;transform:translateX(-50%)}
+.hero-scroll-ind span{display:block;width:1px;height:48px;background:linear-gradient(to bottom,rgba(255,255,255,.4),transparent);animation:scL 2s ease infinite}
+@keyframes scL{0%{transform:scaleY(0);transform-origin:top}50%{transform:scaleY(1);transform-origin:top}51%{transform-origin:bottom}100%{transform:scaleY(0);transform-origin:bottom}}
+.cinema-bottom{position:absolute;bottom:0;left:0;right:0;height:200px;background:linear-gradient(to bottom,transparent,var(--black));z-index:8;pointer-events:none;opacity:0}
+.nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:20px 40px;display:flex;align-items:center;justify-content:space-between;transition:var(--t);opacity:0;pointer-events:none}
+.nav.show{opacity:1;pointer-events:auto}
+.nav.scrolled{background:rgba(10,15,13,.9);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);padding:14px 40px;border-bottom:1px solid rgba(255,255,255,.05)}
+.nav-logo{display:flex;align-items:center;gap:10px}
+.nav-logo img{height:26px}
+.nav-logo .ret-nav{height:32px;object-fit:contain}
+.nav-x{color:rgba(255,255,255,.3);font-size:1rem;font-weight:300}
+.nav-cta{padding:10px 26px;background:var(--green);color:var(--white);font-family:'Poppins',sans-serif;font-size:.8rem;font-weight:600;border:none;border-radius:100px;cursor:pointer;text-decoration:none;transition:var(--t)}
+.nav-cta:hover{background:var(--lg);color:var(--black);transform:translateY(-1px);box-shadow:0 8px 32px rgba(205,231,161,.3)}
+.noise::after{content:'';position:absolute;inset:0;z-index:1;opacity:.03;pointer-events:none;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.7' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");background-repeat:repeat;background-size:256px}
+.r{opacity:0;transform:translateY(40px);transition:all .8s cubic-bezier(.16,1,.3,1)}.r.v{opacity:1;transform:translateY(0)}
+.r.d1{transition-delay:.1s}.r.d2{transition-delay:.2s}.r.d3{transition-delay:.3s}.r.d4{transition-delay:.4s}.r.d5{transition-delay:.5s}
+section{padding:120px 32px;position:relative;border-radius:24px 24px 0 0}
+section+section{margin-top:-24px}
+.inner{max-width:1100px;margin:0 auto}
+.s-tag{display:inline-flex;align-items:center;gap:6px;font-size:.7rem;font-weight:600;text-transform:uppercase;letter-spacing:.12em;margin-bottom:16px}.s-tag.green{color:var(--green)}.s-tag.light{color:var(--lg)}
+.s-title{font-size:clamp(1.6rem,3.5vw,2.5rem);font-weight:700;line-height:1.2;letter-spacing:-.025em;margin-bottom:16px}
+.s-desc{font-size:1rem;font-weight:300;line-height:1.75;max-width:620px;opacity:.55}.s-desc.c{margin:0 auto;text-align:center}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:16px 36px;font-family:'Poppins',sans-serif;font-size:.9rem;font-weight:600;border:none;border-radius:14px;cursor:pointer;text-decoration:none;transition:var(--t)}
+.btn-g{background:var(--green);color:var(--white)}.btn-g:hover{background:var(--lg);color:var(--black);transform:translateY(-2px);box-shadow:0 12px 40px rgba(205,231,161,.25)}
+.btn-o{background:rgba(255,255,255,.08);color:var(--white);border:1px solid rgba(255,255,255,.15)}.btn-o:hover{background:var(--lg);color:var(--black);border-color:var(--lg);transform:translateY(-2px)}
+.s-ins{background:var(--white);overflow:hidden}
+.s-ins::before{content:'';position:absolute;top:-200px;right:-200px;width:500px;height:500px;border-radius:50%;background:radial-gradient(circle,rgba(205,231,161,.12),transparent 70%);pointer-events:none}
+.ins-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;margin-top:48px}
+@media(max-width:992px){.ins-grid{grid-template-columns:1fr 1fr}}@media(max-width:600px){.ins-grid{grid-template-columns:1fr}}
+.ic{background:var(--mint);border-radius:20px;padding:36px 28px;position:relative;overflow:hidden;transition:var(--t)}.ic::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--green),var(--lg));opacity:0;transition:opacity .3s ease}.ic:hover{transform:translateY(-6px);box-shadow:0 20px 60px rgba(36,60,54,.08)}.ic:hover::before{opacity:1}.ic .ico{width:44px;height:44px;border-radius:12px;background:rgba(49,113,91,.08);display:flex;align-items:center;justify-content:center;margin-bottom:20px}.ic .ico img{width:24px;height:24px}.ic .stat{font-size:1.3rem;font-weight:700;color:var(--dark);margin-bottom:6px;letter-spacing:-.02em}.ic .desc{font-size:.84rem;color:rgba(36,60,54,.5);line-height:1.65}
+.s-st{background:var(--dark);color:var(--white);overflow:hidden;position:relative}.st-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;margin-top:48px;position:relative;z-index:2}@media(max-width:992px){.st-grid{grid-template-columns:1fr 1fr}}@media(max-width:600px){.st-grid{grid-template-columns:1fr}}.sc{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.06);border-radius:20px;padding:36px 24px;text-align:center;transition:var(--t)}.sc:hover{transform:translateY(-6px);background:rgba(255,255,255,.08);border-color:rgba(205,231,161,.15)}.sc .sn{display:inline-flex;align-items:center;justify-content:center;width:40px;height:40px;border-radius:12px;background:rgba(205,231,161,.08);color:var(--lg);font-weight:700;font-size:.9rem;margin-bottom:20px}.sc .si{margin-bottom:16px}.sc .si img{width:36px;height:36px;margin:0 auto}.sc .st-t{font-size:.92rem;font-weight:600;color:var(--lg);margin-bottom:8px}.sc .sd{font-size:.82rem;color:rgba(255,255,255,.4);line-height:1.65}
+.s-demo{background:var(--dark);overflow:hidden;padding:0;position:relative}
+.demo-split{display:grid;grid-template-columns:1fr 1fr;min-height:100vh}@media(max-width:992px){.demo-split{grid-template-columns:1fr;min-height:auto}}
+.demo-left{position:relative;overflow:hidden}.demo-left img{width:100%;height:100%;object-fit:cover;min-height:500px}.demo-left::after{content:'';position:absolute;inset:0;background:linear-gradient(90deg,transparent 50%,var(--dark) 100%),linear-gradient(180deg,transparent 60%,var(--dark) 100%)}@media(max-width:992px){.demo-left{height:50vh}.demo-left::after{background:linear-gradient(180deg,transparent 30%,var(--dark) 100%)}}
+.demo-right{padding:80px 48px 80px 32px;display:flex;flex-direction:column;justify-content:center;position:relative;z-index:2}@media(max-width:992px){.demo-right{padding:32px 20px 80px}}.demo-right .s-title{color:var(--white)}.demo-right .s-desc{color:rgba(255,255,255,.4)}
+.demo-steps{display:flex;gap:8px;margin:32px 0 24px;flex-wrap:wrap}.ds{padding:10px 18px;border-radius:12px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.06);font-size:.75rem;font-weight:500;color:rgba(255,255,255,.3);cursor:default;transition:var(--t)}.ds.active{background:rgba(49,113,91,.2);border-color:var(--green);color:var(--lg)}.ds .ds-n{font-weight:700;margin-right:6px;color:var(--lg)}
+.tablet-wrap{display:flex;justify-content:center}.tablet-bezel{width:100%;max-width:400px;background:linear-gradient(145deg,#1a1a1a,#111);border-radius:24px;padding:12px;box-shadow:0 40px 100px rgba(0,0,0,.4),0 0 0 1px rgba(255,255,255,.04) inset;position:relative}.tablet-notch{display:flex;align-items:center;justify-content:center;gap:6px;padding:6px 0 8px}.tablet-cam{width:6px;height:6px;border-radius:50%;background:#333}.tablet-screen{background:var(--dark);border-radius:16px;overflow:hidden;position:relative;height:520px}
+.app-header{display:flex;align-items:center;justify-content:space-between;padding:12px 16px;background:rgba(255,255,255,.03);border-bottom:1px solid rgba(255,255,255,.06)}.app-header-left{display:flex;align-items:center;gap:8px}.app-header-left img{height:14px}.app-header-left .ah-store{font-size:.65rem;color:rgba(255,255,255,.4);font-weight:500}.app-header-right .ah-live{display:flex;align-items:center;gap:4px;font-size:.58rem;font-weight:600;color:var(--lg)}.app-header-right .ah-live .ld{width:5px;height:5px;border-radius:50%;background:var(--lg);animation:pulse 2s ease infinite}
+.app-bnav{position:absolute;bottom:0;left:0;right:0;display:flex;background:rgba(10,15,13,.95);border-top:1px solid rgba(255,255,255,.06);z-index:10;backdrop-filter:blur(8px)}.bnav-item{flex:1;padding:10px 0 8px;text-align:center;cursor:pointer;transition:var(--t)}.bnav-item .bi-icon{margin-bottom:2px;color:rgba(255,255,255,.25);display:flex;justify-content:center}.bnav-item .bi-label{font-size:.55rem;font-weight:500;color:rgba(255,255,255,.25)}.bnav-item.active .bi-icon{color:var(--lg)}.bnav-item.active .bi-label{color:var(--lg)}.bnav-item.active::before{content:'';display:block;width:20px;height:2px;background:var(--lg);border-radius:1px;margin:0 auto 4px}
+.app-views{position:absolute;top:44px;left:0;right:0;bottom:48px;overflow:hidden}.app-view{position:absolute;inset:0;opacity:0;pointer-events:none;transition:opacity .35s ease;overflow-y:auto;scrollbar-width:none}.app-view::-webkit-scrollbar{display:none}.app-view.active{opacity:1;pointer-events:auto}
+#av1{display:flex;flex-direction:column}#av1 .app-filters2{flex-shrink:0}#av1 .prod-list{flex:1;overflow-y:auto;scrollbar-width:none}#av1 .prod-list::-webkit-scrollbar{display:none}#av1 .order-footer{flex-shrink:0}
+.av-section{padding:16px}.av-title{font-size:.82rem;font-weight:600;color:var(--white);margin-bottom:12px}.av-subtitle{font-size:.65rem;color:rgba(255,255,255,.3);margin-bottom:16px}
+.order-home{padding:20px 16px}.oh-greeting{font-size:1rem;font-weight:700;color:var(--white);margin-bottom:2px}.oh-date{font-size:.62rem;color:rgba(255,255,255,.3);margin-bottom:16px}.oh-cards{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:14px}.oh-card{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.06);border-radius:12px;padding:14px;text-align:center}.oh-card .ohv{font-size:1.3rem;font-weight:800;color:var(--white)}.oh-card.green .ohv{color:var(--lg)}.oh-card .ohl{font-size:.58rem;color:rgba(255,255,255,.3);margin-top:3px}.oh-alert{padding:10px 12px;border-radius:10px;background:rgba(244,124,109,.08);border:1px solid rgba(244,124,109,.1);font-size:.65rem;color:var(--coral);display:flex;align-items:center;gap:6px;margin-bottom:14px}.oh-alert .oad{width:5px;height:5px;border-radius:50%;background:var(--coral);animation:pulse 2s ease infinite}
+.app-btn2{display:block;padding:12px;background:var(--green);color:var(--white);border:none;border-radius:12px;font-family:'Poppins',sans-serif;font-size:.75rem;font-weight:600;cursor:pointer;text-align:center;transition:var(--t);width:100%}.app-btn2:hover{background:var(--lg);color:var(--dark)}.app-btn2:active{transform:scale(.97)}.app-btn2.sm{padding:8px 14px;font-size:.65rem;width:auto;border-radius:8px}
+.app-filters2{display:flex;gap:4px;padding:10px 16px;border-bottom:1px solid rgba(255,255,255,.04);overflow-x:auto}.af3{padding:4px 10px;border-radius:100px;font-size:.58rem;font-weight:600;background:rgba(255,255,255,.04);color:rgba(255,255,255,.3);cursor:pointer;white-space:nowrap;transition:var(--t);border:1px solid transparent}.af3.active{background:var(--green);color:var(--white)}
+.prod-list{padding:8px 16px 16px}.prod-row{display:flex;align-items:center;gap:8px;padding:10px 0;border-bottom:1px solid rgba(255,255,255,.03);transition:var(--t)}.prod-row.done{opacity:.35}.prod-row.done .pr-btn{background:var(--green);color:var(--white);border-color:var(--green)}.pr-emoji{font-size:1.1rem;flex-shrink:0}.pr-info{flex:1;min-width:0}.pr-name{font-size:.7rem;font-weight:600;color:var(--white);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.pr-meta{font-size:.55rem;color:rgba(255,255,255,.25);display:flex;gap:6px;margin-top:2px}.pr-conf{font-size:.55rem;font-weight:600;padding:2px 6px;border-radius:4px;background:rgba(205,231,161,.15);color:var(--lg)}.pr-conf.med{background:rgba(255,215,18,.12);color:var(--yellow)}.pr-qty{font-size:.82rem;font-weight:700;color:var(--lg);min-width:24px;text-align:center}.pr-btn{padding:4px 10px;border-radius:8px;font-size:.55rem;font-weight:600;cursor:pointer;border:1.5px solid var(--green);color:var(--green);background:transparent;font-family:'Poppins',sans-serif;transition:var(--t);flex-shrink:0}.pr-btn:hover{background:var(--green);color:var(--white)}.pr-btn:active{transform:scale(.92)}
+.order-footer{display:flex;align-items:center;justify-content:space-between;padding:10px 16px;background:rgba(10,15,13,.95);border-top:1px solid rgba(255,255,255,.04);backdrop-filter:blur(8px)}.of-count{font-size:.7rem;font-weight:600;color:var(--white)}.of-count b{color:var(--lg)}
+.conf-view{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:40px 20px;text-align:center;height:100%}.conf-check{width:48px;height:48px;border-radius:50%;background:var(--green);color:var(--white);font-size:1.5rem;display:flex;align-items:center;justify-content:center;margin-bottom:14px;animation:checkPop .5s cubic-bezier(.16,1,.3,1)}@keyframes checkPop{from{transform:scale(0)}to{transform:scale(1)}}.conf-title{font-size:1rem;font-weight:700;color:var(--white);margin-bottom:4px}.conf-sub{font-size:.68rem;color:rgba(255,255,255,.35);line-height:1.5;margin-bottom:20px}.conf-stats{display:flex;gap:16px;margin-bottom:20px}.cs-item{text-align:center}.cs-v{font-size:1rem;font-weight:800;color:var(--lg)}.cs-l{font-size:.5rem;color:rgba(255,255,255,.25);margin-top:2px}.conf-quote{font-size:.65rem;font-style:italic;color:rgba(255,255,255,.3);line-height:1.5;padding:10px;background:rgba(255,255,255,.03);border-radius:8px;border-left:2px solid var(--green);margin-bottom:20px;text-align:left}
+.stock-item{display:flex;align-items:center;gap:10px;padding:12px 0;border-bottom:1px solid rgba(255,255,255,.03)}.si-emoji{font-size:1rem}.si-info{flex:1}.si-name{font-size:.7rem;font-weight:600;color:var(--white)}.si-detail{font-size:.55rem;color:rgba(255,255,255,.25);margin-top:2px}.si-bar{width:80px;height:6px;border-radius:3px;background:rgba(255,255,255,.06);overflow:hidden}.si-fill{height:100%;border-radius:3px;transition:width .6s ease}.si-fill.ok{background:var(--green)}.si-fill.warn{background:var(--yellow)}.si-fill.crit{background:var(--coral)}.si-pct{font-size:.65rem;font-weight:700;min-width:32px;text-align:right}.si-pct.ok{color:var(--lg)}.si-pct.warn{color:var(--yellow)}.si-pct.crit{color:var(--coral)}
+.fc-card{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.04);border-radius:12px;padding:14px;margin-bottom:10px}.fc-day{font-size:.72rem;font-weight:600;color:var(--white);margin-bottom:4px}.fc-weather{font-size:.6rem;color:rgba(255,255,255,.3);margin-bottom:10px}.fc-bars{display:flex;flex-direction:column;gap:6px}.fc-bar-row{display:flex;align-items:center;gap:8px}.fc-bar-label{font-size:.55rem;color:rgba(255,255,255,.3);min-width:50px}.fc-bar-track{flex:1;height:5px;border-radius:3px;background:rgba(255,255,255,.04);overflow:hidden}.fc-bar-fill{height:100%;border-radius:3px;background:linear-gradient(90deg,var(--green),var(--lg))}.fc-bar-val{font-size:.58rem;font-weight:600;color:var(--lg);min-width:28px;text-align:right}
+.perf-kpi{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:14px}.pk{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.05);border-radius:10px;padding:12px;text-align:center}.pk .pkv{font-size:1.1rem;font-weight:800;color:var(--lg)}.pk .pkl{font-size:.55rem;color:rgba(255,255,255,.25);margin-top:2px}.pk .pkb{font-size:.5rem;font-weight:600;color:var(--lg);margin-top:4px}.perf-chart{background:rgba(255,255,255,.03);border-radius:12px;padding:14px}.perf-chart svg{width:100%;height:auto}
+.s-roi{background:linear-gradient(180deg,var(--mint) 0%,var(--white) 100%);overflow:hidden;padding-top:80px;padding-bottom:0}.s-roi .inner{margin-bottom:40px}.roi-calc{margin:0 -32px;border-radius:24px 24px 0 0;overflow:hidden;padding:48px 48px 64px}.colruyt-badge{display:flex;justify-content:center;margin-bottom:20px}.roi-box{background:var(--white);border-radius:24px;padding:48px;box-shadow:0 4px 80px rgba(36,60,54,.06);position:relative;overflow:hidden;margin-top:48px}.roi-box::before{content:'';position:absolute;top:-1px;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--green),var(--lg),var(--green));background-size:200% 100%;animation:shimmer 3s ease infinite}@keyframes shimmer{0%{background-position:200% 0}100%{background-position:-200% 0}}.roi-g{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:start}@media(max-width:992px){.roi-g{grid-template-columns:1fr;gap:32px}.roi-box{padding:28px 20px}}.sg{margin-bottom:28px}.sg:last-child{margin-bottom:0}.sg-h{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:12px}.sg-l{font-size:.85rem;font-weight:500;color:var(--dark)}.sg-v{font-size:1.1rem;font-weight:700;color:var(--green)}
+input[type="range"]{-webkit-appearance:none;appearance:none;width:100%;height:6px;border-radius:3px;background:linear-gradient(90deg,var(--green),var(--lg));outline:none;cursor:pointer}input[type="range"]::-webkit-slider-thumb{-webkit-appearance:none;width:22px;height:22px;border-radius:50%;background:var(--white);border:3px solid var(--green);cursor:pointer;box-shadow:0 2px 12px rgba(49,113,91,.25);transition:var(--t)}input[type="range"]::-webkit-slider-thumb:hover{transform:scale(1.15)}input[type="range"]::-moz-range-thumb{width:22px;height:22px;border-radius:50%;background:var(--white);border:3px solid var(--green);cursor:pointer}
+.roi-res{display:grid;grid-template-columns:1fr 1fr;gap:14px}.rr{border-radius:16px;padding:24px 18px;text-align:center;position:relative;overflow:hidden;border:1px solid rgba(36,60,54,.04)}.rr::before{content:'';position:absolute;top:0;left:0;width:4px;height:100%;border-radius:2px}.rr.rg{background:rgba(49,113,91,.05)}.rr.rg::before{background:var(--green)}.rr.ry{background:rgba(255,215,18,.06)}.rr.ry::before{background:var(--yellow)}.rr.rc{background:rgba(244,124,109,.05)}.rr.rc::before{background:var(--coral)}.rr.rh{background:var(--dark);color:var(--white);border-color:var(--dark)}.rr.rh::before{background:var(--lg)}.rr .rv{font-size:1.6rem;font-weight:700;letter-spacing:-.02em;margin-bottom:2px}.rr .rv.vg{color:var(--green)}.rr .rv.vy{color:#b89a00}.rr .rv.vc{color:var(--coral)}.rr.rh .rv{color:var(--lg)}.rr .rl{font-size:.72rem;font-weight:500;color:rgba(36,60,54,.4);text-transform:uppercase;letter-spacing:.04em}.rr.rh .rl{color:rgba(255,255,255,.5)}.roi-ft{text-align:center;margin-top:40px;font-size:.85rem;color:rgba(36,60,54,.4);font-style:italic;line-height:1.7}.roi-ft a{color:var(--green);text-decoration:none;font-weight:600;font-style:normal}.roi-ft a:hover{text-decoration:underline}
+.s-db{background:var(--dark);padding:120px 32px;position:relative;overflow:hidden}.s-db::after{content:'';position:absolute;top:-150px;left:50%;transform:translateX(-50%);width:800px;height:800px;border-radius:50%;background:radial-gradient(circle,rgba(49,113,91,.08),transparent 60%);pointer-events:none}
+.db-frame{max-width:1100px;margin:48px auto 0;background:var(--white);border-radius:20px;box-shadow:0 25px 80px rgba(0,0,0,.25);overflow:hidden;transform:perspective(1200px) rotateX(3deg) rotateY(-1deg);transition:transform 1.2s cubic-bezier(.16,1,.3,1);position:relative;z-index:2}.db-frame.flat{transform:perspective(1200px) rotateX(0) rotateY(0)}
+.db-header{display:flex;justify-content:space-between;align-items:center;padding:20px 28px;border-bottom:1px solid rgba(36,60,54,.06);background:var(--mint)}.db-header-left{display:flex;align-items:center;gap:12px}.db-header-left img{height:22px}.db-header-left span{font-size:.82rem;font-weight:500;color:rgba(36,60,54,.5)}.db-header-right{display:flex;align-items:center;gap:16px}.db-date{font-size:.78rem;color:rgba(36,60,54,.5);font-weight:500}.db-live{display:inline-flex;align-items:center;gap:6px;padding:4px 12px;border-radius:100px;background:rgba(49,113,91,.08);font-size:.7rem;font-weight:600;color:var(--green)}.db-live .ld{width:6px;height:6px;border-radius:50%;background:var(--green);animation:pulse 2s ease infinite}
+.db-tabs{display:flex;gap:0;border-bottom:1px solid rgba(36,60,54,.06);padding:0 28px}.db-tab{padding:12px 20px;font-size:.78rem;font-weight:500;color:rgba(36,60,54,.4);border-bottom:2px solid transparent;cursor:pointer;transition:all .2s}.db-tab.active{color:var(--green);border-bottom-color:var(--green);font-weight:600}
+.db-body{padding:28px}.db-panel{display:none;animation:dbFadeIn .4s ease}.db-panel.active{display:block}@keyframes dbFadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+.db-kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:28px}.db-kpi{padding:20px;border-radius:14px;background:var(--mint);position:relative;overflow:hidden}.db-kpi .k-icon{font-size:1.2rem;margin-bottom:8px}.db-kpi .k-val{font-size:1.6rem;font-weight:700;color:var(--dark);letter-spacing:-.02em}.db-kpi .k-label{font-size:.72rem;font-weight:500;color:rgba(36,60,54,.45);margin-top:2px}.db-kpi .k-badge{display:inline-flex;align-items:center;gap:3px;padding:3px 8px;border-radius:6px;font-size:.65rem;font-weight:600;margin-top:8px}.db-kpi .k-badge.up{background:rgba(205,231,161,.3);color:#2d6b4f}.db-kpi .k-badge.yellow{background:rgba(255,215,18,.2);color:#8a7200}
+.db-main{display:grid;grid-template-columns:2fr 1fr;gap:20px;margin-bottom:28px}.db-chart{background:var(--mint);border-radius:14px;padding:24px}.db-chart-title{font-size:.82rem;font-weight:600;color:var(--dark);margin-bottom:16px}.db-chart svg{width:100%;height:auto}
+.chart-line-before{stroke:var(--grey);stroke-width:2.5;fill:none;stroke-dasharray:1000;stroke-dashoffset:1000;transition:stroke-dashoffset 2s ease}.chart-line-after{stroke:var(--green);stroke-width:2.5;fill:none;stroke-dasharray:1000;stroke-dashoffset:1000;transition:stroke-dashoffset 2s ease .5s}.chart-area{fill:url(#chartGrad);opacity:0;transition:opacity 1s ease 1s}.db-frame.flat .chart-line-before,.db-frame.flat .chart-line-after{stroke-dashoffset:0}.db-frame.flat .chart-area{opacity:.6}
+.chart-deploy{stroke:var(--green);stroke-width:1;stroke-dasharray:4 4;opacity:.4}.chart-label{font-size:9px;font-family:'Poppins',sans-serif;fill:rgba(36,60,54,.35)}.chart-deploy-label{font-size:8px;font-family:'Poppins',sans-serif;fill:var(--green);font-weight:600}
+.db-ranking{background:var(--mint);border-radius:14px;padding:24px}.db-ranking-title{font-size:.82rem;font-weight:600;color:var(--dark);margin-bottom:16px}.rank-item{margin-bottom:14px}.rank-item:last-child{margin-bottom:0}.rank-head{display:flex;justify-content:space-between;font-size:.78rem;margin-bottom:6px}.rank-name{font-weight:500;color:var(--dark)}.rank-val{font-weight:700;color:var(--green)}.rank-bar{height:6px;border-radius:3px;background:rgba(36,60,54,.06);overflow:hidden}.rank-fill{height:100%;border-radius:3px;background:linear-gradient(90deg,var(--green),var(--lg));width:0;transition:width 1s cubic-bezier(.16,1,.3,1)}.db-frame.flat .rank-fill{width:var(--w)}
+.db-alerts{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.db-alert{padding:16px;border-radius:12px;font-size:.78rem;line-height:1.55;display:flex;gap:10px;align-items:flex-start}.db-alert.red{background:rgba(244,124,109,.06);border:1px solid rgba(244,124,109,.1)}.db-alert.red .al-dot{background:var(--coral)}.db-alert.ylw{background:rgba(255,215,18,.06);border:1px solid rgba(255,215,18,.15)}.db-alert.ylw .al-dot{background:var(--yellow)}.db-alert.grn{background:rgba(205,231,161,.1);border:1px solid rgba(205,231,161,.2)}.db-alert.grn .al-dot{background:var(--green)}.al-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;margin-top:5px}.db-alert span{color:rgba(36,60,54,.6)}
+.store-head{display:flex;align-items:center;gap:16px;flex-wrap:wrap}.store-select{padding:10px 16px;border:2px solid rgba(36,60,54,.1);border-radius:10px;font-family:'Poppins',sans-serif;font-size:.85rem;font-weight:600;color:var(--dark);background:var(--white);cursor:pointer;outline:none;min-width:280px;transition:border-color .2s}.store-select:focus{border-color:var(--green)}.store-meta{display:flex;align-items:center;gap:12px}.store-badge-open{display:inline-flex;align-items:center;gap:5px;padding:4px 12px;border-radius:100px;background:rgba(49,113,91,.08);font-size:.7rem;font-weight:600;color:var(--green)}.store-last{font-size:.72rem;color:rgba(36,60,54,.35);font-weight:500}
+.store-grid{display:grid;grid-template-columns:1.2fr 1fr;gap:20px;margin-top:20px}@media(max-width:768px){.store-grid{grid-template-columns:1fr}}.store-card{background:var(--mint);border-radius:14px;padding:24px}.sc-title{font-size:.82rem;font-weight:600;color:var(--dark);margin-bottom:16px}.sc-table{font-size:.78rem}.sc-row{display:grid;grid-template-columns:1.5fr .8fr .8fr;gap:8px;padding:8px 0;border-bottom:1px solid rgba(36,60,54,.04);align-items:center}.sc-row:last-child{border-bottom:none}.sc-header{font-weight:600;color:rgba(36,60,54,.4);font-size:.7rem;text-transform:uppercase;letter-spacing:.04em;border-bottom:2px solid rgba(36,60,54,.06)}.sc-row span{color:rgba(36,60,54,.7)}.st-ok{color:var(--green);font-weight:600;font-size:.7rem}.st-warn{color:#b89a00;font-weight:600;font-size:.7rem}.st-alert{color:var(--coral);font-weight:600;font-size:.7rem}.store-mini-chart{width:100%;margin:12px 0}.sc-insight{font-size:.78rem;color:rgba(36,60,54,.5);line-height:1.55;padding:12px;background:var(--white);border-radius:10px;border-left:3px solid var(--green)}
+.trend-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}@media(max-width:768px){.trend-cards{grid-template-columns:1fr}}.trend-card{background:var(--mint);border-radius:14px;padding:24px}.tc-icon{margin-bottom:12px}.tc-title{font-size:.85rem;font-weight:600;color:var(--dark);margin-bottom:8px}.tc-text{font-size:.78rem;color:rgba(36,60,54,.55);line-height:1.6}
+.alert-filters{display:flex;gap:8px;margin-bottom:20px;flex-wrap:wrap}.af{padding:6px 16px;border-radius:100px;font-size:.72rem;font-weight:600;cursor:pointer;transition:all .2s;border:1px solid rgba(36,60,54,.08);color:rgba(36,60,54,.45);background:var(--white)}.af.active{background:var(--green);color:var(--white);border-color:var(--green)}.af:hover:not(.active){border-color:var(--green);color:var(--green)}
+.alert-feed{display:flex;flex-direction:column;gap:8px;max-height:420px;overflow-y:auto;scrollbar-width:thin;scrollbar-color:rgba(36,60,54,.1) transparent}.alert-feed::-webkit-scrollbar{width:4px}.alert-feed::-webkit-scrollbar-thumb{background:rgba(36,60,54,.1);border-radius:2px}
+.alert-item{display:flex;align-items:flex-start;gap:12px;padding:16px;border-radius:12px;background:var(--mint);border:1px solid rgba(36,60,54,.04);transition:all .2s}.alert-item:hover{box-shadow:0 4px 16px rgba(36,60,54,.04)}.ai-time{font-size:.7rem;font-weight:600;color:rgba(36,60,54,.3);min-width:36px;padding-top:2px}.ai-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;margin-top:6px}.ai-dot.red{background:var(--coral)}.ai-dot.ylw{background:var(--yellow)}.ai-dot.grn{background:var(--green)}.ai-content{font-size:.8rem;color:rgba(36,60,54,.6);line-height:1.55}.ai-content strong{color:var(--dark);font-weight:600}
+.s-tl{background:var(--dark);color:var(--white);overflow:hidden;position:relative}.tl-container{max-width:900px;margin:48px auto 0;position:relative;z-index:2}.tl-container::before{content:'';position:absolute;left:50%;top:0;bottom:0;width:2px;background:rgba(255,255,255,.06);transform:translateX(-50%)}.tl-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:56px;position:relative}.tl-row:last-child{margin-bottom:0}.tl-time{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);background:var(--dark);border:2px solid var(--green);color:var(--lg);padding:6px 16px;border-radius:100px;font-weight:600;z-index:2;font-size:.82rem;white-space:nowrap}.tl-col{width:44%;padding:24px;border-radius:16px;font-size:.88rem;line-height:1.65}.tl-col.bad{background:rgba(244,124,109,.04);border:1px solid rgba(244,124,109,.12)}.tl-col.good{background:rgba(205,231,161,.04);border:1px solid rgba(205,231,161,.12)}.tl-col h4{margin-bottom:10px;display:flex;align-items:center;gap:6px;font-size:.82rem;font-weight:600}.tl-col.bad h4{color:var(--coral)}.tl-col.good h4{color:var(--lg)}.tl-col p{color:rgba(255,255,255,.55);font-size:.85rem;line-height:1.6;margin:0}@media(max-width:992px){.tl-container::before{left:20px}.tl-row{flex-direction:column;padding-left:48px;align-items:stretch}.tl-time{left:20px;top:0;transform:translate(-50%,0)}.tl-col{width:100%;margin-bottom:10px}}
+.s-dg{background:var(--white);overflow:hidden}.dg-wrap{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:start;margin-top:48px}@media(max-width:992px){.dg-wrap{grid-template-columns:1fr}}.dg-qs{background:var(--mint);padding:36px;border-radius:20px}.qb{margin-bottom:24px;padding-bottom:20px;border-bottom:1px solid rgba(36,60,54,.06)}.qb:last-child{margin-bottom:0;padding-bottom:0;border-bottom:none}.qb p{font-weight:600;margin-bottom:12px;color:var(--dark);font-size:.88rem;line-height:1.5}.qb select{width:100%;padding:12px;border:2px solid rgba(36,60,54,.1);border-radius:10px;font-family:'Poppins',sans-serif;font-size:.88rem;background:var(--white);cursor:pointer;outline:none;transition:border-color .2s;color:var(--dark);font-weight:500}.qb select:focus{border-color:var(--green)}.dg-viz{display:flex;flex-direction:column;align-items:center;position:sticky;top:140px}.radar-box{width:100%;max-width:380px;aspect-ratio:1}.radar-svg{width:100%;height:100%;overflow:visible}.radar-bg{stroke:var(--grey);stroke-width:1;fill:none}.radar-axis{stroke:rgba(36,60,54,.1);stroke-width:1}.radar-label{font-size:11px;font-family:'Poppins',sans-serif;fill:var(--dark);font-weight:500;text-anchor:middle;dominant-baseline:middle}.radar-area{fill:rgba(49,113,91,.15);stroke:var(--green);stroke-width:2.5;transition:all .5s cubic-bezier(.16,1,.3,1)}.radar-point{fill:var(--green);transition:all .5s cubic-bezier(.16,1,.3,1)}.dg-result{margin-top:24px;text-align:center;padding:20px;background:var(--mint);border-radius:14px;border-left:4px solid var(--green);font-size:.9rem;line-height:1.65;color:var(--dark)}.dg-result strong{color:var(--green)}
+.s-pf{background:var(--mint)}.pf-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:48px}@media(max-width:992px){.pf-grid{grid-template-columns:1fr}}.pc{background:var(--white);border-radius:20px;padding:40px 32px;position:relative;transition:var(--t);border:1px solid rgba(36,60,54,.04);display:flex;flex-direction:column}.pc:hover{transform:translateY(-4px);box-shadow:0 16px 48px rgba(36,60,54,.06)}.pc .pc-logo{min-height:28px;margin-bottom:16px}.pc .q{font-size:3.5rem;font-weight:700;color:var(--green);opacity:.1;line-height:1;margin-bottom:8px;font-family:serif}.pc .txt{font-size:.9rem;line-height:1.75;color:var(--dark);margin-bottom:24px;flex:1}.pc-author{display:flex;align-items:center;gap:14px;margin-top:auto;padding-top:20px;border-top:1px solid rgba(36,60,54,.06)}.pc-avatar{width:48px;height:48px;border-radius:50%;object-fit:cover;flex-shrink:0;border:2px solid rgba(49,113,91,.1)}.pc .au{font-weight:600;font-size:.85rem;color:var(--dark)}.pc .ro{font-size:.78rem;color:rgba(36,60,54,.4);margin-top:2px}
+.s-wt{position:relative}.wt-intro{background:var(--dark);padding:120px 32px 60px;text-align:center;position:relative;z-index:2}.wt-scroll{position:relative;height:500vh}.wt-sticky{position:sticky;top:0;width:100%;height:100vh;overflow:hidden}.wt-img{position:absolute;inset:0;opacity:0;transition:opacity 1s ease}.wt-img img{width:100%;height:100%;object-fit:cover}.wt-overlay{position:absolute;inset:0;z-index:1;background:linear-gradient(180deg,rgba(10,15,13,.3) 0%,rgba(10,15,13,.55) 50%,rgba(10,15,13,.8) 100%)}
+.wt-bubbles-set{position:absolute;inset:0;z-index:2;display:flex;align-items:center;justify-content:center;opacity:0;transition:opacity .8s cubic-bezier(.16,1,.3,1);pointer-events:none}.wt-bubbles-set.active{opacity:1;pointer-events:auto}.wt-bubbles{max-width:1000px;margin:0 auto;padding:0 32px;display:flex;gap:28px;align-items:flex-start;justify-content:space-between}@media(max-width:768px){.wt-bubbles{flex-direction:column;align-items:center}}
+.wt-bubble{max-width:400px;padding:28px;border-radius:18px;backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);box-shadow:0 16px 48px rgba(0,0,0,.2);transform:translateY(20px);animation:none}.wt-bubbles-set.active .wt-bubble{animation:bubbleIn .8s cubic-bezier(.16,1,.3,1) forwards}.wt-bubbles-set.active .wt-bubble:nth-child(2){animation-delay:.3s}@keyframes bubbleIn{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+.wt-bubble.pain{background:rgba(244,124,109,.92);color:var(--white)}.wt-bubble.sol{background:rgba(205,231,161,.92);color:var(--dark)}.b-head{margin-bottom:14px}.b-logo{height:18px}
+.wt-bubble.pain .b-text{color:rgba(255,255,255,.9);font-size:.9rem;line-height:1.7}.wt-bubble.sol .b-text{color:rgba(36,60,54,.85);font-size:.9rem;line-height:1.7}
+.wt-final-content{position:relative;z-index:2;text-align:center;padding:0 32px;max-width:700px;margin:0 auto}.wt-final-title{font-size:clamp(1.6rem,3.5vw,2.4rem);font-weight:700;color:var(--lg);line-height:1.2;letter-spacing:-.025em;margin-bottom:16px}.wt-final-sub{font-size:1rem;color:rgba(255,255,255,.55);font-weight:300;line-height:1.75;margin-bottom:40px}
+.wt-bubbles-set[data-bs="4"]{display:flex;align-items:center;justify-content:center}
+.wt-progress{position:fixed;right:32px;top:50%;transform:translateY(-50%);z-index:50;display:flex;flex-direction:column;align-items:center;gap:0;opacity:0;transition:opacity .4s ease;pointer-events:none}.wt-progress.show{opacity:1}.wt-progress .wp-line{width:2px;height:32px;background:rgba(255,255,255,.1)}.wt-progress .wp-dot{width:18px;height:18px;border-radius:50%;background:rgba(255,255,255,.12);border:2px solid rgba(255,255,255,.15);transition:all .4s cubic-bezier(.16,1,.3,1);position:relative;cursor:pointer}.wt-progress .wp-dot.active{background:var(--lg);border-color:var(--lg);box-shadow:0 0 20px rgba(205,231,161,.5);transform:scale(1.2)}.wt-progress .wp-label{position:absolute;right:28px;top:50%;transform:translateY(-50%);font-size:.72rem;font-weight:600;color:rgba(255,255,255,.25);white-space:nowrap;transition:all .3s;letter-spacing:.02em}.wt-progress .wp-dot.active .wp-label{color:var(--lg)}@media(max-width:768px){.wt-progress{right:12px}.wt-progress .wp-label{display:none}}
+.s-cta{background:var(--dark);overflow:hidden;padding:0;position:relative}.cta-bg{position:absolute;inset:0;z-index:0}.cta-bg img{width:100%;height:100%;object-fit:cover}.cta-bg::after{content:'';position:absolute;inset:0;background:linear-gradient(90deg,rgba(10,15,13,.88) 0%,rgba(10,15,13,.75) 40%,rgba(10,15,13,.6) 60%,rgba(10,15,13,.45) 100%)}
+.cta-split{display:grid;grid-template-columns:1fr 1.1fr;gap:48px;max-width:1200px;margin:0 auto;padding:100px 48px;position:relative;z-index:2;align-items:center}@media(max-width:992px){.cta-split{grid-template-columns:1fr;padding:80px 24px}}
+.cta-left{display:flex;flex-direction:column;justify-content:center}.cta-left .s-tag{color:var(--lg)}.cta-left .s-title{color:var(--white);font-size:clamp(1.8rem,3.5vw,2.6rem);line-height:1.2;margin-bottom:20px}.cta-left .s-title em{font-style:normal;background:linear-gradient(135deg,var(--lg),#8FD88F);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.cta-desc{font-size:.95rem;color:rgba(255,255,255,.5);line-height:1.75;margin-bottom:32px;max-width:480px}.cta-features{display:flex;flex-direction:column;gap:14px;margin-bottom:36px}.cta-feat{display:flex;align-items:center;gap:12px;font-size:.88rem;color:rgba(255,255,255,.65);font-weight:400}.cta-feat .cf-icon{width:32px;height:32px;border-radius:10px;background:rgba(205,231,161,.08);border:1px solid rgba(205,231,161,.1);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.cta-poc{display:inline-flex;align-items:center;gap:14px;padding:18px 28px;border-radius:16px;background:linear-gradient(135deg,rgba(205,231,161,.1),rgba(49,113,91,.12));border:1px solid rgba(205,231,161,.18);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);max-width:fit-content}.cta-poc .poc-icon{width:44px;height:44px;border-radius:12px;background:linear-gradient(135deg,var(--green),var(--lg));display:flex;align-items:center;justify-content:center;flex-shrink:0}.cta-poc .poc-text{display:flex;flex-direction:column;gap:2px}.cta-poc .poc-title{font-size:.85rem;font-weight:700;color:var(--lg)}.cta-poc .poc-sub{font-size:.72rem;color:rgba(255,255,255,.4);font-weight:400}
+.cal-frame{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);border-radius:20px;padding:24px;backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);box-shadow:0 24px 64px rgba(0,0,0,.35),0 0 0 1px rgba(255,255,255,.04) inset;position:relative;overflow:hidden;touch-action:manipulation;isolation:isolate}.cal-frame::before{content:'';position:absolute;top:-1px;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--green),var(--lg),var(--green));background-size:200% 100%;animation:shimmer 3s ease infinite}
+.cal-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;padding-bottom:16px;border-bottom:1px solid rgba(255,255,255,.06)}.cal-header-left{display:flex;align-items:center;gap:10px}.cal-header-left img{height:18px}.cal-header-left span{font-size:.78rem;color:rgba(255,255,255,.4);font-weight:500}.cal-header-right{display:flex;align-items:center;gap:6px;font-size:.7rem;font-weight:600;color:var(--lg)}.cal-header-right .ld{width:6px;height:6px;border-radius:50%;background:var(--lg);animation:pulse 2s ease infinite}
+.cal-embed{border-radius:14px;overflow:hidden;min-height:580px;background:var(--white);touch-action:manipulation;isolation:isolate;-webkit-overflow-scrolling:auto;overscroll-behavior:contain}.cal-embed .meetings-iframe-container{min-height:580px}.cal-embed iframe{touch-action:manipulation}
+footer{background:var(--dark);color:rgba(255,255,255,.5);padding:64px 32px 48px;position:relative;overflow:hidden}footer::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--green),var(--lg),var(--green));background-size:200% 100%;animation:shimmer 4s ease infinite}.ft-inner{max-width:900px;margin:0 auto;text-align:center}.ft-logos{display:flex;align-items:center;justify-content:center;gap:16px;margin-bottom:28px}.ft-logos img{height:24px;opacity:.6}.ft-logos .x-mark{color:rgba(255,255,255,.2);font-size:1.1rem;font-weight:300}.ft-tagline{font-size:1rem;font-weight:600;color:var(--white);margin-bottom:8px}.ft-desc{font-size:.82rem;color:rgba(255,255,255,.35);line-height:1.65;max-width:500px;margin:0 auto 32px}.ft-line{height:1px;background:rgba(255,255,255,.06);margin-bottom:24px}.ft-bottom{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px}.ft-prepared{font-size:.75rem;color:rgba(255,255,255,.25)}.ft-links a{color:var(--lg);text-decoration:none;font-size:.78rem;font-weight:500;opacity:.5;transition:opacity .2s}.ft-links a:hover{opacity:1}
+@media(max-width:600px){.nav{padding:16px 20px}section{padding:80px 20px}.roi-calc{margin-left:-20px;margin-right:-20px;padding-left:20px;padding-right:20px}.ft-bottom{justify-content:center;text-align:center}.door-text{padding:24px 16px!important;padding-top:35%!important}.door-left .door-text{padding-right:20px!important}.door-right .door-text{padding-left:20px!important}.door-text .d-title{font-size:.95rem!important}.door-text .d-sub{display:none}.roi-res{grid-template-columns:1fr}.hero-h1{font-size:1.6rem}.db-kpis{grid-template-columns:1fr 1fr!important}.db-main{grid-template-columns:1fr!important}.db-alerts{grid-template-columns:1fr!important}}
+
+
+/* ── ROI Calculator vars ── */
+#roi{--fg-2:#3A5C58;--fg-3:#708280;--bg-3:#F6F8F2;--bg-inverse-2:#0A5249;--border-1:rgba(4,60,54,.12);--radius-s:8px;--radius-m:12px;--radius-l:20px;--radius-pill:999px;--shadow-1:0 1px 2px rgba(4,60,54,.06);--shadow-2:0 4px 12px rgba(4,60,54,.08)}
+/* ── ROI Calculator CSS ── */
+
+  
+  
+  
+  body {
+    font-family: 'Poppins', system-ui, sans-serif;
+    color: var(--dark);
+    font-size: 14px;
+    line-height: 1.5;
+    font-weight: 400;
+    min-height: 100vh;
+  }
+  .page { max-width: 1280px; margin: 0 auto; padding: 32px 24px 64px; }
+
+  /* Topbar */
+  .topbar {
+    display: flex; align-items: center; justify-content: space-between;
+    padding-bottom: 24px;
+    border-bottom: 1px solid var(--border-1);
+    margin-bottom: 32px;
+    gap: 24px;
+  }
+  .wordmark {
+    font-size: 22px; font-weight: 600; letter-spacing: -0.01em;
+    color: var(--dark); text-transform: lowercase;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .wordmark .dot { color: var(--fg-3); font-weight: 400; }
+  .wordmark span.suffix { color: var(--green); font-weight: 500; }
+
+  .partner-block {
+    display: flex; align-items: center; gap: 16px;
+  }
+  .partner-block .partner-label {
+    font-size: 10px; text-transform: uppercase; letter-spacing: 0.14em;
+    color: var(--fg-3); font-weight: 500;
+    text-align: right; line-height: 1.3;
+  }
+  .partner-block .cuevas-logo {
+    height: 56px; width: auto;
+  }
+
+  /* Hero */
+  .hero {
+    background: var(--dark);
+    color: var(--mint);
+    border-radius: var(--radius-l);
+    padding: 44px 48px 40px;
+    margin-bottom: 28px;
+    position: relative; overflow: hidden;
+  }
+  .hero::before {
+    content: ""; position: absolute; right: -80px; top: -80px;
+    width: 320px; height: 320px; border-radius: 50%;
+    background: var(--bg-inverse-2); opacity: 0.5;
+  }
+  .hero::after {
+    content: ""; position: absolute; right: 60px; bottom: -40px;
+    width: 160px; height: 160px; border-radius: 50%;
+    background: var(--lg); opacity: 0.15;
+  }
+  .hero-eyebrow {
+    color: var(--lg); font-size: 11px; font-weight: 500;
+    text-transform: uppercase; letter-spacing: 0.12em;
+    margin-bottom: 12px; position: relative; z-index: 1;
+  }
+  .hero h1, .hero-desc {
+    font-size: 17px; font-weight: 400; line-height: 1.4;
+    color: var(--lg); opacity: 0.85;
+    max-width: 760px;
+    margin-bottom: 20px; position: relative; z-index: 1;
+  }
+  .hero .main-kpi {
+    position: relative; z-index: 1;
+    font-size: 56px; font-weight: 600; line-height: 1;
+    letter-spacing: -0.02em;
+    margin-bottom: 32px;
+  }
+  .hero .main-kpi .unit {
+    font-size: 22px; color: var(--lg);
+    font-weight: 400; margin-left: 6px;
+  }
+  .hero-kpis {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 32px; position: relative; z-index: 1;
+    padding-top: 24px;
+    border-top: 1px solid rgba(238,241,234,0.15);
+  }
+  .hero-kpi-label {
+    font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em;
+    color: var(--lg); font-weight: 500; margin-bottom: 8px;
+  }
+  .hero-kpi-value {
+    font-size: 30px; font-weight: 600; line-height: 1;
+    letter-spacing: -0.01em; color: var(--mint);
+    font-variant-numeric: tabular-nums;
+  }
+  .hero-kpi-value .unit {
+    font-size: 14px; color: var(--lg); margin-left: 4px;
+    font-weight: 400;
+  }
+  .hero-kpi-sub { font-size: 12px; color: var(--lg); margin-top: 6px; opacity: 0.8; }
+
+  /* Reading sentence */
+  .reading {
+    background: var(--lg);
+    border-radius: var(--radius-m);
+    padding: 20px 24px;
+    margin-bottom: 28px;
+    font-size: 15px; line-height: 1.55;
+    color: var(--dark);
+    font-weight: 400;
+  }
+  .reading strong { font-weight: 600; }
+
+  /* Grid */
+  .grid {
+    display: grid;
+    grid-template-columns: 380px 1fr;
+    gap: 24px;
+  }
+  @media (max-width: 980px) {
+    .grid { grid-template-columns: 1fr; }
+    .hero h1, .hero-desc { font-size: 15px; }
+    .hero .main-kpi { font-size: 40px; }
+    .hero-kpis { grid-template-columns: 1fr; gap: 20px; }
+    .hero { padding: 32px 24px; }
+    .topbar { flex-direction: column; align-items: flex-start; }
+  }
+
+  /* Inputs card */
+  .card {
+    background: var(--white);
+    border-radius: var(--radius-m);
+    padding: 24px;
+    box-shadow: var(--shadow-1);
+    border: 1px solid var(--border-1);
+  }
+  .card h2 {
+    font-size: 16px; font-weight: 600; margin-bottom: 4px;
+    letter-spacing: -0.005em;
+  }
+  .card .card-sub {
+    font-size: 12px; color: var(--fg-3); margin-bottom: 20px;
+  }
+  .card h3 {
+    font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em;
+    color: var(--fg-3); font-weight: 500;
+    margin: 24px 0 16px;
+    padding-top: 18px;
+    border-top: 1px solid var(--border-1);
+  }
+  .card h3:first-of-type { margin-top: 8px; }
+
+  .input-group { margin-bottom: 22px; }
+  .input-group:last-child { margin-bottom: 0; }
+  .input-label {
+    display: flex; justify-content: space-between; align-items: baseline;
+    margin-bottom: 10px;
+  }
+  .input-label .lbl {
+    font-size: 12px; color: var(--fg-2); font-weight: 500;
+  }
+  .input-label .val {
+    font-size: 14px; color: var(--dark); font-weight: 600;
+    font-variant-numeric: tabular-nums;
+  }
+  .input-label .val .unit { color: var(--fg-3); font-weight: 400; margin-left: 2px; }
+
+  #roi input[type="range"] {
+    -webkit-appearance: none; appearance: none;
+    width: 100%; height: 4px;
+    background: var(--border-1);
+    border-radius: var(--radius-pill);
+    outline: none;
+  }
+  #roi input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none; appearance: none;
+    width: 18px; height: 18px;
+    background: var(--green);
+    border-radius: 50%; cursor: pointer;
+    border: 2px solid var(--white);
+    box-shadow: var(--shadow-1);
+    transition: transform 0.1s;
+  }
+  #roi input[type="range"]::-webkit-slider-thumb:hover { transform: scale(1.15); }
+  #roi input[type="range"]::-moz-range-thumb {
+    width: 18px; height: 18px;
+    background: var(--green);
+    border-radius: 50%; cursor: pointer;
+    border: 2px solid var(--white);
+  }
+
+  /* Results */
+  .results { display: flex; flex-direction: column; gap: 24px; }
+
+  .section-title {
+    font-size: 11px; text-transform: uppercase; letter-spacing: 0.12em;
+    color: var(--fg-3); font-weight: 500;
+    margin-bottom: 12px;
+  }
+
+  /* Palancas card */
+  .palancas-card {
+    background: var(--white);
+    border-radius: var(--radius-m);
+    box-shadow: var(--shadow-1);
+    border: 1px solid var(--border-1);
+    padding: 24px;
+  }
+  .palanca-row {
+    display: grid; grid-template-columns: 1fr auto;
+    align-items: center; gap: 16px;
+    padding: 14px 0;
+  }
+  .palanca-row + .palanca-row {
+    border-top: 1px solid var(--border-1);
+  }
+  .palanca-info { min-width: 0; }
+  .palanca-label {
+    font-size: 13px; color: var(--dark); font-weight: 500;
+    margin-bottom: 4px;
+  }
+  .palanca-desc {
+    font-size: 11px; color: var(--fg-3);
+    line-height: 1.5;
+  }
+  .palanca-value {
+    font-size: 20px; font-weight: 600; color: var(--dark);
+    font-variant-numeric: tabular-nums;
+    text-align: right;
+    white-space: nowrap;
+  }
+  .palanca-value .unit { font-size: 12px; color: var(--fg-3); font-weight: 400; margin-left: 3px; }
+
+  .palanca-bar-track {
+    height: 8px;
+    background: var(--bg-3);
+    border-radius: var(--radius-pill);
+    overflow: hidden;
+    display: flex;
+    margin-top: 16px;
+  }
+  .palanca-bar-1 {
+    background: var(--green);
+    height: 100%;
+    transition: width 0.3s ease;
+  }
+  .palanca-bar-2 {
+    background: var(--lg);
+    height: 100%;
+    transition: width 0.3s ease;
+  }
+  .palanca-legend {
+    display: flex; gap: 20px;
+    margin-top: 12px;
+    font-size: 11px; color: var(--fg-3);
+  }
+  .palanca-legend-item { display: flex; align-items: center; gap: 6px; }
+  .palanca-legend-dot {
+    width: 10px; height: 10px; border-radius: 50%;
+  }
+  .palanca-legend-dot.p1 { background: var(--green); }
+  .palanca-legend-dot.p2 { background: var(--lg); }
+  .palanca-total {
+    display: flex; justify-content: space-between; align-items: baseline;
+    margin-top: 16px;
+    padding-top: 16px;
+    border-top: 2px solid var(--dark);
+  }
+  .palanca-total .key { font-size: 14px; font-weight: 600; color: var(--dark); }
+  .palanca-total .val {
+    font-size: 26px; font-weight: 600; color: var(--green);
+    font-variant-numeric: tabular-nums;
+  }
+  .palanca-total .val .unit { font-size: 14px; color: var(--fg-3); font-weight: 400; margin-left: 4px; }
+
+  /* Delta merma card */
+  .delta-card {
+    background: var(--white);
+    border-radius: var(--radius-m);
+    box-shadow: var(--shadow-1);
+    border: 1px solid var(--border-1);
+    padding: 28px;
+  }
+  .delta-card .delta-title {
+    font-size: 13px; color: var(--fg-3); font-weight: 500;
+    margin-bottom: 22px;
+  }
+  .delta-flow {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+    gap: 24px;
+  }
+  @media (max-width: 640px) {
+    .delta-flow { grid-template-columns: 1fr; }
+  }
+  .delta-side {
+    text-align: center;
+  }
+  .delta-side .side-label {
+    font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em;
+    color: var(--fg-3); font-weight: 500; margin-bottom: 10px;
+  }
+  .delta-side .side-value {
+    font-size: 22px; font-weight: 500; color: var(--fg-2);
+    font-variant-numeric: tabular-nums; line-height: 1;
+  }
+  .delta-side .side-value .unit { font-size: 12px; color: var(--fg-3); font-weight: 400; margin-left: 3px; }
+  .delta-center {
+    background: var(--lg);
+    border-radius: var(--radius-m);
+    padding: 22px 28px;
+    text-align: center;
+  }
+  .delta-center .delta-eyebrow {
+    font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em;
+    color: var(--fg-2); font-weight: 600; margin-bottom: 8px;
+  }
+  .delta-center .delta-value {
+    font-size: 34px; font-weight: 600; color: var(--dark);
+    font-variant-numeric: tabular-nums; letter-spacing: -0.01em;
+    line-height: 1;
+  }
+  .delta-center .delta-value .unit { font-size: 16px; color: var(--fg-2); font-weight: 400; margin-left: 4px; }
+  .delta-center .delta-sub {
+    font-size: 11px; color: var(--fg-2); margin-top: 8px;
+    text-transform: uppercase; letter-spacing: 0.08em; font-weight: 500;
+  }
+
+  /* Acumulado 3 años */
+  .cumulative-card {
+    background: var(--white);
+    border-radius: var(--radius-m);
+    box-shadow: var(--shadow-1);
+    border: 1px solid var(--border-1);
+    padding: 24px;
+  }
+  .cumulative-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    margin-top: 16px;
+  }
+  @media (max-width: 640px) { .cumulative-grid { grid-template-columns: 1fr; } }
+  .cumulative-col {
+    padding: 20px;
+    background: var(--bg-3);
+    border-radius: var(--radius-s);
+    text-align: center;
+    border: 1px solid var(--border-1);
+  }
+  .cumulative-col.featured {
+    background: var(--dark);
+    color: var(--mint);
+    border-color: var(--dark);
+  }
+  .cumulative-col .year-label {
+    font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em;
+    color: var(--fg-3); font-weight: 500; margin-bottom: 10px;
+  }
+  .cumulative-col.featured .year-label { color: var(--lg); }
+  .cumulative-col .year-value {
+    font-size: 24px; font-weight: 600;
+    letter-spacing: -0.01em; line-height: 1;
+    font-variant-numeric: tabular-nums;
+    color: var(--dark);
+  }
+  .cumulative-col.featured .year-value { color: var(--mint); }
+  .cumulative-col .year-value .unit { font-size: 13px; font-weight: 400; margin-left: 3px; color: var(--fg-3); }
+  .cumulative-col.featured .year-value .unit { color: var(--lg); }
+  .cumulative-title { font-size: 13px; color: var(--fg-3); font-weight: 500; }
+
+  /* Context footer */
+  .context-card {
+    background: var(--dark);
+    color: var(--mint);
+    border-radius: var(--radius-m);
+    padding: 24px 28px;
+    margin-top: 32px;
+    display: flex; justify-content: space-between; align-items: center;
+    gap: 24px; flex-wrap: wrap;
+  }
+  .context-card .tag-main {
+    font-size: 16px; font-weight: 500;
+  }
+  .context-card .tag-meta {
+    font-size: 12px; color: var(--lg);
+  }
+
+  .num { transition: color 0.2s ease; }
+
+</style>
+</head>
+<body>
+<!-- ═══ CMS DATA (hidden) ═══ -->
+<div id="cms-data" style="display:none!important">
+  <div id="cms-lang">es</div>
+  <div id="cms-retailer-name">Grupo Cuevas</div>
+  <div id="cms-brand-name">Grupo Cuevas</div>
+  <div id="cms-logo-white">https://25665345.fs1.hubspotusercontent-eu1.net/hubfs/25665345/ABM%20Productions/gruppo%20cuveas%20white%20logo.png</div>
+  <div id="cms-logo-black">https://25665345.fs1.hubspotusercontent-eu1.net/hubfs/25665345/ABM%20Productions/Gruppo%20cuevas%20black%20logo.png</div>
+  <div id="cms-store-count">148</div>
+  <div id="cms-hero-video">https://25665345.fs1.hubspotusercontent-eu1.net/hubfs/25665345/ABM%20Productions/ES%20-%20Gruppo%20Cuevas%20-%20FyV%20-%20ABM.mp4</div>
+  <div id="cms-calendar">https://meetings-eu1.hubspot.com/jacobo-brea?embed=true</div>
+  <div id="cms-cta-bg">https://25665345.fs1.hubspotusercontent-eu1.net/hubfs/25665345/ABM%20Productions/Background%20spain.png</div>
+  <div id="cms-demo-img">https://25665345.fs1.hubspotusercontent-eu1.net/hubfs/25665345/ABM%20Productions/femme%20tablette.jpg</div>
+  <div id="cms-core">{"pageTitle":"Smartway x Grupo Cuevas | SmartOrder Fresh","heroH1":"¿Y si sus equipos de F&V pidieran como <em>expertos</em> desde mañana?","heroSub":"SmartOrder utiliza inteligencia artificial para guiar cada uno de los 148 establecimientos de Grupo Cuevas hacia el pedido óptimo de frutas y verduras: más frescura, menos desperdicio, más ventas.","doorLeftTitle":"Grupo Cuevas, ¿listos para descubrir","doorRightTitle":"la sección de <em>frutas y verduras</em> del futuro?","doorRightSub":"Preparado exclusivamente para Grupo Cuevas.","insTag":"GRUPO CUEVAS — EL LÍDER DEL NOROESTE"}</div>
+  <div id="cms-insights">{"title":"Hemos estudiado Grupo Cuevas","desc":"Datos públicos y un conocimiento profundo de los retos de frescura y rotura que afronta el líder regional del noroeste en sus 148 establecimientos.","cards":[{"stat":"148 establecimientos","desc":"52 Plenus, 3 Aquie, 70 Spar Express y 23 Cuevas Cash en Galicia, Castilla y León, Asturias y Cantabria. A esta escala, cada punto de mejora en F&V se multiplica en decenas de miles de euros al año."},{"stat":"Producto gallego como identidad","desc":"Pimientos de Padrón, fresas de Pontevedra, kiwis del Bierzo, castañas y patatas gallegas son la razón por la que los clientes eligen Grupo Cuevas. Una rotura en esos productos es una fractura en 40 años de confianza regional."},{"stat":"233M€ facturación","desc":"Crecimiento del +18% en 2024 con la integración de El Arco en Asturias. Con 1.300 profesionales en cuatro comunidades, la escala del grupo hace que cada decisión de pedido en F&V tenga un impacto real en el margen de la red."},{"stat":"4 formatos, 1 reto común","desc":"Plenus, Aquie, Spar Express y Cuevas Cash tienen perfiles de demanda distintos. SmartOrder aprende las particularidades de cada formato y de cada ubicación: un Plenus en Santiago no pide como un Spar Express en Oviedo."}]}</div>
+  <div id="cms-demo">{"greeting":"Hola Carlos 👋","storeName":"Plenus Ourense Centro","refCount":38,"confAvg":92,"alertCount":3,"products":[{"name":"Pimientos de Padrón","e":"🌶️","qty":18,"u":"kg","conf":96,"cat":"20/80"},{"name":"Fresas de Pontevedra","e":"🍓","qty":12,"u":"kg","conf":92,"cat":"20/80"},{"name":"Patatas gallegas","e":"🥔","qty":40,"u":"kg","conf":94,"cat":"20/80"},{"name":"Kiwis del Bierzo","e":"🥝","qty":10,"u":"kg","conf":91,"cat":"20/80"},{"name":"Grelos galicia","e":"🌿","qty":8,"u":"kg","conf":87,"cat":"Local"},{"name":"Tomates cherry","e":"🍅","qty":14,"u":"kg","conf":89,"cat":"20/80"},{"name":"Castañas (temporada)","e":"🌰","qty":6,"u":"kg","conf":72,"cat":"Alerta"},{"name":"Manzanas Golden gallegas","e":"🍎","qty":20,"u":"kg","conf":95,"cat":""}],"stockItems":[{"name":"Pimientos de Padrón","e":"🌶️","erp":22,"real":20,"pct":91,"st":"ok"},{"name":"Fresas Pontevedra","e":"🍓","erp":15,"real":4,"pct":27,"st":"crit"},{"name":"Patatas gallegas","e":"🥔","erp":50,"real":44,"pct":88,"st":"ok"},{"name":"Kiwis del Bierzo","e":"🥝","erp":14,"real":10,"pct":71,"st":"warn"},{"name":"Tomates cherry","e":"🍅","erp":18,"real":16,"pct":89,"st":"ok"},{"name":"Castañas","e":"🌰","erp":10,"real":2,"pct":20,"st":"crit"},{"name":"Manzanas Golden","e":"🍎","erp":30,"real":27,"pct":90,"st":"ok"}],"fcDays":[{"day":"Miércoles 19 marzo","w":"🌧️ 14°C, lluvia atlántica","items":[{"n":"Verduras cocción","p":82},{"n":"Patatas gallegas","p":75},{"n":"Grelos y nabizas","p":70}]},{"day":"Jueves 20 marzo","w":"⛅ 16°C, nubes y claros","items":[{"n":"Cítricos y kiwis","p":65},{"n":"Fresas frescas","p":72},{"n":"Ensaladas","p":60}]},{"day":"Viernes 21 marzo","w":"☀️ 19°C, soleado","items":[{"n":"Pimientos Padrón","p":88},{"n":"Tomates cherry","p":80},{"n":"Fresas temporada","p":85}]},{"day":"Sábado 22 marzo","w":"☀️ 21°C, soleado","items":[{"n":"Pimientos Padrón","p":100},{"n":"Fresas Pontevedra","p":95},{"n":"Frutas frescas","p":88}]}],"perfKPIs":[{"v":"97.1%","l":"Frescura","b":"↑ +2.8%"},{"v":"0.9%","l":"Rotura","b":"↓ -1.9%"},{"v":"2.3%","l":"Merma","b":"↓ -3.1%"},{"v":"93%","l":"Adopción IA","b":"↑ +9%"}],"confMsg":"La IA ha anticipado el fin de semana soleado en Ourense: +22% en pimientos de Padrón y fresas de Pontevedra, +18% en tomates cherry. Tus 20/80 están asegurados hasta el cierre del sábado."}</div>
+  <div id="cms-dashboard">{"dbTitle":"La visibilidad que Ourense necesita","dbDesc":"SmartOrder no solo transforma la sección de F&V, da a la sede de Grupo Cuevas en Ourense una visión completa y en tiempo real del rendimiento de frutas y verduras en los 148 establecimientos.","kpiTargets":[95.2,1.1,2.8,91],"kpiSuffixes":["%","%","%","%"],"kpiBadges":["↑ +2.8%","↓ -1.9%","↓ -3.1%","↑ +11%"],"kpiBadgeTypes":["up","up","up","yellow"],"chartTitle":"Evolución ventas F&V, red Grupo Cuevas (últimos 12 meses)","topStores":[{"n":"Plenus Ourense Centro","r":"97.8%"},{"n":"Plenus Santiago de Compostela","r":"97.1%"},{"n":"Aquie A Coruña","r":"96.5%"},{"n":"Plenus Vigo Gran Vía","r":"95.9%"},{"n":"Plenus Pontevedra","r":"95.2%"}],"networkAlerts":[{"t":"red","title":"Alerta rotura","text":"Fresas de Pontevedra, Plenus Santiago de Compostela: stock crítico a 3kg, pedido urgente enviado automáticamente."},{"t":"ylw","title":"Alerta meteorológica","text":"Fin de semana soleado previsto en Galicia (21°C): +25% de demanda anticipada en pimientos de Padrón y fresas frescas en 52 establecimientos Plenus."},{"t":"grn","title":"Récord de frescura","text":"Plenus Ourense Centro: 18 días consecutivos sin rotura en F&V. Mejor rendimiento de la red Grupo Cuevas en 2026."}],"storeDropdown":["Plenus Ourense Centro — 97.8% frescura","Plenus Santiago de Compostela — 97.1%","Aquie A Coruña — 96.5%","Plenus Vigo Gran Vía — 95.9%","Plenus Pontevedra — 95.2%","Plenus Lugo — 94.6%","Plenus O Porriño — 93.9%","Spar Express Oviedo — 93.2%","Cuevas Cash Valladolid — 92.5%","Plenus Santander — 91.8%"],"storeData":[{"f":"97.8","r":"0.7","d":"2.0","a":"96"},{"f":"97.1","r":"0.9","d":"2.3","a":"94"},{"f":"96.5","r":"1.1","d":"2.6","a":"92"},{"f":"95.9","r":"1.3","d":"2.8","a":"90"},{"f":"95.2","r":"1.6","d":"3.1","a":"88"},{"f":"94.6","r":"1.9","d":"3.4","a":"86"},{"f":"93.9","r":"2.2","d":"3.7","a":"83"},{"f":"93.2","r":"2.5","d":"4.0","a":"80"},{"f":"92.5","r":"2.8","d":"4.3","a":"78"},{"f":"91.8","r":"3.1","d":"4.6","a":"75"}],"storeTableTitle":"Top 10 referencias, mejores ventas","storeTable":[{"n":"Patatas gallegas","v":"145 kg","s":"ok"},{"n":"Pimientos de Padrón","v":"110 kg","s":"ok"},{"n":"Fresas de Pontevedra","v":"88 kg","s":"warn"},{"n":"Manzanas Golden","v":"82 kg","s":"ok"},{"n":"Kiwis del Bierzo","v":"65 kg","s":"ok"},{"n":"Tomates cherry","v":"60 kg","s":"ok"},{"n":"Grelos galicia","v":"52 kg","s":"ok"},{"n":"Zanahorias gallegas","v":"48 kg","s":"ok"},{"n":"Castañas (temporada)","v":"38 kg","s":"alert"},{"n":"Nabos gallegos","v":"34 kg","s":"warn"}],"storeInsight":"El encargado valida en promedio el 89% de las sugerencias IA sin modificación. Las correcciones se concentran en productos de temporada gallegos y en establecimientos cercanos a mercados de abastos locales.","trendChartTitle":"Perfil de demanda semanal, 148 establecimientos (volumen F&V)","trendPeak":"Pico sábado +38%","trendCards":[{"title":"Estacionalidad atlántica detectada","text":"La IA ha identificado un pico de +52% en pimientos de Padrón entre julio y septiembre en 52 establecimientos Plenus. Pedidos ajustados con 10 semanas de antelación. La Festa do Pemento de Padrón (agosto) ya está integrada en el modelo."},{"title":"Impacto meteorológico noroeste","text":"Correlación +0.89 entre días soleados y ventas de frutas frescas y ensaladas en Galicia. Los días de lluvia atlántica (+18°C) generan un aumento del +28% en verduras de cocción: grelos, nabos y col gallega."},{"title":"Producto local vs estándar","text":"Los productos locales gallegos representan el 52% de la facturación F&V en los establecimientos Plenus, pero solo el 18% de la merma gracias a SmartOrder. La diferencia de perfil entre Galicia, Asturias y Castilla y León se gestiona automáticamente."}],"alertFeed":[{"t":"red","time":"08:42","title":"Rotura inminente","text":"Fresas de Pontevedra, Plenus Santiago (Bonaval): stock a 2kg, previsión 28kg fin de semana. Pedido urgente enviado."},{"t":"grn","time":"08:38","title":"Récord de frescura","text":"Plenus Ourense Centro: 18 días consecutivos sin rotura en F&V. Mejor resultado de la red en 2026."},{"t":"ylw","time":"08:15","title":"Previsión meteorológica","text":"Fin de semana soleado en Galicia (21°C). Pimientos Padrón +28%, fresas +25%. Pedidos ajustados en 52 establecimientos Plenus."},{"t":"red","time":"07:58","title":"Anomalía de stock","text":"Plenus Vigo Gran Vía: desfase 18kg patatas gallegas entre ERP y realidad. Stock corregido."},{"t":"grn","time":"07:45","title":"Adopción IA","text":"Aquie A Coruña: nuevo encargado acepta ya el 91% de sugerencias tras 4 días. Récord de onboarding del grupo."},{"t":"grn","time":"07:30","title":"Merma a la baja","text":"Zona Ourense (14 establecimientos): merma al 2.1%, -0.9pt vs semana anterior. Mejor dato del trimestre."},{"t":"ylw","time":"07:12","title":"Temporada castañas J-14","text":"Inicio temporada castañas en 15 días. Volumen ajustado en 80 establecimientos Galicia y Asturias. Proveedor confirmado."},{"t":"red","time":"06:55","title":"Entrega incompleta","text":"Spar Express Oviedo: 2 referencias faltantes (grelos, nabos). Alerta transmitida a la central de Ourense."}]}</div>
+  <div id="cms-roi">{"tlRows":[{"time":"06:00","bad":{"title":"❌ Hoy","text":"Verificación manual aproximada en la sección F&V. El inventario ERP ya diverge de la realidad en tienda. El encargado del Plenus no sabe cuántas fresas quedan realmente."},"good":{"title":"✅ SmartOrder","text":"Microcontrol dirigido. La IA señala las referencias críticas en 5 minutos. Stock fiabilizado y pedido del día ya precalculado para los 38 productos clave."}},{"time":"07:30","bad":{"title":"❌ Hoy","text":"40 min de pedido por costumbre o intuición. El encargado nuevo no sabe cuántos pimientos de Padrón pedir un sábado soleado en Ourense vs un martes de lluvia."},"good":{"title":"✅ SmartOrder","text":"15 min máximo. La IA tiene en cuenta el clima, los eventos locales y el perfil de cada establecimiento. El encargado valida el 89% de líneas con un clic."}},{"time":"10:00","bad":{"title":"❌ Hoy","text":"Rotura en fresas de Pontevedra y pimientos de Padrón, los 20/80 de la sección. Los clientes se van a la competencia. La identidad de producto fresco gallego se resiente."},"good":{"title":"✅ SmartOrder","text":"Los 20/80 están asegurados. La IA ha anticipado el fin de semana soleado y el mercado de abastos del sábado. Cero rotura en los productos estrella de Grupo Cuevas."}},{"time":"15:00","bad":{"title":"❌ Hoy","text":"Castañas blandas, grelos amarilleados. Sobrepedido del día anterior. En una enseña que construye su reputación sobre el fresco gallego, la falta de calidad es un mensaje negativo directo."},"good":{"title":"✅ SmartOrder","text":"Rotación perfecta. Los productos sensibles como castañas y fresas se piden según su vida útil real y la demanda prevista por tienda y formato."}},{"time":"18:00","bad":{"title":"❌ Hoy","text":"La central de Ourense no tiene visión sobre el rendimiento F&V en 148 establecimientos en 4 comunidades. Ningún reporting claro, decisiones sin datos."},"good":{"title":"✅ SmartOrder","text":"Dashboard en tiempo real: frescura, merma, rotura, adopción IA por tienda y por formato. La sede de Ourense pilota los 148 establecimientos de Grupo Cuevas desde una sola pantalla."}}]}</div>
+  <div id="cms-walk">{}</div>
+</div>
+
+<!-- ═══ CINEMA + DOORS + HERO ═══ -->
+<div class="cinema" id="cinema">
+<div class="cinema-sticky">
+  <div class="cinema-video"><video autoplay muted loop playsinline><source id="heroVideoSrc" src="" type="video/mp4"></video></div>
+  <div class="cinema-vignette"></div>
+  <div class="cinema-darken" id="darken"></div>
+  <div class="cinema-floats"><span class="hf">🍊</span><span class="hf">🥬</span><span class="hf">🍋</span><span class="hf">🍅</span><span class="hf">🥒</span><span class="hf">🫑</span><span class="hf">🍇</span><span class="hf">🥕</span></div>
+  <div class="doors-layer" id="doorsLayer">
+    <div class="door door-left" id="doorL">
+      <div class="door-glass"></div><div class="door-frame"></div><div class="door-handle"></div><div class="door-reflect"></div>
+      <div class="door-text">
+        <div class="d-logo"><img class="sw-logo-w" src="" alt="Smartway"></div>
+        <div class="d-title" id="doorLeftTitle"></div>
+        <div class="d-sub" id="doorLeftSub"></div>
+      </div>
+    </div>
+    <div class="door door-right" id="doorR">
+      <div class="door-glass"></div><div class="door-frame"></div><div class="door-handle"></div><div class="door-reflect"></div>
+      <div class="door-text">
+        <div class="d-logo"><img class="ret-logo-w" src="" alt=""></div>
+        <div class="d-title" id="doorRightTitle"></div>
+        <div class="d-sub" id="doorRightSub"></div>
+      </div>
+    </div>
+    <div class="door-scroll" id="doorScroll"><span class="label" id="doorScrollText"></span><span class="arrow"></span></div>
+  </div>
+  <div class="fog" id="fog"></div>
+  <div class="hero-content" id="heroContent">
+    <div class="hero-badge"><span class="dot"></span> <span id="heroBadgeText"></span></div>
+    <div class="hero-logos">
+      <div><img class="sw-logo-w" src="" alt="Smartway"></div>
+      <div><span class="x-mark">×</span></div>
+      <div><img class="ret-logo-w" src="" alt=""></div>
+    </div>
+    <h1 class="hero-h1" id="heroH1"></h1>
+    <p class="hero-sub" id="heroSub"></p>
+    <div class="hero-ctas">
+      <a href="#calendario" class="btn btn-g" id="ctaPrimary"></a>
+      <a href="#roi" class="btn btn-o" id="ctaSecondary"></a>
+    </div>
+    <div class="hero-scroll-ind"><span></span></div>
+  </div>
+  <div class="cinema-bottom" id="cinemaBottom" style="opacity:0"></div>
+</div>
+</div>
+
+<!-- ═══ NAV ═══ -->
+<nav class="nav" id="nav"><div class="nav-logo"><img class="sw-logo-w" src="" alt="Smartway"><span class="nav-x">×</span><img class="ret-logo-w ret-nav" src="" alt=""></div><a href="#calendario" class="nav-cta" id="navCtaText"></a></nav>
+
+<!-- ═══ INSIGHTS ═══ -->
+<section class="s-ins"><div class="inner"><div style="text-align:center">
+  <div class="s-tag green r" id="insTag"></div>
+  <h2 class="s-title r" id="insTitle"></h2>
+  <p class="s-desc c r" id="insDesc"></p>
+</div><div class="ins-grid" id="insGrid"></div></div></section>
+
+<!-- ═══ HOW IT WORKS ═══ -->
+<section class="s-st noise"><div class="inner" style="position:relative;z-index:2"><div style="text-align:center">
+  <div class="s-tag light r" id="hiwTag"></div>
+  <h2 class="s-title r" style="color:var(--white)" id="hiwTitle"></h2>
+</div><div class="st-grid" id="hiwGrid"></div></div></section>
+
+<!-- ═══ DEMO TABLET ═══ -->
+<section class="s-demo" id="demo">
+<div class="demo-split">
+  <div class="demo-left"><img id="demoLeftImg" src="" alt="" loading="lazy"></div>
+  <div class="demo-right">
+    <div class="s-tag light" id="demoTag"></div>
+    <h2 class="s-title" style="color:var(--white)" id="demoTitle"></h2>
+    <p class="s-desc" style="color:rgba(255,255,255,.35)" id="demoDesc"></p>
+    <div class="demo-steps" id="demoSteps"></div>
+    <div class="tablet-wrap">
+      <div class="tablet-bezel">
+        <div class="tablet-notch"><div class="tablet-cam"></div></div>
+        <div class="tablet-screen">
+          <div class="app-header">
+            <div class="app-header-left"><img class="ret-logo-w" src="" alt="" style="filter:brightness(0) invert(1)"><span class="ah-store">× SmartOrder</span></div>
+            <div class="app-header-right"><span class="ah-live"><span class="ld"></span>Live</span></div>
+          </div>
+          <div class="app-views">
+            <!-- View 0: Home -->
+            <div class="app-view active" id="av0">
+              <div class="order-home">
+                <div class="oh-greeting" id="demoGreeting"></div>
+                <div class="oh-date" id="demoDate"></div>
+                <div class="oh-cards">
+                  <div class="oh-card"><div class="ohv" id="demoRefCount">0</div><div class="ohl" id="demoRefLabel"></div></div>
+                  <div class="oh-card green"><div class="ohv" id="demoConfAvg">0%</div><div class="ohl" id="demoConfLabel"></div></div>
+                </div>
+                <div class="oh-alert"><span class="oad"></span><span id="demoAlertText"></span></div>
+                <button class="app-btn2" onclick="dGo('list')" id="demoStartBtn"></button>
+              </div>
+            </div>
+            <!-- View 1: Product list -->
+            <div class="app-view" id="av1">
+              <div class="app-filters2" id="demoFilters"></div>
+              <div class="prod-list" id="prodList"></div>
+              <div class="order-footer"><div class="of-count"><b id="vc2">0</b>/<span id="prodTotal">8</span> <span id="demoValidated"></span></div><button class="app-btn2 sm" onclick="dValidateAll()" id="demoValidateAllBtn"></button></div>
+            </div>
+            <!-- View 2: Confirmation -->
+            <div class="app-view" id="av2">
+              <div class="conf-view">
+                <div class="conf-check">✓</div>
+                <div class="conf-title" id="demoConfTitle"></div>
+                <div class="conf-sub" id="demoConfSub"></div>
+                <div class="conf-stats"><div class="cs-item"><div class="cs-v">-38%</div><div class="cs-l" id="csTime"></div></div><div class="cs-item"><div class="cs-v" id="csConfVal">91%</div><div class="cs-l" id="csConf"></div></div><div class="cs-item"><div class="cs-v">0</div><div class="cs-l" id="csBreak"></div></div></div>
+                <div class="conf-quote" id="demoConfQuote"></div>
+                <button class="app-btn2" onclick="dGo('home')" style="margin-top:8px" id="demoBackHome"></button>
+              </div>
+            </div>
+            <!-- View 3: Stock -->
+            <div class="app-view" id="av3">
+              <div class="av-section">
+                <div class="av-title" id="stockTitle"></div>
+                <div class="av-subtitle" id="stockSub"></div>
+                <div id="stockList"></div>
+              </div>
+            </div>
+            <!-- View 4: Forecast -->
+            <div class="app-view" id="av4">
+              <div class="av-section">
+                <div class="av-title" id="fcTitle"></div>
+                <div class="av-subtitle" id="fcSub"></div>
+                <div id="fcList"></div>
+              </div>
+            </div>
+            <!-- View 5: Performance -->
+            <div class="app-view" id="av5">
+              <div class="av-section">
+                <div class="av-title" id="perfTitle"></div>
+                <div class="av-subtitle" id="perfSub"></div>
+                <div class="perf-kpi" id="perfKPIs"></div>
+                <div class="perf-chart">
+                  <div style="font-size:.7rem;font-weight:600;color:var(--white);margin-bottom:10px" id="perfChartTitle"></div>
+                  <svg viewBox="0 0 300 100" xmlns="http://www.w3.org/2000/svg">
+                    <defs><linearGradient id="pgr" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#CDE7A1" stop-opacity=".2"/><stop offset="100%" stop-color="#CDE7A1" stop-opacity="0"/></linearGradient></defs>
+                    <line x1="20" y1="80" x2="280" y2="80" stroke="rgba(255,255,255,.04)" stroke-width="1"/>
+                    <g id="perfDayLabels"></g>
+                    <polyline points="25,25 68,20 111,30 155,18 198,22 242,14 275,10" fill="none" stroke="#CDE7A1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <polygon points="25,25 68,20 111,30 155,18 198,22 242,14 275,10 275,80 25,80" fill="url(#pgr)"/>
+                    <circle cx="275" cy="10" r="3" fill="#CDE7A1"/><text x="275" y="6" style="font-size:7px;font-family:Poppins;fill:#CDE7A1;font-weight:600" text-anchor="middle" id="perfLastVal">96%</text>
+                  </svg>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Bottom nav -->
+          <div class="app-bnav">
+            <div class="bnav-item active" data-bnav="order" onclick="dNav('order')"><div class="bi-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2"/><rect x="9" y="3" width="6" height="4" rx="1"/><path d="M9 14l2 2 4-4"/></svg></div><div class="bi-label" id="bnOrder"></div></div>
+            <div class="bnav-item" data-bnav="stock" onclick="dNav('stock')"><div class="bi-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/><path d="M3.27 6.96L12 12.01l8.73-5.05"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg></div><div class="bi-label">Stock</div></div>
+            <div class="bnav-item" data-bnav="forecast" onclick="dNav('forecast')"><div class="bi-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div><div class="bi-label" id="bnForecast"></div></div>
+            <div class="bnav-item" data-bnav="perf" onclick="dNav('perf')"><div class="bi-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg></div><div class="bi-label" id="bnPerf"></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- ═══ ROI EBITDA CALCULATOR ═══ -->
+<section id="roi" class="s-roi">
+  <div class="inner">
+    <div style="text-align:center">
+      <div class="s-tag green r" id="roiTag"></div>
+      <h2 class="s-title r" id="roiTitle"></h2>
+      <p class="s-desc c r" id="roiDesc"></p>
+    </div>
+  </div>
+<div class="roi-calc">
+
+  <!-- Hero KPI -->
+  <div class="hero">
+    <div class="hero-eyebrow">EBITDA anual recuperado</div>
+    <div class="main-kpi"><span class="num" id="kpi-ebitda">0</span><span class="unit">€</span></div>
+    <p class="hero-desc">Impacto combinado de las dos palancas que aporta SmartOrder en la sección de frutas y verduras: reducción de merma y aumento de ingresos por mayor disponibilidad y frescura.</p>
+    <div class="hero-kpis">
+      <div>
+        <div class="hero-kpi-label">EBITDA por tienda</div>
+        <div class="hero-kpi-value"><span class="num" id="kpi-per-store">0</span><span class="unit">€/año</span></div>
+        <div class="hero-kpi-sub">Media sobre 148 tiendas</div>
+      </div>
+      <div>
+        <div class="hero-kpi-label">Acumulado 3 años</div>
+        <div class="hero-kpi-value"><span class="num" id="kpi-3y">0</span><span class="unit">€</span></div>
+        <div class="hero-kpi-sub">Proyección lineal</div>
+      </div>
+      <div>
+        <div class="hero-kpi-label">Reducción merma</div>
+        <div class="hero-kpi-value"><span class="num" id="kpi-reduction-pct">0</span><span class="unit">%</span></div>
+        <div class="hero-kpi-sub">Sobre merma actual</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Reading sentence -->
+  <div class="reading" id="reading-sentence">
+    <!-- generado por JS -->
+  </div>
+
+  <!-- Main grid -->
+  <div class="grid">
+
+    <!-- Inputs panel -->
+    <div class="card">
+      <h2>Hipótesis editables</h2>
+      <div class="card-sub">Ajusta los valores para refinar el caso.</div>
+
+      <h3>Base del cálculo</h3>
+
+      <div class="input-group">
+        <div class="input-label">
+          <span class="lbl">Facturación anual</span>
+          <span class="val"><span id="lbl-revenue">230</span><span class="unit"> M€</span></span>
+        </div>
+        <input type="range" id="in-revenue" value="230" min="150" max="240" step="5">
+      </div>
+
+      <div class="input-group">
+        <div class="input-label">
+          <span class="lbl">Peso de FyV (% sobre facturación)</span>
+          <span class="val"><span id="lbl-fyv">15.0</span><span class="unit">%</span></span>
+        </div>
+        <input type="range" id="in-fyv" value="150" min="100" max="200" step="5">
+      </div>
+
+      <div class="input-group">
+        <div class="input-label">
+          <span class="lbl">Merma actual</span>
+          <span class="val"><span id="lbl-shrink">6.0</span><span class="unit">%</span></span>
+        </div>
+        <input type="range" id="in-shrink" value="60" min="50" max="80" step="1">
+      </div>
+
+      <div class="input-group">
+        <div class="input-label">
+          <span class="lbl">Margen de la sección</span>
+          <span class="val"><span id="lbl-margin">30</span><span class="unit">%</span></span>
+        </div>
+        <input type="range" id="in-margin" value="30" min="25" max="35" step="1">
+      </div>
+
+      <h3>Palancas Smart Order</h3>
+
+      <div class="input-group">
+        <div class="input-label">
+          <span class="lbl">Reducción de merma</span>
+          <span class="val"><span id="lbl-reduce">20</span><span class="unit">%</span></span>
+        </div>
+        <input type="range" id="in-reduce" value="20" min="10" max="30" step="1">
+      </div>
+
+      <div class="input-group">
+        <div class="input-label">
+          <span class="lbl">Aumento de ingresos en FyV</span>
+          <span class="val"><span id="lbl-uplift">2</span><span class="unit">%</span></span>
+        </div>
+        <input type="range" id="in-uplift" value="2" min="1" max="3" step="1">
+      </div>
+    </div>
+
+    <!-- Results -->
+    <div class="results">
+
+      <!-- Desglose por palanca -->
+      <div>
+        <div class="section-title">Desglose por palanca</div>
+        <div class="palancas-card">
+          <div class="palanca-row">
+            <div class="palanca-info">
+              <div class="palanca-label">Reducción de merma</div>
+              <div class="palanca-desc">Margen recuperado sobre el producto que ya no termina en basura.</div>
+            </div>
+            <div class="palanca-value"><span class="num" id="p1-value">0</span><span class="unit">€/año</span></div>
+          </div>
+          <div class="palanca-row">
+            <div class="palanca-info">
+              <div class="palanca-label">Aumento de ingresos en frutería</div>
+              <div class="palanca-desc">Margen ganado por mayor disponibilidad (cero rupturas de stock en referencias clave) y mejor frescura percibida de la sección.</div>
+            </div>
+            <div class="palanca-value"><span class="num" id="p2-value">0</span><span class="unit">€/año</span></div>
+          </div>
+
+          <div class="palanca-bar-track">
+            <div class="palanca-bar-1" id="bar-p1" style="width: 50%"></div>
+            <div class="palanca-bar-2" id="bar-p2" style="width: 50%"></div>
+          </div>
+          <div class="palanca-legend">
+            <div class="palanca-legend-item">
+              <div class="palanca-legend-dot p1"></div>
+              <span>Reducción merma <strong id="leg-p1">50%</strong></span>
+            </div>
+            <div class="palanca-legend-item">
+              <div class="palanca-legend-dot p2"></div>
+              <span>Aumento ingresos <strong id="leg-p2">50%</strong></span>
+            </div>
+          </div>
+
+          <div class="palanca-total">
+            <span class="key">EBITDA anual recuperado</span>
+            <span class="val"><span class="num" id="total-ebitda">0</span><span class="unit">€</span></span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Acumulado 3 años -->
+      <div>
+        <div class="section-title">Acumulado plurianual</div>
+        <div class="cumulative-card">
+          <div class="cumulative-title">EBITDA acumulado proyectado</div>
+          <div class="cumulative-grid">
+            <div class="cumulative-col">
+              <div class="year-label">Año 1</div>
+              <div class="year-value"><span class="num" id="y1">0</span><span class="unit">€</span></div>
+            </div>
+            <div class="cumulative-col">
+              <div class="year-label">Año 2</div>
+              <div class="year-value"><span class="num" id="y2">0</span><span class="unit">€</span></div>
+            </div>
+            <div class="cumulative-col featured">
+              <div class="year-label">Año 3</div>
+              <div class="year-value"><span class="num" id="y3">0</span><span class="unit">€</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+
+
+</div>
+</div>
+</section>
+
+<!-- ═══ DASHBOARD ═══ -->
+<section class="s-db noise" id="dashboard">
+<div class="inner" style="position:relative;z-index:2">
+  <div style="text-align:center"><div class="s-tag light r" id="dbTag"></div><h2 class="s-title r" style="color:var(--white)" id="dbTitle"></h2><p class="s-desc c r" style="color:rgba(255,255,255,.35)" id="dbDesc"></p></div>
+  <div class="db-frame r" id="dbFrame">
+    <div class="db-header">
+      <div class="db-header-left"><img class="ret-logo-b" src="" alt=""><span id="dbSubtitle">× SmartOrder Dashboard</span></div>
+      <div class="db-header-right"><span class="db-date" id="dbDateDisplay"></span><span class="db-live"><span class="ld"></span><span id="dbLive">Live</span></span></div>
+    </div>
+    <div class="db-tabs" id="dbTabs"></div>
+    <!-- Tab 0: Network -->
+    <div class="db-body db-panel active" data-panel="0">
+      <div class="db-kpis" id="dbKPIs"></div>
+      <div class="db-main"><div class="db-chart"><div class="db-chart-title" id="chartTitle0"></div>
+        <svg viewBox="0 0 600 200" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="chartGrad" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#31715B" stop-opacity=".3"/><stop offset="100%" stop-color="#31715B" stop-opacity="0"/></linearGradient></defs><line x1="50" y1="20" x2="50" y2="170" stroke="rgba(36,60,54,.06)" stroke-width="1"/><line x1="50" y1="170" x2="580" y2="170" stroke="rgba(36,60,54,.08)" stroke-width="1"/><line x1="50" y1="95" x2="580" y2="95" stroke="rgba(36,60,54,.04)" stroke-width="1" stroke-dasharray="4"/><line x1="50" y1="20" x2="580" y2="20" stroke="rgba(36,60,54,.04)" stroke-width="1" stroke-dasharray="4"/><text x="40" y="174" class="chart-label" text-anchor="end">0%</text><text x="40" y="99" class="chart-label" text-anchor="end">+4%</text><text x="40" y="24" class="chart-label" text-anchor="end">+8%</text><g id="chartMonthLabels"></g><line x1="314" y1="15" x2="314" y2="170" class="chart-deploy"/><text x="314" y="12" class="chart-deploy-label" text-anchor="middle" id="chartDeployLabel"></text><polyline class="chart-line-before" points="72,130 116,140 160,135 204,145 248,138 292,142"/><polyline class="chart-line-after" points="292,142 336,120 380,100 424,80 468,65 512,55 556,45"/><polygon class="chart-area" points="292,142 336,120 380,100 424,80 468,65 512,55 556,45 556,170 292,170"/></svg>
+      </div><div class="db-ranking" id="rankStores"></div></div>
+      <div class="db-alerts" id="alertsGrid"></div>
+    </div>
+    <!-- Tab 1: Store -->
+    <div class="db-body db-panel" data-panel="1">
+      <div class="store-head"><select class="store-select" id="storeSelect"></select><div class="store-meta"><span class="store-badge-open"><span class="ld"></span> <span id="storeBadgeText"></span></span><span class="store-last" id="storeLastOrder"></span></div></div>
+      <div class="db-kpis" style="margin-top:20px" id="storeKPIs"></div>
+      <div class="store-grid"><div class="store-card"><div class="sc-title" id="storeTableTitle"></div><div class="sc-table" id="storeTableBody"></div></div><div class="store-card"><div class="sc-title" id="storeChartTitle"></div><svg viewBox="0 0 300 120" class="store-mini-chart" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="miniGrad" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#31715B" stop-opacity=".2"/><stop offset="100%" stop-color="#31715B" stop-opacity="0"/></linearGradient></defs><line x1="20" y1="100" x2="280" y2="100" stroke="rgba(36,60,54,.06)" stroke-width="1"/><line x1="20" y1="50" x2="280" y2="50" stroke="rgba(36,60,54,.04)" stroke-width="1" stroke-dasharray="3"/><g id="storeDayLabels"></g><polyline points="25,30 68,25 111,35 155,22 198,28 242,18 275,15" fill="none" stroke="var(--green)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/><polygon points="25,30 68,25 111,35 155,22 198,28 242,18 275,15 275,100 25,100" fill="url(#miniGrad)"/><circle cx="275" cy="15" r="4" fill="var(--green)"/><text x="275" y="10" style="font-size:9px;font-family:Poppins;fill:var(--green);font-weight:600" text-anchor="middle">95%</text></svg><div class="sc-insight" id="storeInsight"></div></div></div>
+    </div>
+    <!-- Tab 2: Trends -->
+    <div class="db-body db-panel" data-panel="2">
+      <div class="db-chart" style="margin-bottom:24px"><div class="db-chart-title" id="trendChartTitle"></div>
+        <svg viewBox="0 0 600 180" xmlns="http://www.w3.org/2000/svg"><line x1="50" y1="150" x2="570" y2="150" stroke="rgba(36,60,54,.08)" stroke-width="1"/><line x1="50" y1="80" x2="570" y2="80" stroke="rgba(36,60,54,.04)" stroke-width="1" stroke-dasharray="4"/><text x="40" y="154" class="chart-label" text-anchor="end">0</text><text x="40" y="84" class="chart-label" text-anchor="end">50%</text><text x="40" y="24" class="chart-label" text-anchor="end">100%</text><rect x="70" y="95" width="55" height="55" rx="4" fill="var(--green)" opacity=".25"/><rect x="140" y="85" width="55" height="65" rx="4" fill="var(--green)" opacity=".3"/><rect x="210" y="75" width="55" height="75" rx="4" fill="var(--green)" opacity=".35"/><rect x="280" y="70" width="55" height="80" rx="4" fill="var(--green)" opacity=".4"/><rect x="350" y="45" width="55" height="105" rx="4" fill="var(--green)" opacity=".6"/><rect x="420" y="20" width="55" height="130" rx="4" fill="var(--green)" opacity=".85"/><rect x="490" y="60" width="55" height="90" rx="4" fill="var(--green)" opacity=".5"/><g id="trendDayLabels"></g><line x1="447" y1="15" x2="447" y2="20" stroke="var(--coral)" stroke-width="1.5"/><text x="447" y="12" style="font-size:8px;font-family:Poppins;fill:var(--coral);font-weight:600" text-anchor="middle" id="trendPeak"></text></svg>
+      </div>
+      <div class="trend-cards" id="trendCards"></div>
+    </div>
+    <!-- Tab 3: Alerts -->
+    <div class="db-body db-panel" data-panel="3">
+      <div class="alert-filters" id="alertFilters"></div>
+      <div class="alert-feed" id="alertFeed"></div>
+    </div>
+  </div>
+  <div style="text-align:center;margin-top:40px" class="r"><a href="#calendario" class="btn btn-g" id="dbCtaBtn"></a></div>
+</div>
+</section>
+
+<!-- ═══ TIMELINE ═══ -->
+<section class="s-tl noise"><div class="inner" style="position:relative;z-index:2"><div style="text-align:center">
+  <div class="s-tag light r" id="tlTag"></div>
+  <h2 class="s-title r" style="color:var(--white)" id="tlTitle"></h2>
+  <p class="s-desc c r" style="color:rgba(255,255,255,.35)" id="tlDesc"></p>
+</div><div class="tl-container" id="tlRows"></div></div></section>
+
+
+
+<!-- ═══ TESTIMONIALS ═══ -->
+<section class="s-pf"><div class="inner"><div style="text-align:center">
+  <div class="s-tag green r" id="proofTag"></div>
+  <h2 class="s-title r" id="proofTitle"></h2>
+</div><div class="pf-grid" id="proofGrid"></div></div></section>
+
+<!-- ═══ CTA + CALENDAR ═══ -->
+<section class="s-cta" id="calendario">
+<div class="cta-bg"><img id="ctaBgImg" src="" alt="" loading="lazy"></div>
+<div class="cta-split">
+  <div class="cta-left r">
+    <div class="s-tag light" id="ctaTag"></div>
+    <h2 class="s-title" id="ctaTitle"></h2>
+    <p class="cta-desc" id="ctaDesc"></p>
+    <div class="cta-features" id="ctaFeatures"></div>
+    <div class="cta-poc r d2">
+      <div class="poc-icon"><img src="https://25665345.fs1.hubspotusercontent-eu1.net/hubfs/25665345/ABM%20Productions/square%20png.png" alt="" style="width:20px;height:20px"></div>
+      <div class="poc-text"><div class="poc-title" id="pocTitle"></div><div class="poc-sub" id="pocSub"></div></div>
+    </div>
+  </div>
+  <div class="cta-right r d2">
+    <div class="cal-frame">
+      <div class="cal-header">
+        <div class="cal-header-left"><img class="sw-logo-w" src="" alt="Smartway"><span id="calRetailer"></span></div>
+        <div class="cal-header-right"><span class="ld"></span><span id="calLabel"></span></div>
+      </div>
+      <div class="cal-embed" id="calEmbed"></div>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- ═══ FOOTER ═══ -->
+<footer><div class="ft-inner">
+  <div class="ft-logos"><img class="sw-logo-w" src="" alt="Smartway"><span class="x-mark">×</span><img class="ret-logo-w" src="" alt="" style="height:32px"></div>
+  <div class="ft-tagline" id="ftTagline"></div>
+  <div class="ft-desc" id="ftDesc"></div>
+  <div class="ft-line"></div>
+  <div class="ft-bottom"><div class="ft-prepared" id="ftPrepared"></div><div class="ft-links"><a id="ftWebsite" href="#" target="_blank">smartway.ai</a> · <a id="ftContact" href="#">Contact</a></div></div>
+</div></footer>
+
+<!-- JS ENGINE v1.0 — FOS SmartOrder Fresh -->
+<script>
+const CORE={"pageTitle":"Smartway x Grupo Cuevas | SmartOrder Fresh","heroH1":"¿Y si sus equipos de F&V pidieran como <em>expertos</em> desde mañana?","heroSub":"SmartOrder utiliza inteligencia artificial para guiar cada uno de los 148 establecimientos de Grupo Cuevas hacia el pedido óptimo de frutas y verduras: más frescura, menos desperdicio, más ventas.","doorLeftTitle":"Grupo Cuevas, ¿listos para descubrir","doorRightTitle":"la sección de <em>frutas y verduras</em> del futuro?","doorRightSub":"Preparado exclusivamente para Grupo Cuevas.","insTag":"GRUPO CUEVAS — EL LÍDER DEL NOROESTE"};
+const INSIGHTS={"title":"Hemos estudiado Grupo Cuevas","desc":"Datos públicos y un conocimiento profundo de los retos de frescura y rotura que afronta el líder regional del noroeste en sus 148 establecimientos.","cards":[{"stat":"148 establecimientos","desc":"52 Plenus, 3 Aquie, 70 Spar Express y 23 Cuevas Cash en Galicia, Castilla y León, Asturias y Cantabria. A esta escala, cada punto de mejora en F&V se multiplica en decenas de miles de euros al año."},{"stat":"Producto gallego como identidad","desc":"Pimientos de Padrón, fresas de Pontevedra, kiwis del Bierzo, castañas y patatas gallegas son la razón por la que los clientes eligen Grupo Cuevas. Una rotura en esos productos es una fractura en 40 años de confianza regional."},{"stat":"233M€ facturación","desc":"Crecimiento del +18% en 2024 con la integración de El Arco en Asturias. Con 1.300 profesionales en cuatro comunidades, la escala del grupo hace que cada decisión de pedido en F&V tenga un impacto real en el margen de la red."},{"stat":"4 formatos, 1 reto común","desc":"Plenus, Aquie, Spar Express y Cuevas Cash tienen perfiles de demanda distintos. SmartOrder aprende las particularidades de cada formato y de cada ubicación: un Plenus en Santiago no pide como un Spar Express en Oviedo."}]};
+const DEMO={"greeting":"Hola Carlos 👋","storeName":"Plenus Ourense Centro","refCount":38,"confAvg":92,"alertCount":3,"products":[{"name":"Pimientos de Padrón","e":"🌶️","qty":18,"u":"kg","conf":96,"cat":"20/80"},{"name":"Fresas de Pontevedra","e":"🍓","qty":12,"u":"kg","conf":92,"cat":"20/80"},{"name":"Patatas gallegas","e":"🥔","qty":40,"u":"kg","conf":94,"cat":"20/80"},{"name":"Kiwis del Bierzo","e":"🥝","qty":10,"u":"kg","conf":91,"cat":"20/80"},{"name":"Grelos galicia","e":"🌿","qty":8,"u":"kg","conf":87,"cat":"Local"},{"name":"Tomates cherry","e":"🍅","qty":14,"u":"kg","conf":89,"cat":"20/80"},{"name":"Castañas (temporada)","e":"🌰","qty":6,"u":"kg","conf":72,"cat":"Alerta"},{"name":"Manzanas Golden gallegas","e":"🍎","qty":20,"u":"kg","conf":95,"cat":""}],"stockItems":[{"name":"Pimientos de Padrón","e":"🌶️","erp":22,"real":20,"pct":91,"st":"ok"},{"name":"Fresas Pontevedra","e":"🍓","erp":15,"real":4,"pct":27,"st":"crit"},{"name":"Patatas gallegas","e":"🥔","erp":50,"real":44,"pct":88,"st":"ok"},{"name":"Kiwis del Bierzo","e":"🥝","erp":14,"real":10,"pct":71,"st":"warn"},{"name":"Tomates cherry","e":"🍅","erp":18,"real":16,"pct":89,"st":"ok"},{"name":"Castañas","e":"🌰","erp":10,"real":2,"pct":20,"st":"crit"},{"name":"Manzanas Golden","e":"🍎","erp":30,"real":27,"pct":90,"st":"ok"}],"fcDays":[{"day":"Miércoles 19 marzo","w":"🌧️ 14°C, lluvia atlántica","items":[{"n":"Verduras cocción","p":82},{"n":"Patatas gallegas","p":75},{"n":"Grelos y nabizas","p":70}]},{"day":"Jueves 20 marzo","w":"⛅ 16°C, nubes y claros","items":[{"n":"Cítricos y kiwis","p":65},{"n":"Fresas frescas","p":72},{"n":"Ensaladas","p":60}]},{"day":"Viernes 21 marzo","w":"☀️ 19°C, soleado","items":[{"n":"Pimientos Padrón","p":88},{"n":"Tomates cherry","p":80},{"n":"Fresas temporada","p":85}]},{"day":"Sábado 22 marzo","w":"☀️ 21°C, soleado","items":[{"n":"Pimientos Padrón","p":100},{"n":"Fresas Pontevedra","p":95},{"n":"Frutas frescas","p":88}]}],"perfKPIs":[{"v":"97.1%","l":"Frescura","b":"↑ +2.8%"},{"v":"0.9%","l":"Rotura","b":"↓ -1.9%"},{"v":"2.3%","l":"Merma","b":"↓ -3.1%"},{"v":"93%","l":"Adopción IA","b":"↑ +9%"}],"confMsg":"La IA ha anticipado el fin de semana soleado en Ourense: +22% en pimientos de Padrón y fresas de Pontevedra, +18% en tomates cherry. Tus 20/80 están asegurados hasta el cierre del sábado."};
+const DASHBOARD={"dbTitle":"La visibilidad que Ourense necesita","dbDesc":"SmartOrder no solo transforma la sección de F&V, da a la sede de Grupo Cuevas en Ourense una visión completa y en tiempo real del rendimiento de frutas y verduras en los 148 establecimientos.","kpiTargets":[95.2,1.1,2.8,91],"kpiSuffixes":["%","%","%","%"],"kpiBadges":["↑ +2.8%","↓ -1.9%","↓ -3.1%","↑ +11%"],"kpiBadgeTypes":["up","up","up","yellow"],"chartTitle":"Evolución ventas F&V, red Grupo Cuevas (últimos 12 meses)","topStores":[{"n":"Plenus Ourense Centro","r":"97.8%"},{"n":"Plenus Santiago de Compostela","r":"97.1%"},{"n":"Aquie A Coruña","r":"96.5%"},{"n":"Plenus Vigo Gran Vía","r":"95.9%"},{"n":"Plenus Pontevedra","r":"95.2%"}],"networkAlerts":[{"t":"red","title":"Alerta rotura","text":"Fresas de Pontevedra, Plenus Santiago de Compostela: stock crítico a 3kg, pedido urgente enviado automáticamente."},{"t":"ylw","title":"Alerta meteorológica","text":"Fin de semana soleado previsto en Galicia (21°C): +25% de demanda anticipada en pimientos de Padrón y fresas frescas en 52 establecimientos Plenus."},{"t":"grn","title":"Récord de frescura","text":"Plenus Ourense Centro: 18 días consecutivos sin rotura en F&V. Mejor rendimiento de la red Grupo Cuevas en 2026."}],"storeDropdown":["Plenus Ourense Centro — 97.8% frescura","Plenus Santiago de Compostela — 97.1%","Aquie A Coruña — 96.5%","Plenus Vigo Gran Vía — 95.9%","Plenus Pontevedra — 95.2%","Plenus Lugo — 94.6%","Plenus O Porriño — 93.9%","Spar Express Oviedo — 93.2%","Cuevas Cash Valladolid — 92.5%","Plenus Santander — 91.8%"],"storeData":[{"f":"97.8","r":"0.7","d":"2.0","a":"96"},{"f":"97.1","r":"0.9","d":"2.3","a":"94"},{"f":"96.5","r":"1.1","d":"2.6","a":"92"},{"f":"95.9","r":"1.3","d":"2.8","a":"90"},{"f":"95.2","r":"1.6","d":"3.1","a":"88"},{"f":"94.6","r":"1.9","d":"3.4","a":"86"},{"f":"93.9","r":"2.2","d":"3.7","a":"83"},{"f":"93.2","r":"2.5","d":"4.0","a":"80"},{"f":"92.5","r":"2.8","d":"4.3","a":"78"},{"f":"91.8","r":"3.1","d":"4.6","a":"75"}],"storeTableTitle":"Top 10 referencias, mejores ventas","storeTable":[{"n":"Patatas gallegas","v":"145 kg","s":"ok"},{"n":"Pimientos de Padrón","v":"110 kg","s":"ok"},{"n":"Fresas de Pontevedra","v":"88 kg","s":"warn"},{"n":"Manzanas Golden","v":"82 kg","s":"ok"},{"n":"Kiwis del Bierzo","v":"65 kg","s":"ok"},{"n":"Tomates cherry","v":"60 kg","s":"ok"},{"n":"Grelos galicia","v":"52 kg","s":"ok"},{"n":"Zanahorias gallegas","v":"48 kg","s":"ok"},{"n":"Castañas (temporada)","v":"38 kg","s":"alert"},{"n":"Nabos gallegos","v":"34 kg","s":"warn"}],"storeInsight":"El encargado valida en promedio el 89% de las sugerencias IA sin modificación. Las correcciones se concentran en productos de temporada gallegos y en establecimientos cercanos a mercados de abastos locales.","trendChartTitle":"Perfil de demanda semanal, 148 establecimientos (volumen F&V)","trendPeak":"Pico sábado +38%","trendCards":[{"title":"Estacionalidad atlántica detectada","text":"La IA ha identificado un pico de +52% en pimientos de Padrón entre julio y septiembre en 52 establecimientos Plenus. Pedidos ajustados con 10 semanas de antelación. La Festa do Pemento de Padrón (agosto) ya está integrada en el modelo."},{"title":"Impacto meteorológico noroeste","text":"Correlación +0.89 entre días soleados y ventas de frutas frescas y ensaladas en Galicia. Los días de lluvia atlántica (+18°C) generan un aumento del +28% en verduras de cocción: grelos, nabos y col gallega."},{"title":"Producto local vs estándar","text":"Los productos locales gallegos representan el 52% de la facturación F&V en los establecimientos Plenus, pero solo el 18% de la merma gracias a SmartOrder. La diferencia de perfil entre Galicia, Asturias y Castilla y León se gestiona automáticamente."}],"alertFeed":[{"t":"red","time":"08:42","title":"Rotura inminente","text":"Fresas de Pontevedra, Plenus Santiago (Bonaval): stock a 2kg, previsión 28kg fin de semana. Pedido urgente enviado."},{"t":"grn","time":"08:38","title":"Récord de frescura","text":"Plenus Ourense Centro: 18 días consecutivos sin rotura en F&V. Mejor resultado de la red en 2026."},{"t":"ylw","time":"08:15","title":"Previsión meteorológica","text":"Fin de semana soleado en Galicia (21°C). Pimientos Padrón +28%, fresas +25%. Pedidos ajustados en 52 establecimientos Plenus."},{"t":"red","time":"07:58","title":"Anomalía de stock","text":"Plenus Vigo Gran Vía: desfase 18kg patatas gallegas entre ERP y realidad. Stock corregido."},{"t":"grn","time":"07:45","title":"Adopción IA","text":"Aquie A Coruña: nuevo encargado acepta ya el 91% de sugerencias tras 4 días. Récord de onboarding del grupo."},{"t":"grn","time":"07:30","title":"Merma a la baja","text":"Zona Ourense (14 establecimientos): merma al 2.1%, -0.9pt vs semana anterior. Mejor dato del trimestre."},{"t":"ylw","time":"07:12","title":"Temporada castañas J-14","text":"Inicio temporada castañas en 15 días. Volumen ajustado en 80 establecimientos Galicia y Asturias. Proveedor confirmado."},{"t":"red","time":"06:55","title":"Entrega incompleta","text":"Spar Express Oviedo: 2 referencias faltantes (grelos, nabos). Alerta transmitida a la central de Ourense."}]};
+const ROI_TIMELINE={"tlRows":[{"time":"06:00","bad":{"title":"❌ Hoy","text":"Verificación manual aproximada en la sección F&V. El inventario ERP ya diverge de la realidad en tienda. El encargado del Plenus no sabe cuántas fresas quedan realmente."},"good":{"title":"✅ SmartOrder","text":"Microcontrol dirigido. La IA señala las referencias críticas en 5 minutos. Stock fiabilizado y pedido del día ya precalculado para los 38 productos clave."}},{"time":"07:30","bad":{"title":"❌ Hoy","text":"40 min de pedido por costumbre o intuición. El encargado nuevo no sabe cuántos pimientos de Padrón pedir un sábado soleado en Ourense vs un martes de lluvia."},"good":{"title":"✅ SmartOrder","text":"15 min máximo. La IA tiene en cuenta el clima, los eventos locales y el perfil de cada establecimiento. El encargado valida el 89% de líneas con un clic."}},{"time":"10:00","bad":{"title":"❌ Hoy","text":"Rotura en fresas de Pontevedra y pimientos de Padrón, los 20/80 de la sección. Los clientes se van a la competencia. La identidad de producto fresco gallego se resiente."},"good":{"title":"✅ SmartOrder","text":"Los 20/80 están asegurados. La IA ha anticipado el fin de semana soleado y el mercado de abastos del sábado. Cero rotura en los productos estrella de Grupo Cuevas."}},{"time":"15:00","bad":{"title":"❌ Hoy","text":"Castañas blandas, grelos amarilleados. Sobrepedido del día anterior. En una enseña que construye su reputación sobre el fresco gallego, la falta de calidad es un mensaje negativo directo."},"good":{"title":"✅ SmartOrder","text":"Rotación perfecta. Los productos sensibles como castañas y fresas se piden según su vida útil real y la demanda prevista por tienda y formato."}},{"time":"18:00","bad":{"title":"❌ Hoy","text":"La central de Ourense no tiene visión sobre el rendimiento F&V en 148 establecimientos en 4 comunidades. Ningún reporting claro, decisiones sin datos."},"good":{"title":"✅ SmartOrder","text":"Dashboard en tiempo real: frescura, merma, rotura, adopción IA por tienda y por formato. La sede de Ourense pilota los 148 establecimientos de Grupo Cuevas desde una sola pantalla."}}]};
+
+
+(function(){
+'use strict';
+
+// ═══════════ HELPERS ═══════════
+const $=s=>document.querySelector(s);
+const $$=s=>document.querySelectorAll(s);
+const txt=(s,v)=>{const e=$(s);if(e)e.textContent=v};
+const htm=(s,v)=>{const e=$(s);if(e)e.innerHTML=v};
+const src=(s,v)=>{const e=$(s);if(e)e.setAttribute('src',v)};
+const href=(s,v)=>{const e=$(s);if(e)e.setAttribute('href',v)};
+function readCMS(id){const e=document.getElementById(id);return e?e.textContent.trim():'';}
+function readJSON(id){try{return JSON.parse(readCMS(id));}catch(e){console.warn('JSON parse error:'+id,e);return {};}}
+
+// ═══════════ READ CMS ═══════════
+const LANG=readCMS('cms-lang')||'es';
+const RETAILER=readCMS('cms-retailer-name');
+const BRAND=readCMS('cms-brand-name');
+const LOGO_W=readCMS('cms-logo-white');
+const LOGO_B=readCMS('cms-logo-black');
+const STORES=parseInt(readCMS('cms-store-count'))||50;
+const VIDEO=readCMS('cms-hero-video');
+const CALENDAR=readCMS('cms-calendar');
+const CTA_BG=readCMS('cms-cta-bg');
+const DEMO_IMG=readCMS('cms-demo-img');
+const C=readJSON('cms-core');
+const INS=readJSON('cms-insights');
+const DM=readJSON('cms-demo');
+const DB=readJSON('cms-dashboard');
+const ROI=readJSON('cms-roi');
+const WK=readJSON('cms-walk');
+const CURR=C.currency||'€';
+const CURR_POS=C.currencyPosition||'after';
+const SW='https://25665345.fs1.hubspotusercontent-eu1.net/hubfs/25665345/ABM%20Productions/Smartway%20logo%20whit%20epng.png';
+const ICONS={cart:'https://25665345.fs1.hubspotusercontent-eu1.net/hubfs/25665345/ABM%20Productions/cart%20png.png',square:'https://25665345.fs1.hubspotusercontent-eu1.net/hubfs/25665345/ABM%20Productions/square%20png.png',computer:'https://25665345.fs1.hubspotusercontent-eu1.net/hubfs/25665345/ABM%20Productions/computer%20png.png',science:'https://25665345.fs1.hubspotusercontent-eu1.net/hubfs/25665345/ABM%20Productions/science%20png.png',cross:'https://go.smartway.ai/hubfs/ABM%20Productions/cross%20png.png'};
+const ICON_ORDER=[ICONS.cart,ICONS.square,ICONS.computer,ICONS.science];
+const TREND_ICONS=[ICONS.science,ICONS.computer,ICONS.cart];
+
+// ═══════════════════════════════════════════════════════════
+//  DICT — {R} = retailer, {B} = brand, {S} = stores
+// ═══════════════════════════════════════════════════════════
+const DICT={
+es:{
+  dateLocale:'es-ES',
+  months:['Ene','Feb','Mar','Abr','May','Jun','Jul','Ago','Sep','Oct','Nov','Dic'],
+  days:['Dom','Lun','Mar','Mié','Jue','Vie','Sáb'],
+  daysShort:['Lun','Mar','Mié','Jue','Vie','Sáb','Dom'],
+  doorScrollText:'Desplázate para entrar en tu tienda',
+  doorLeftSub:'Una experiencia interactiva de Smartway, la plataforma IA nº1 contra el desperdicio alimentario.',
+  heroBadge:'Preparado exclusivamente para {R}',
+  ctaPrimary:'Reservar una demostración',
+  ctaSecondary:'Ver el impacto estimado ↓',
+  navCta:'Reservar una demo',
+  hiwTag:'EN 4 PASOS',hiwTitle:'Cómo funciona SmartOrder',
+  hiwSteps:[
+    {t:'Digitaliza el pedido',d:'La IA precalcula las cantidades óptimas para cada referencia. +100 variables analizadas.'},
+    {t:'Verifica el stock real',d:'Control rápido desde la sección en 10-15 min. La IA detecta anomalías.'},
+    {t:'Desafía a la IA',d:'Ajusta según tu experiencia. La IA aprende de cada corrección.'},
+    {t:'Valida con un clic',d:'El pedido se envía al ERP. 30 a 50% menos de tiempo invertido.'}
+  ],
+  demoTag:'PRUÉBALO TÚ MISMO',demoTitle:'Haz un pedido en 30 segundos',
+  demoDesc:'Haz clic en la tablet para descubrir SmartOrder. Después del pedido, explora las previsiones, el stock y el rendimiento.',
+  demoSteps:['Abrir la aplicación','Revisar sugerencias IA','Pedido enviado'],
+  bnOrder:'Pedido',bnForecast:'Previsiones',bnPerf:'Rendimiento',
+  refLabel:'Referencias por pedir',confLabel:'Confianza IA media',
+  alertPrefix:'{N} alertas de stock en tus 20/80',
+  startBtn:'Ver mi pedido del día →',
+  filterAll:'Todas ({N})',filter2080:'20/80 ({N})',filterAlert:'Alertas ({N})',filterPromo:'Promos ({N})',
+  validated:'validadas',validateAll:'Validar todo ✓',validateBtn:'Validar',
+  confTitle:'¡Pedido enviado!',
+  confSub:'{N} referencias validadas para {STORE}.<br>Entrega prevista mañana a las 5:30.',
+  csTime:'Tiempo',csConf:'Confianza',csBreak:'Roturas',
+  backHome:'Volver al inicio',
+  stockTitle:'Control de stock inteligente',stockSub:'La IA identifica las referencias a verificar prioritariamente. Foco en tus 20/80.',
+  fcTitle:'Previsiones de demanda (D+1 a D+7)',fcSub:'+300 señales analizadas: clima, temporada, promos, histórico.',
+  perfTitle:'Rendimiento de tienda',perfChartTitle:'Score de confianza IA (7d)',
+  stdLabel:'Estándar',
+  roiTag:'SIMULADOR DE IMPACTO',roiTitle:'¿Qué impacto para {B}?',
+  roiDesc:'Ajusta los parámetros para estimar el potencial de SmartOrder en tu red.',
+  slStores:'Tiendas propias equipadas',slRevenue:'Facturación F&V media / tienda / año',slWaste:'Tasa de merma actual',
+  roiLabelSales:'Ventas adicionales',roiLabelWaste:'Reducción de merma',roiLabelHours:'Horas ahorradas/año',roiLabelTotal:'ROI estimado total',
+  roiFooter:'Estimaciones basadas en los resultados promedio observados en nuestros clientes.<br><a href="#calendario">Reservar una demo para un análisis personalizado →</a>',
+  dbTag:'DASHBOARD HQ',
+  dbTitle:'La visibilidad que su dirección necesita',
+  dbTabs:['Vista red','Por tienda','Tendencias','Alertas'],
+  kpiLabels:['Tasa de frescura red','Tasa de rotura media','Merma F&V','Adopción IA equipos'],
+  kpiIcons:[ICONS.cart,ICONS.cross,ICONS.square,ICONS.computer],
+  chartDeployLabel:'Despliegue SmartOrder',
+  topStoresTitle:'Top 5 tiendas, rendimiento frescura',
+  storeBadgeOpen:'Abierto',storeLastOrder:'Último pedido: 07:12',
+  storePanelLabels:['Frescura','Rotura','Merma','Adopción IA'],
+  storeTableHeader:['Referencia','Ventas/día','Estado'],
+  storeChartTitle:'Score de confianza IA, últimos 7 días',
+  storeStatusMap:{ok:'Óptimo',warn:'Vigilar',alert:'Stock bajo'},
+  dbCtaText:'Quiero este dashboard →',
+  alertFilters:[{k:'all',l:'Todas ({N})'},{k:'red',l:'Roturas ({N})'},{k:'ylw',l:'Meteo ({N})'},{k:'grn',l:'Éxitos ({N})'}],
+  wtTag:'VISITA INMERSIVA',wtTitle:'Recorre tu sección con SmartOrder',
+  wtDesc:'Desplázate para descubrir cómo la IA transforma cada metro de tu departamento de F&V.',
+  wtFinalCta:'Ver SmartOrder en acción →',
+  tlTag:'UN DÍA EN TIENDA',tlTitle:'Antes y Después de SmartOrder',
+  tlDesc:'El día típico de un responsable de F&V en Supermercados {B}.',
+  dgTag:'AUTODIAGNÓSTICO',dgTitle:'¿Dónde estáis en los 6 retos del Fresh?',dgDesc:'Responde y visualiza tu perfil en tiempo real.',dgCta:'Hablemos juntos →',
+  dgLabels:['Merma','Roturas','Frescura','Proceso','Equipos','Stock'],
+  dgQuestions:[
+    {q:'1. Merma: ¿Cuál es vuestra tasa estimada?',opts:['Menos del 3% (Muy bueno)','Entre 3% y 6% (Medio)','Más del 6% (Crítico)']},
+    {q:'2. Roturas: ¿Best-sellers disponibles hasta el cierre?',opts:['Siempre','A menudo, pero hay fallos','Raramente']},
+    {q:'3. Frescura: ¿Quejas de clientes por calidad?',opts:['Nunca','A veces a última hora','Regularmente']},
+    {q:'4. Proceso: ¿Cómo hacéis los pedidos?',opts:['Herramienta IA dedicada','ERP clásico / Hoja de cálculo','Papel / Intuición']},
+    {q:'5. Equipos: ¿La rotación de personal afecta la calidad?',opts:['Para nada','Un poco, formación larga','Muchísimo']},
+    {q:'6. Stock: ¿Confianza en vuestro stock ERP?',opts:['Total','Parcial','Ninguna']}
+  ],
+  dgResults:[
+    '¡Excelentes fundamentos! SmartOrder puede llevaros de «bueno» a «excelente» optimizando los últimos puntos de rentabilidad.',
+    'Vuestro perfil indica zonas de fricción clásicas, especialmente en <strong>experiencia de equipos</strong> y <strong>roturas</strong>. SmartOrder está diseñado para eso.',
+    'Riesgo identificado. Vuestras tiendas pierden margen en <strong>merma</strong> y <strong>tiempo de pedido</strong>. La urgencia de una asistencia IA es alta.'
+  ],
+  proofTag:'CONFÍAN EN NOSOTROS',proofTitle:'Lo que dicen nuestros clientes',
+  testimonials:[
+    {quote:'Antes era tedioso y fuente de errores. Ahora la tarea es clara, rápida y eficaz. Nuestros empleados aprenden a usar la herramienta en 3 minutos.',name:'Luc Duluard',role:'Director General, Carrefour'},
+    {quote:'¡Enhorabuena por esta implementación excepcional! Los resultados hablan por sí solos.',name:'Steve Netherton',role:'CIO, Vallarta Supermarkets'},
+    {quote:'Las opiniones de los clientes desde la puesta en marcha del sistema son fantásticas.',name:'Noel Kavanagh Jr.',role:'Managing Director, Kavanagh Group'}
+  ],
+  ctaTag:'SIGUIENTE PASO',
+  ctaTitle:'Agenda una reunión con nuestros expertos en <em>frutas y verduras</em>',
+  ctaDesc:'Descubre cómo devolver la experiencia experta a cada sección, en cada tienda {B} — de forma inmediata y escalable.',
+  ctaFeatures:['30 min con un especialista F&V dedicado a retail','Análisis personalizado para tu red {B}','Simulación ROI en directo sobre tus datos reales'],
+  pocTitle:'POC en 2 semanas · ROI inmediato',pocSub:'Piloto sin riesgo en tiendas seleccionadas. Resultados medibles desde el día 1.',
+  calLabel:'Disponible ahora',
+  ftTagline:'La IA nº1 contra el desperdicio alimentario en el mundo',
+  ftDesc:'Utilizada por más de 20.000 profesionales del retail cada día para salvar la frescura, proteger los márgenes y hacer las secciones más inteligentes.',
+  ftPrepared:'Documento interactivo preparado para {R} / {B} · © 2026 Smartway',
+  ftWebsite:'https://smartway.ai',ftContact:'mailto:contact@smartway.ai'
+},
+it:{
+  dateLocale:'it-IT',
+  months:['Gen','Feb','Mar','Apr','Mag','Giu','Lug','Ago','Set','Ott','Nov','Dic'],
+  days:['Dom','Lun','Mar','Mer','Gio','Ven','Sab'],
+  daysShort:['Lun','Mar','Mer','Gio','Ven','Sab','Dom'],
+  doorScrollText:'Scorri per entrare nel tuo punto vendita',
+  doorLeftSub:'Un\'esperienza interattiva di Smartway, la piattaforma IA n°1 contro lo spreco alimentare.',
+  heroBadge:'Preparato esclusivamente per {R}',
+  ctaPrimary:'Prenota una dimostrazione',
+  ctaSecondary:'Scopri l\'impatto stimato ↓',
+  navCta:'Prenota una demo',
+  hiwTag:'IN 4 PASSI',hiwTitle:'Come funziona SmartOrder',
+  hiwSteps:[
+    {t:'Digitalizza l\'ordine',d:'L\'IA precalcola le quantità ottimali per ogni referenza.'},
+    {t:'Verifica lo stock reale',d:'Controllo rapido dal reparto in 10-15 min. L\'IA rileva le anomalie.'},
+    {t:'Sfida l\'IA',d:'Regola secondo la tua esperienza. L\'IA impara da ogni correzione.'},
+    {t:'Valida con un clic',d:'L\'ordine viene inviato all\'ERP. Dal 30 al 50% di tempo risparmiato.'}
+  ],
+  demoTag:'PROVALO TU STESSO',demoTitle:'Fai un ordine in 30 secondi',
+  demoDesc:'Clicca sul tablet per scoprire SmartOrder. Dopo l\'ordine, esplora le previsioni, lo stock e le performance.',
+  demoSteps:['Apri l\'applicazione','Rivedi i suggerimenti IA','Ordine inviato'],
+  bnOrder:'Ordine',bnForecast:'Previsioni',bnPerf:'Performance',
+  refLabel:'Referenze da ordinare',confLabel:'Confidenza IA media',
+  alertPrefix:'{N} allerte stock sui tuoi 20/80',
+  startBtn:'Vedi il mio ordine del giorno →',
+  filterAll:'Tutte ({N})',filter2080:'20/80 ({N})',filterAlert:'Allerte ({N})',filterPromo:'Promo ({N})',
+  validated:'validate',validateAll:'Valida tutto ✓',validateBtn:'Valida',
+  confTitle:'Ordine inviato!',
+  confSub:'{N} referenze validate per {STORE}.<br>Consegna prevista domani alle 5:30.',
+  csTime:'Tempo',csConf:'Confidenza',csBreak:'Rotture',
+  backHome:'Torna alla home',
+  stockTitle:'Controllo stock intelligente',stockSub:'L\'IA identifica le referenze da verificare prioritariamente. Focus sui tuoi 20/80.',
+  fcTitle:'Previsioni di domanda (G+1 a G+7)',fcSub:'+300 segnali analizzati: meteo, stagione, promo, storico.',
+  perfTitle:'Performance punto vendita',perfChartTitle:'Score di confidenza IA (7gg)',
+  stdLabel:'Standard',
+  roiTag:'SIMULATORE D\'IMPATTO',roiTitle:'Quale impatto per {B}?',
+  roiDesc:'Regola i parametri per stimare il potenziale di SmartOrder.',
+  slStores:'Punti vendita equipaggiati',slRevenue:'Fatturato ortofrutta medio / pdv / anno',slWaste:'Tasso di spreco attuale',
+  roiLabelSales:'Vendite addizionali',roiLabelWaste:'Riduzione spreco',roiLabelHours:'Ore risparmiate/anno',roiLabelTotal:'ROI stimato totale',
+  roiFooter:'Stime basate sui risultati medi osservati presso i nostri clienti.<br><a href="#calendario">Prenota una demo per un\'analisi personalizzata →</a>',
+  dbTag:'DASHBOARD HQ',
+  dbTitle:'La visibilità di cui la vostra direzione ha bisogno',
+  dbTabs:['Vista rete','Per punto vendita','Tendenze','Allerte'],
+  kpiLabels:['Tasso freschezza rete','Tasso rottura medio','Spreco ortofrutta','Adozione IA team'],
+  kpiIcons:[ICONS.cart,ICONS.cross,ICONS.square,ICONS.computer],
+  chartDeployLabel:'Deploy SmartOrder',
+  topStoresTitle:'Top 5 punti vendita, performance freschezza',
+  storeBadgeOpen:'Aperto',storeLastOrder:'Ultimo ordine: 07:18',
+  storePanelLabels:['Freschezza','Rottura','Spreco','Adozione IA'],
+  storeTableHeader:['Referenza','Vendite/giorno','Stato'],
+  storeChartTitle:'Score di confidenza IA, ultimi 7 giorni',
+  storeStatusMap:{ok:'Ottimo',warn:'Vigilare',alert:'Stock basso'},
+  dbCtaText:'Voglio questa dashboard →',
+  alertFilters:[{k:'all',l:'Tutte ({N})'},{k:'red',l:'Rotture ({N})'},{k:'ylw',l:'Meteo ({N})'},{k:'grn',l:'Successi ({N})'}],
+  wtTag:'VISITA IMMERSIVA',wtTitle:'Percorri il tuo reparto con SmartOrder',
+  wtDesc:'Scorri per scoprire come l\'IA trasforma ogni metro del tuo reparto ortofrutta.',
+  wtFinalCta:'Scopri SmartOrder in azione →',
+  tlTag:'UNA GIORNATA IN NEGOZIO',tlTitle:'Prima e Dopo SmartOrder',
+  tlDesc:'La giornata tipo di un responsabile ortofrutta in un supermercato {B}.',
+  dgTag:'AUTODIAGNOSI',dgTitle:'Dove siete sulle 6 sfide del Fresh?',dgDesc:'Rispondi e visualizza il tuo profilo in tempo reale.',dgCta:'Parliamone insieme →',
+  dgLabels:['Spreco','Rotture','Freschezza','Processo','Team','Stock'],
+  dgQuestions:[
+    {q:'1. Spreco: qual è il vostro tasso stimato?',opts:['Meno del 3% (Molto buono)','Tra il 3% e il 6% (Medio)','Più del 6% (Critico)']},
+    {q:'2. Rotture: i best-seller disponibili fino alla chiusura?',opts:['Sempre','Spesso, ma ci sono mancanze','Raramente']},
+    {q:'3. Freschezza: reclami dei clienti sulla qualità?',opts:['Mai','A volte a fine giornata','Regolarmente']},
+    {q:'4. Processo: come fate gli ordini?',opts:['Strumento IA dedicato','ERP classico / Foglio di calcolo','Carta / Intuizione']},
+    {q:'5. Team: il turnover del personale impatta la qualità?',opts:['Per niente','Un po\', formazione lunga','Moltissimo']},
+    {q:'6. Stock: fiducia nel vostro stock ERP?',opts:['Totale','Parziale','Nessuna']}
+  ],
+  dgResults:[
+    'Ottime basi! SmartOrder può portarvi da «buono» a «eccellente» ottimizzando gli ultimi punti di redditività.',
+    'Il vostro profilo indica zone di attrito classiche, soprattutto in <strong>esperienza dei team</strong> e <strong>rotture</strong>. SmartOrder è progettato per questo.',
+    'Rischio identificato. I vostri punti vendita perdono margine in <strong>spreco</strong> e <strong>tempo di ordine</strong>. L\'urgenza di un\'assistenza IA è alta.'
+  ],
+  proofTag:'SI FIDANO DI NOI',proofTitle:'Cosa dicono i nostri clienti',
+  testimonials:[
+    {quote:'Prima era noioso e fonte di errori. Ora il compito è chiaro, rapido ed efficace. I nostri dipendenti imparano a usare lo strumento in 3 minuti.',name:'Luc Duluard',role:'Direttore Generale, Carrefour'},
+    {quote:'Complimenti per questa implementazione eccezionale! I risultati parlano da soli.',name:'Steve Netherton',role:'CIO, Vallarta Supermarkets'},
+    {quote:'Le opinioni dei clienti dall\'avvio del sistema sono fantastiche.',name:'Noel Kavanagh Jr.',role:'Managing Director, Kavanagh Group'}
+  ],
+  ctaTag:'PROSSIMO PASSO',
+  ctaTitle:'Prenota un incontro con i nostri esperti in <em>ortofrutta</em>',
+  ctaDesc:'Scopri come restituire l\'esperienza esperta a ogni reparto, in ogni punto vendita, in tutta la rete {B} — in modo immediato e scalabile.',
+  ctaFeatures:['30 min con uno specialista ortofrutta dedicato al retail','Analisi personalizzata per la vostra rete {B}','Simulazione ROI in diretta sui vostri dati reali'],
+  pocTitle:'POC in 2 settimane · ROI immediato',pocSub:'Pilota senza rischi in punti vendita selezionati. Risultati misurabili dal giorno 1.',
+  calLabel:'Disponibile ora',
+  ftTagline:'L\'IA n°1 contro lo spreco alimentare nel mondo',
+  ftDesc:'Utilizzata da più di 20.000 professionisti del retail ogni giorno per salvare la freschezza, proteggere i margini e rendere i reparti più intelligenti.',
+  ftPrepared:'Documento interattivo preparato per {R} — Insegna {B} · © 2026 Smartway',
+  ftWebsite:'https://smartway.ai',ftContact:'mailto:contact@smartway.ai'
+},
+fr:{dateLocale:'fr-FR',months:['Jan','Fév','Mar','Avr','Mai','Jun','Jul','Aoû','Sep','Oct','Nov','Déc'],days:['Dim','Lun','Mar','Mer','Jeu','Ven','Sam'],daysShort:['Lun','Mar','Mer','Jeu','Ven','Sam','Dim'],doorScrollText:'Scrollez pour découvrir',doorLeftSub:'Technologie IA pour la commande intelligente de fruits et légumes.',heroBadge:'Exclusif pour {R}',ctaPrimary:'Réserver une démo',ctaSecondary:'Calculer mon ROI',navCta:'Réserver une démo',hiwTag:'EN 4 ÉTAPES',hiwTitle:'Comment fonctionne SmartOrder',hiwSteps:[{t:'Liste des commandes digitalisée',d:'L\'IA calcule automatiquement les quantités optimales en croisant toutes vos données pour éliminer les estimations manuelles.'},{t:'Des inventaires produits conformes à la réalité',d:'Le système détecte les écarts informatiques pour vous permettre de corriger le stock réel directement depuis votre terminal.'},{t:'Améliorer les suggestions de l\'IA',d:'Ajustez les propositions selon la réalité du terrain : l\'IA apprend de vos corrections pour affiner ses futures recommandations.'},{t:'Valider la commande',d:'Envoyez la commande à votre ERP en un clic et gagnez 50% de temps de gestion.'}],demoTag:'ESSAYEZ VOUS-MÊME',demoTitle:'Passez commande en 30 secondes',demoDesc:'Cliquez sur la tablette pour découvrir SmartOrder.',demoSteps:['Ouvrir l\'app','Revoir les suggestions IA','Commande envoyée'],bnOrder:'Commande',bnForecast:'Prévisions',bnPerf:'Performance',refLabel:'Références à commander',confLabel:'Confiance IA moyenne',alertPrefix:'{N} alertes stock sur vos 20/80',startBtn:'Voir ma commande du jour →',filterAll:'Toutes ({N})',filter2080:'20/80 ({N})',filterAlert:'Alertes ({N})',filterPromo:'Promos ({N})',validated:'validées',validateAll:'Tout valider ✓',validateBtn:'Valider',confTitle:'Commande envoyée !',confSub:'{N} références validées pour {STORE}.<br>Livraison prévue demain à 5h30.',csTime:'Temps',csConf:'Confiance',csBreak:'Ruptures',backHome:'Retour à l\'accueil',stockTitle:'Contrôle de stock intelligent',stockSub:'L\'IA identifie les références à vérifier en priorité.',fcTitle:'Prévisions de demande (J+1 à J+7)',fcSub:'+300 signaux analysés : météo, saison, promos, historique.',perfTitle:'Performance magasin',perfChartTitle:'Score de confiance IA (7j)',stdLabel:'Standard',roiTag:'CALCULATEUR ROI',roiTitle:'Quel impact pour {B} ?',roiDesc:'Ajustez les paramètres pour estimer le potentiel de SmartOrder.',slStores:'Magasins équipés',slRevenue:'CA F&L moyen / magasin / an',slWaste:'Taux de démarque actuel',roiLabelSales:'Ventes additionnelles',roiLabelWaste:'Réduction démarque',roiLabelHours:'Heures économisées/an',roiLabelTotal:'ROI estimé total',roiFooter:'Estimations basées sur nos résultats clients.<br><a href="#calendario">Demandez une analyse personnalisée →</a>',dbTag:'DASHBOARD HQ',dbTitle:'La visibilité dont votre direction a besoin',dbTabs:['Réseau','Par magasin','Tendances','Alertes'],kpiLabels:['Taux de fraîcheur réseau','Taux de rupture moyen','Démarque F&L','Adoption IA équipes'],kpiIcons:[ICONS.cart,ICONS.cross,ICONS.square,ICONS.computer],chartDeployLabel:'Déploiement SmartOrder',topStoresTitle:'Top 5 magasins, performance fraîcheur',storeBadgeOpen:'Ouvert',storeLastOrder:'Dernière commande : 07:12',storePanelLabels:['Fraîcheur','Rupture','Démarque','Adoption IA'],storeTableHeader:['Référence','Ventes/jour','Statut'],storeChartTitle:'Score de confiance IA, 7 derniers jours',storeStatusMap:{ok:'Optimal',warn:'Surveiller',alert:'Stock bas'},dbCtaText:'Je veux ce dashboard →',alertFilters:[{k:'all',l:'Toutes ({N})'},{k:'red',l:'Ruptures ({N})'},{k:'ylw',l:'Météo ({N})'},{k:'grn',l:'Succès ({N})'}],wtTag:'VISITE IMMERSIVE',wtTitle:'Parcourez votre rayon avec SmartOrder',wtDesc:'Scrollez pour découvrir comment l\'IA transforme chaque mètre de votre rayon F&L.',wtFinalCta:'Voir SmartOrder en action →',tlTag:'UNE JOURNÉE EN MAGASIN',tlTitle:'Avant et Après SmartOrder',tlDesc:'La journée type d\'un responsable F&L chez {B}.',dgTag:'AUTODIAGNOSTIC',dgTitle:'Où en êtes-vous sur les 6 défis du Fresh ?',dgDesc:'Répondez et visualisez votre profil en temps réel.',dgCta:'Parlons-en ensemble →',dgLabels:['Démarque','Ruptures','Fraîcheur','Process','Équipes','Stock'],dgQuestions:[{q:'1. Démarque : quel est votre taux estimé ?',opts:['Moins de 3% (Très bon)','Entre 3% et 6% (Moyen)','Plus de 6% (Critique)']},{q:'2. Ruptures : best-sellers disponibles jusqu\'à la fermeture ?',opts:['Toujours','Souvent, mais des manques','Rarement']},{q:'3. Fraîcheur : plaintes clients sur la qualité ?',opts:['Jamais','Parfois en fin de journée','Régulièrement']},{q:'4. Process : comment passez-vous vos commandes ?',opts:['Outil IA dédié','ERP classique / Tableur','Papier / Intuition']},{q:'5. Équipes : le turnover impacte-t-il la qualité ?',opts:['Pas du tout','Un peu, formation longue','Énormément']},{q:'6. Stock : confiance dans votre stock ERP ?',opts:['Totale','Partielle','Aucune']}],dgResults:['Excellentes bases ! SmartOrder peut vous faire passer de « bon » à « excellent ».','Votre profil indique des zones de friction classiques, notamment sur l\'<strong>expérience des équipes</strong> et les <strong>ruptures</strong>.','Risque identifié. Vos magasins perdent de la marge en <strong>démarque</strong> et <strong>temps de commande</strong>.'],proofTag:'ILS NOUS FONT CONFIANCE',proofTitle:'Ce que disent nos clients',testimonials:[{quote:'Avant c\'était fastidieux et source d\'erreurs. Maintenant la tâche est claire, rapide et efficace.',name:'Luc Duluard',role:'Directeur Général, Carrefour'},{quote:'Félicitations pour cette implémentation exceptionnelle ! Les résultats parlent d\'eux-mêmes.',name:'Steve Netherton',role:'CIO, Vallarta Supermarkets'},{quote:'Les retours clients depuis la mise en place du système sont fantastiques.',name:'Noel Kavanagh Jr.',role:'Managing Director, Kavanagh Group'}],ctaTag:'PROCHAINE ÉTAPE',ctaTitle:'Réservez un rendez-vous avec nos experts <em>fruits et légumes</em>',ctaDesc:'Découvrez comment redonner l\'expertise à chaque rayon, dans chaque magasin {B}.',ctaFeatures:['30 min avec un spécialiste F&L dédié au retail','Analyse personnalisée pour votre réseau {B}','Simulation ROI en direct sur vos données réelles'],pocTitle:'POC en 2 semaines · ROI immédiat',pocSub:'Pilote sans risque en magasins sélectionnés.',calLabel:'Disponibilité immédiate',ftTagline:'L\'IA n°1 contre le gaspillage alimentaire dans le monde',ftDesc:'Utilisée par plus de 20 000 professionnels du retail chaque jour.',ftPrepared:'Document interactif préparé pour {R} / {B} · © 2026 Smartway',ftWebsite:'https://smartway.ai',ftContact:'mailto:contact@smartway.ai'},
+en:{dateLocale:'en-GB',months:['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'],days:['Sun','Mon','Tue','Wed','Thu','Fri','Sat'],daysShort:['Mon','Tue','Wed','Thu','Fri','Sat','Sun'],doorScrollText:'Scroll to discover',doorLeftSub:'AI technology for smart fresh produce ordering.',heroBadge:'Exclusive for {R}',ctaPrimary:'Book a demo',ctaSecondary:'Calculate my ROI',navCta:'Book a demo',hiwTag:'IN 4 STEPS',hiwTitle:'How SmartOrder works',hiwSteps:[{t:'Digitise the order',d:'AI pre-calculates optimal quantities for each reference.'},{t:'Verify real stock',d:'Quick check from the aisle in 10-15 min.'},{t:'Challenge the AI',d:'Adjust based on your experience. AI learns from every correction.'},{t:'Validate with one click',d:'The order is sent to ERP. 30-50% less time spent.'}],demoTag:'TRY IT YOURSELF',demoTitle:'Place an order in 30 seconds',demoDesc:'Click on the tablet to discover SmartOrder.',demoSteps:['Open the app','Review AI suggestions','Order sent'],bnOrder:'Order',bnForecast:'Forecasts',bnPerf:'Performance',refLabel:'References to order',confLabel:'Average AI confidence',alertPrefix:'{N} stock alerts on your 20/80',startBtn:'View my order for today →',filterAll:'All ({N})',filter2080:'20/80 ({N})',filterAlert:'Alerts ({N})',filterPromo:'Promos ({N})',validated:'validated',validateAll:'Validate all ✓',validateBtn:'Validate',confTitle:'Order sent!',confSub:'{N} references validated for {STORE}.<br>Delivery expected tomorrow at 5:30.',csTime:'Time',csConf:'Confidence',csBreak:'Stockouts',backHome:'Back to home',stockTitle:'Smart stock control',stockSub:'AI identifies references to check as a priority.',fcTitle:'Demand forecasts (D+1 to D+7)',fcSub:'+300 signals analysed: weather, season, promos, history.',perfTitle:'Store performance',perfChartTitle:'AI confidence score (7d)',stdLabel:'Standard',roiTag:'IMPACT CALCULATOR',roiTitle:'What impact for {B}?',roiDesc:'Adjust parameters to estimate SmartOrder potential.',slStores:'Stores equipped',slRevenue:'Avg F&V revenue / store / year',slWaste:'Current waste rate',roiLabelSales:'Additional sales',roiLabelWaste:'Waste reduction',roiLabelHours:'Hours saved/year',roiLabelTotal:'Estimated total ROI',roiFooter:'Estimates based on average client results.<br><a href="#calendario">Request a personalised analysis →</a>',dbTag:'HQ DASHBOARD',dbTitle:'The visibility your management needs',dbTabs:['Network','Per store','Trends','Alerts'],kpiLabels:['Network freshness rate','Average stockout rate','F&V waste','Team AI adoption'],kpiIcons:[ICONS.cart,ICONS.cross,ICONS.square,ICONS.computer],chartDeployLabel:'SmartOrder deployment',topStoresTitle:'Top 5 stores, freshness performance',storeBadgeOpen:'Open',storeLastOrder:'Last order: 07:12',storePanelLabels:['Freshness','Stockout','Waste','AI Adoption'],storeTableHeader:['Reference','Sales/day','Status'],storeChartTitle:'AI confidence score, last 7 days',storeStatusMap:{ok:'Optimal',warn:'Monitor',alert:'Low stock'},dbCtaText:'I want this dashboard →',alertFilters:[{k:'all',l:'All ({N})'},{k:'red',l:'Stockouts ({N})'},{k:'ylw',l:'Weather ({N})'},{k:'grn',l:'Wins ({N})'}],wtTag:'IMMERSIVE TOUR',wtTitle:'Walk through your aisle with SmartOrder',wtDesc:'Scroll to discover how AI transforms every metre of your F&V department.',wtFinalCta:'See SmartOrder in action →',tlTag:'A DAY IN STORE',tlTitle:'Before and After SmartOrder',tlDesc:'A typical day for an F&V manager at {B}.',dgTag:'SELF-ASSESSMENT',dgTitle:'Where do you stand on the 6 Fresh challenges?',dgDesc:'Answer and see your profile in real time.',dgCta:'Let\'s talk →',dgLabels:['Waste','Stockouts','Freshness','Process','Teams','Stock'],dgQuestions:[{q:'1. Waste: what is your estimated rate?',opts:['Under 3% (Very good)','Between 3% and 6% (Average)','Over 6% (Critical)']},{q:'2. Stockouts: best-sellers available until closing?',opts:['Always','Often, but gaps occur','Rarely']},{q:'3. Freshness: customer complaints about quality?',opts:['Never','Sometimes at end of day','Regularly']},{q:'4. Process: how do you place orders?',opts:['Dedicated AI tool','Classic ERP / Spreadsheet','Paper / Intuition']},{q:'5. Teams: does staff turnover affect quality?',opts:['Not at all','Somewhat, long training','Very much']},{q:'6. Stock: confidence in your ERP stock?',opts:['Total','Partial','None']}],dgResults:['Excellent foundations! SmartOrder can take you from good to great.','Your profile shows typical friction areas, especially in <strong>team experience</strong> and <strong>stockouts</strong>.','Risk identified. Your stores are losing margin on <strong>waste</strong> and <strong>order time</strong>.'],proofTag:'TRUSTED BY LEADERS',proofTitle:'What our clients say',testimonials:[{quote:'It used to be tedious and error-prone. Now the task is clear, fast and effective.',name:'Luc Duluard',role:'General Manager, Carrefour'},{quote:'Congratulations on this exceptional implementation! Results speak for themselves.',name:'Steve Netherton',role:'CIO, Vallarta Supermarkets'},{quote:'Customer feedback since the system launch has been fantastic.',name:'Noel Kavanagh Jr.',role:'Managing Director, Kavanagh Group'}],ctaTag:'NEXT STEP',ctaTitle:'Book a meeting with our <em>fresh produce</em> experts',ctaDesc:'Discover how to bring expert knowledge back to every aisle, in every {B} store.',ctaFeatures:['30 min with a dedicated F&V retail specialist','Personalised analysis for your {B} network','Live ROI simulation with your real data'],pocTitle:'POC in 2 weeks · Immediate ROI',pocSub:'Risk-free pilot in selected stores.',calLabel:'Available now',ftTagline:'The #1 AI against food waste worldwide',ftDesc:'Used by 20,000+ retail professionals daily.',ftPrepared:'Interactive document prepared for {R} / {B} · © 2026 Smartway',ftWebsite:'https://smartway.ai',ftContact:'mailto:contact@smartway.ai'},'en-US':{dateLocale:'en-US',months:['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'],days:['Sun','Mon','Tue','Wed','Thu','Fri','Sat'],daysShort:['Mon','Tue','Wed','Thu','Fri','Sat','Sun'],doorScrollText:'Scroll to discover',doorLeftSub:'AI technology for smart fresh produce ordering.',heroBadge:'Exclusive for {R}',ctaPrimary:'Book a demo',ctaSecondary:'Calculate my ROI',navCta:'Book a demo',hiwTag:'IN 4 STEPS',hiwTitle:'How SmartOrder works',hiwSteps:[{t:'Digitize the order',d:'AI pre-calculates optimal quantities for each reference.'},{t:'Verify real stock',d:'Quick check from the aisle in 10-15 min.'},{t:'Challenge the AI',d:'Adjust based on your experience. AI learns from every correction.'},{t:'Validate with one click',d:'The order is sent to ERP. 30-50% less time spent.'}],demoTag:'TRY IT YOURSELF',demoTitle:'Place an order in 30 seconds',demoDesc:'Click on the tablet to discover SmartOrder.',demoSteps:['Open the app','Review AI suggestions','Order sent'],bnOrder:'Order',bnForecast:'Forecasts',bnPerf:'Performance',refLabel:'References to order',confLabel:'Average AI confidence',alertPrefix:'{N} stock alerts on your 20/80',startBtn:'View my order for today →',filterAll:'All ({N})',filter2080:'20/80 ({N})',filterAlert:'Alerts ({N})',filterPromo:'Promos ({N})',validated:'validated',validateAll:'Validate all ✓',validateBtn:'Validate',confTitle:'Order sent!',confSub:'{N} references validated for {STORE}.<br>Delivery expected tomorrow at 5:30.',csTime:'Time',csConf:'Confidence',csBreak:'Stockouts',backHome:'Back to home',stockTitle:'Smart stock control',stockSub:'AI identifies references to check as a priority.',fcTitle:'Demand forecasts (D+1 to D+7)',fcSub:'+300 signals analyzed: weather, season, promos, history.',perfTitle:'Store performance',perfChartTitle:'AI confidence score (7d)',stdLabel:'Standard',roiTag:'IMPACT CALCULATOR',roiTitle:'What impact for {B}?',roiDesc:'Adjust parameters to estimate SmartOrder potential.',slStores:'Stores equipped',slRevenue:'Avg F&V revenue / store / year',slWaste:'Current waste rate',roiLabelSales:'Additional sales',roiLabelWaste:'Waste reduction',roiLabelHours:'Hours saved/year',roiLabelTotal:'Estimated total ROI',roiFooter:'Estimates based on average client results.<br><a href="#calendario">Request a personalized analysis →</a>',dbTag:'HQ DASHBOARD',dbTitle:'The visibility your management needs',dbTabs:['Network','Per store','Trends','Alerts'],kpiLabels:['Network freshness rate','Average stockout rate','F&V waste','Team AI adoption'],kpiIcons:[ICONS.cart,ICONS.cross,ICONS.square,ICONS.computer],chartDeployLabel:'SmartOrder deployment',topStoresTitle:'Top 5 stores, freshness performance',storeBadgeOpen:'Open',storeLastOrder:'Last order: 07:12',storePanelLabels:['Freshness','Stockout','Waste','AI Adoption'],storeTableHeader:['Reference','Sales/day','Status'],storeChartTitle:'AI confidence score, last 7 days',storeStatusMap:{ok:'Optimal',warn:'Monitor',alert:'Low stock'},dbCtaText:'I want this dashboard →',alertFilters:[{k:'all',l:'All ({N})'},{k:'red',l:'Stockouts ({N})'},{k:'ylw',l:'Weather ({N})'},{k:'grn',l:'Wins ({N})'}],wtTag:'IMMERSIVE TOUR',wtTitle:'Walk through your aisle with SmartOrder',wtDesc:'Scroll to discover how AI transforms every meter of your F&V department.',wtFinalCta:'See SmartOrder in action →',tlTag:'A DAY IN STORE',tlTitle:'Before and After SmartOrder',tlDesc:'A typical day for an F&V manager at {B}.',dgTag:'SELF-ASSESSMENT',dgTitle:'Where do you stand on the 6 Fresh challenges?',dgDesc:'Answer and see your profile in real time.',dgCta:'Let\'s talk →',dgLabels:['Waste','Stockouts','Freshness','Process','Teams','Stock'],dgQuestions:[{q:'1. Waste: what is your estimated rate?',opts:['Under 3% (Very good)','Between 3% and 6% (Average)','Over 6% (Critical)']},{q:'2. Stockouts: best-sellers available until closing?',opts:['Always','Often, but gaps occur','Rarely']},{q:'3. Freshness: customer complaints about quality?',opts:['Never','Sometimes at end of day','Regularly']},{q:'4. Process: how do you place orders?',opts:['Dedicated AI tool','Classic ERP / Spreadsheet','Paper / Intuition']},{q:'5. Teams: does staff turnover affect quality?',opts:['Not at all','Somewhat, long training','Very much']},{q:'6. Stock: confidence in your ERP stock?',opts:['Total','Partial','None']}],dgResults:['Excellent foundations! SmartOrder can take you from good to great.','Your profile shows typical friction areas, especially in <strong>team experience</strong> and <strong>stockouts</strong>.','Risk identified. Your stores are losing margin on <strong>waste</strong> and <strong>order time</strong>.'],proofTag:'TRUSTED BY LEADERS',proofTitle:'What our clients say',testimonials:[{quote:'It used to be tedious and error-prone. Now the task is clear, fast and effective.',name:'Luc Duluard',role:'General Manager, Carrefour'},{quote:'Congratulations on this exceptional implementation! Results speak for themselves.',name:'Steve Netherton',role:'CIO, Vallarta Supermarkets'},{quote:'Customer feedback since the system launch has been fantastic.',name:'Noel Kavanagh Jr.',role:'Managing Director, Kavanagh Group'}],ctaTag:'NEXT STEP',ctaTitle:'Book a meeting with our <em>fresh produce</em> experts',ctaDesc:'Discover how to bring expert knowledge back to every aisle, in every {B} store.',ctaFeatures:['30 min with a dedicated F&V retail specialist','Personalized analysis for your {B} network','Live ROI simulation with your real data'],pocTitle:'POC in 2 weeks · Immediate ROI',pocSub:'Risk-free pilot in selected stores.',calLabel:'Available now',ftTagline:'The #1 AI against food waste worldwide',ftDesc:'Used by 20,000+ retail professionals daily.',ftPrepared:'Interactive document prepared for {R} / {B} · © 2026 Smartway',ftWebsite:'https://smartway.ai',ftContact:'mailto:contact@smartway.ai'}
+};
+
+// ═══════════ ACTIVE DICT + TEMPLATES ═══════════
+const D=DICT[LANG]||DICT.es;
+function T(key){return(D[key]||'').replace(/\{R\}/g,RETAILER).replace(/\{B\}/g,BRAND).replace(/\{S\}/g,STORES);}
+
+const TESTI_LOGOS=['https://25665345.fs1.hubspotusercontent-eu1.net/hubfs/25665345/ABM%20Productions/Carrefour%20black%20logo.png','https://25665345.fs1.hubspotusercontent-eu1.net/hubfs/25665345/ABM%20Productions/vallarte%20black%20logo.png','https://25665345.fs1.hubspotusercontent-eu1.net/hubfs/25665345/ABM%20Productions/kavanagh%20balck%20logo.png'];
+const TESTI_IMGS=['https://25665345.fs1.hubspotusercontent-eu1.net/hubfs/25665345/ABM%20Productions/luc%20duluard.png','https://25665345.fs1.hubspotusercontent-eu1.net/hubfs/25665345/ABM%20Productions/steve%20vallarta.png','https://25665345.fs1.hubspotusercontent-eu1.net/hubfs/25665345/ABM%20Productions/noel%20kavanagh.png'];
+
+// ═══════════ DATES ═══════════
+const now=new Date();
+const dateOpts={weekday:'long',day:'numeric',month:'long',year:'numeric'};
+const todayLocale=now.toLocaleDateString(D.dateLocale,dateOpts);
+const chartMonths=[];for(let i=-6;i<6;i++){const d=new Date(now.getFullYear(),now.getMonth()+i,1);chartMonths.push(D.months[d.getMonth()]);}
+
+if(C.pageTitle)document.title=C.pageTitle;
+document.documentElement.lang=LANG;
+
+// ═══════════ LOGOS ═══════════
+$$('.sw-logo-w').forEach(el=>el.src=SW);
+$$('.ret-logo-w').forEach(el=>{el.src=LOGO_W;el.alt=BRAND;});
+$$('.ret-logo-b').forEach(el=>{el.src=LOGO_B;el.alt=BRAND;});
+
+// ═══════════ CINEMA / HERO ═══════════
+src('#heroVideoSrc',VIDEO);
+const vid=$('#heroVideoSrc');if(vid&&vid.parentElement)vid.parentElement.load();
+htm('#doorLeftTitle',C.doorLeftTitle||'');
+txt('#doorLeftSub',C.doorLeftSub||T('doorLeftSub'));
+htm('#doorRightTitle',C.doorRightTitle||'');
+txt('#doorRightSub',C.doorRightSub||'');
+txt('#doorScrollText',T('doorScrollText'));
+txt('#heroBadgeText',T('heroBadge'));
+htm('#heroH1',C.heroH1||'');
+txt('#heroSub',C.heroSub||'');
+txt('#ctaPrimary',T('ctaPrimary'));
+txt('#ctaSecondary',T('ctaSecondary'));
+txt('#navCtaText',T('navCta'));
+
+// ═══════════ INSIGHTS ═══════════
+txt('#insTag','● '+(C.insTag||''));
+txt('#insTitle',INS.title||'');
+txt('#insDesc',INS.desc||'');
+const insGrid=$('#insGrid');
+if(insGrid&&INS.cards){insGrid.innerHTML=INS.cards.map((c,i)=>`<div class="ic r d${i+1}"><div class="ico"><img src="${ICON_ORDER[i]}" alt=""></div><div class="stat">${c.stat}</div><div class="desc">${c.desc}</div></div>`).join('');}
+
+// ═══════════ HOW IT WORKS ═══════════
+txt('#hiwTag','● '+T('hiwTag'));
+txt('#hiwTitle',T('hiwTitle'));
+const hiwGrid=$('#hiwGrid');
+if(hiwGrid&&D.hiwSteps){hiwGrid.innerHTML=D.hiwSteps.map((s,i)=>`<div class="sc r d${i+1}"><div class="sn">${i+1}</div><div class="si"><img src="${ICON_ORDER[i]}" alt=""></div><div class="st-t">${s.t}</div><div class="sd">${s.d}</div></div>`).join('');}
+
+// ═══════════ DEMO TABLET ═══════════
+src('#demoLeftImg',DEMO_IMG);
+txt('#demoTag','● '+T('demoTag'));
+txt('#demoTitle',T('demoTitle'));
+txt('#demoDesc',T('demoDesc'));
+$('#demoSteps').innerHTML=D.demoSteps.map((s,i)=>`<div class="ds ${i===0?'active':''}" data-ds="${i}"><span class="ds-n">${i+1}</span>${s}</div>`).join('');
+txt('#bnOrder',T('bnOrder'));txt('#bnForecast',T('bnForecast'));txt('#bnPerf',T('bnPerf'));
+txt('#demoGreeting',DM.greeting||'');
+txt('#demoDate',todayLocale+' — '+(DM.storeName||''));
+txt('#demoRefCount',DM.refCount||0);
+txt('#demoRefLabel',T('refLabel'));
+txt('#demoConfAvg',(DM.confAvg||0)+'%');
+txt('#demoConfLabel',T('confLabel'));
+txt('#demoAlertText',T('alertPrefix').replace('{N}',DM.alertCount||3));
+txt('#demoStartBtn',T('startBtn'));
+txt('#prodTotal',DM.products?DM.products.length:8);
+txt('#demoValidated',T('validated'));
+txt('#demoValidateAllBtn',T('validateAll'));
+txt('#demoConfTitle',T('confTitle'));
+htm('#demoConfSub',T('confSub').replace('{N}',DM.refCount||34).replace('{STORE}',DM.storeName||''));
+txt('#csTime',T('csTime'));txt('#csConf',T('csConf'));txt('#csBreak',T('csBreak'));
+txt('#csConfVal',(DM.confAvg||91)+'%');
+htm('#demoConfQuote',DM.confMsg||'');
+txt('#demoBackHome',T('backHome'));
+// Filters
+const pLen=DM.products?DM.products.length:0;
+const p2080=DM.products?DM.products.filter(p=>p.cat==='20/80').length:0;
+const pAlert=DM.products?DM.products.filter(p=>p.cat&&p.cat.toLowerCase().includes('alert')).length:0;
+$('#demoFilters').innerHTML=`<span class="af3 active">${T('filterAll').replace('{N}',pLen)}</span><span class="af3">${T('filter2080').replace('{N}',p2080)}</span><span class="af3">${T('filterAlert').replace('{N}',pAlert)}</span><span class="af3">${T('filterPromo').replace('{N}',4)}</span>`;
+// Products
+const pl=$('#prodList');
+if(pl&&DM.products){DM.products.forEach(p=>{const d=document.createElement('div');d.className='prod-row';d.innerHTML=`<span class="pr-emoji">${p.e}</span><div class="pr-info"><div class="pr-name">${p.name}</div><div class="pr-meta"><span>${p.cat||T('stdLabel')}</span><span>${p.u}</span></div></div><span class="pr-conf ${p.conf<85?'med':''}">${p.conf}%</span><span class="pr-qty">${p.qty}</span><button class="pr-btn" onclick="dValOne(this)">${T('validateBtn')}</button>`;pl.appendChild(d);});}
+// Stock
+txt('#stockTitle',T('stockTitle'));txt('#stockSub',T('stockSub'));
+const sl=$('#stockList');
+if(sl&&DM.stockItems){DM.stockItems.forEach(s=>{const d=document.createElement('div');d.className='stock-item';d.innerHTML=`<span class="si-emoji">${s.e}</span><div class="si-info"><div class="si-name">${s.name}</div><div class="si-detail">ERP: ${s.erp}kg — Real: ${s.real}kg</div></div><div class="si-bar"><div class="si-fill ${s.st}" style="width:${s.pct}%"></div></div><span class="si-pct ${s.st}">${s.pct}%</span>`;sl.appendChild(d);});}
+// Forecast
+txt('#fcTitle',T('fcTitle'));txt('#fcSub',T('fcSub'));
+const fl=$('#fcList');
+if(fl&&DM.fcDays){DM.fcDays.forEach(f=>{const d=document.createElement('div');d.className='fc-card';let bars='';f.items.forEach(it=>{bars+=`<div class="fc-bar-row"><span class="fc-bar-label">${it.n}</span><div class="fc-bar-track"><div class="fc-bar-fill" style="width:${it.p}%"></div></div><span class="fc-bar-val">${it.p}%</span></div>`;});d.innerHTML=`<div class="fc-day">${f.day}</div><div class="fc-weather">${f.w}</div><div class="fc-bars">${bars}</div>`;fl.appendChild(d);});}
+// Perf
+txt('#perfTitle',T('perfTitle')+' — '+(DM.storeName||''));
+txt('#perfChartTitle',T('perfChartTitle'));
+const perfKPIs=$('#perfKPIs');
+if(perfKPIs&&DM.perfKPIs){perfKPIs.innerHTML=DM.perfKPIs.map(k=>`<div class="pk"><div class="pkv">${k.v}</div><div class="pkl">${k.l}</div><div class="pkb">${k.b}</div></div>`).join('');}
+// Day labels for perf chart
+const perfDL=$('#perfDayLabels');
+if(perfDL){const xs=[20,63,106,150,193,237,270];D.daysShort.forEach((d,i)=>{const t=document.createElementNS('http://www.w3.org/2000/svg','text');t.setAttribute('x',xs[i]);t.setAttribute('y',95);t.setAttribute('style','font-size:7px;font-family:Poppins;fill:rgba(255,255,255,.2)');t.textContent=d;perfDL.appendChild(t);});}
+
+// ═══════════ ROI ═══════════
+txt('#roiTag','● '+T('roiTag'));txt('#roiTitle',T('roiTitle'));txt('#roiDesc',T('roiDesc'));
+htm('#roiFooter',T('roiFooter'));
+txt('#slStoresLabel',T('slStores'));txt('#slRevenueLabel',T('slRevenue'));txt('#slWasteLabel',T('slWaste'));
+txt('#roiLabelSales',T('roiLabelSales'));txt('#roiLabelWaste',T('roiLabelWaste'));txt('#roiLabelHours',T('roiLabelHours'));txt('#roiLabelTotal',T('roiLabelTotal'));
+const sS=$('#sS'),sR=$('#sR'),sW=$('#sW');
+if(sS){sS.min=ROI.storesMin||5;sS.max=ROI.storesMax||STORES;sS.value=ROI.storesDefault||STORES;sS.step=ROI.storesStep||5;}
+if(sR){sR.min=ROI.revenueMin||100;sR.max=ROI.revenueMax||1500;sR.value=ROI.revenueDefault||500;sR.step=50;}
+
+// ═══════════ DASHBOARD ═══════════
+txt('#dbTag','● '+T('dbTag'));htm('#dbTitle',DB.dbTitle||T('dbTitle'));txt('#dbDesc',DB.dbDesc||T('dbDesc'));
+txt('#dbDateDisplay',todayLocale);
+const dbTabs=$('#dbTabs');
+if(dbTabs){dbTabs.innerHTML=D.dbTabs.map((t,i)=>`<div class="db-tab ${i===0?'active':''}" data-tab="${i}">${t}</div>`).join('');}
+// KPIs
+const dbKPIs=$('#dbKPIs');
+if(dbKPIs&&DB.kpiTargets){dbKPIs.innerHTML=DB.kpiTargets.map((_,i)=>`<div class="db-kpi"><div class="k-icon"><img src="${D.kpiIcons[i]}" alt="" style="width:20px;height:20px"></div><div class="k-val" id="kv${i}">0</div><div class="k-label">${D.kpiLabels[i]}</div><div class="k-badge ${DB.kpiBadgeTypes?DB.kpiBadgeTypes[i]:'up'}">${DB.kpiBadges[i]}</div></div>`).join('');}
+// Chart months
+const cml=$('#chartMonthLabels');
+if(cml){const xs=[72,116,160,204,248,292,336,380,424,468,512,556];chartMonths.forEach((m,i)=>{const t=document.createElementNS('http://www.w3.org/2000/svg','text');t.setAttribute('x',xs[i]);t.setAttribute('y',186);t.setAttribute('class','chart-label');t.textContent=m;cml.appendChild(t);});}
+txt('#chartDeployLabel',T('chartDeployLabel'));
+txt('#chartTitle0',DB.chartTitle||'');
+// Ranking
+const rankWrap=$('#rankStores');
+if(rankWrap&&DB.topStores){rankWrap.innerHTML='<div class="db-ranking-title">'+T('topStoresTitle')+'</div>'+DB.topStores.map((s,i)=>`<div class="rank-item"><div class="rank-head"><span class="rank-name">${s.n}</span><span class="rank-val">${s.r}</span></div><div class="rank-bar"><div class="rank-fill" style="--w:${s.r};transition-delay:${i*.1}s"></div></div></div>`).join('');}
+// Network alerts
+const alertsGrid=$('#alertsGrid');
+if(alertsGrid&&DB.networkAlerts){alertsGrid.innerHTML=DB.networkAlerts.map(a=>`<div class="db-alert ${a.t}"><div class="al-dot"></div><span><strong>${a.title}</strong><br>${a.text}</span></div>`).join('');}
+// Store panel
+txt('#storeBadgeText',T('storeBadgeOpen'));
+txt('#storeLastOrder',T('storeLastOrder'));
+const storeSel=$('#storeSelect');
+if(storeSel&&DB.storeDropdown){storeSel.innerHTML=DB.storeDropdown.map((s,i)=>`<option value="${i}">${s}</option>`).join('');}
+// Store KPIs
+// Store KPIs (with badges, fallback to network kpiBadges)
+const storeKPIs=$('#storeKPIs');
+if(storeKPIs&&DB.storeData&&DB.storeData[0]){const d=DB.storeData[0];const vals=[d.f+'%',d.r+'%',d.d+'%',d.a+'%'];const sBadges=DB.storeKpiBadges||DB.kpiBadges||['','','',''];const sBadgeTypes=DB.storeKpiBadgeTypes||DB.kpiBadgeTypes||['up','up','up','up'];storeKPIs.innerHTML=D.storePanelLabels.map((l,i)=>`<div class="db-kpi"><div class="k-val" id="skv${i}">${vals[i]}</div><div class="k-label">${l}</div>${sBadges[i]?`<div class="k-badge ${sBadgeTypes[i]||'up'}">${sBadges[i]}</div>`:''}</div>`).join('');}
+// Store table
+txt('#storeTableTitle',DB.storeTableTitle||T('topStoresTitle').replace('5 ','10 '));
+const stHdr=D.storeTableHeader;
+const stBody=$('#storeTableBody');
+if(stBody&&DB.storeTable){stBody.innerHTML=`<div class="sc-row sc-header"><span>${stHdr[0]}</span><span>${stHdr[1]}</span><span>${stHdr[2]}</span></div>`+DB.storeTable.map(r=>`<div class="sc-row"><span>${r.n}</span><span>${r.v}</span><span class="st-${r.s}">${D.storeStatusMap[r.s]}</span></div>`).join('');}
+txt('#storeChartTitle',T('storeChartTitle'));
+txt('#storeInsight',DB.storeInsight||'');
+// Store day labels
+const sdl=$('#storeDayLabels');
+if(sdl){const xs=[20,63,106,150,193,237,270];D.daysShort.forEach((d,i)=>{const t=document.createElementNS('http://www.w3.org/2000/svg','text');t.setAttribute('x',xs[i]);t.setAttribute('y',115);t.setAttribute('style','font-size:8px;font-family:Poppins;fill:rgba(36,60,54,.3)');t.textContent=d;sdl.appendChild(t);});}
+// Trends
+txt('#trendChartTitle',DB.trendChartTitle||'');
+txt('#trendPeak',DB.trendPeak||'');
+const tdl=$('#trendDayLabels');
+if(tdl){const xs=[97,167,237,307,377,447,517];D.daysShort.forEach((d,i)=>{const t=document.createElementNS('http://www.w3.org/2000/svg','text');t.setAttribute('x',xs[i]);t.setAttribute('y',166);t.setAttribute('class','chart-label');t.setAttribute('text-anchor','middle');t.textContent=d;tdl.appendChild(t);});}
+const trendCards=$('#trendCards');
+if(trendCards&&DB.trendCards){trendCards.innerHTML=DB.trendCards.map((c,i)=>`<div class="trend-card"><div class="tc-icon"><img src="${TREND_ICONS[i]}" alt="" style="width:20px;height:20px"></div><div class="tc-title">${c.title}</div><div class="tc-text">${c.text}</div></div>`).join('');}
+// Alert filters + feed
+const alertFilters=$('#alertFilters');
+if(alertFilters&&DB.alertFeed){const counts={all:DB.alertFeed.length,red:DB.alertFeed.filter(a=>a.t==='red').length,ylw:DB.alertFeed.filter(a=>a.t==='ylw').length,grn:DB.alertFeed.filter(a=>a.t==='grn').length};alertFilters.innerHTML=D.alertFilters.map((f,i)=>`<span class="af ${i===0?'active':''}" data-f="${f.k}">${f.l.replace('{N}',counts[f.k])}</span>`).join('');}
+const alertFeed=$('#alertFeed');
+if(alertFeed&&DB.alertFeed){alertFeed.innerHTML=DB.alertFeed.map(a=>`<div class="alert-item ${a.t}"><div class="ai-time">${a.time}</div><div class="ai-dot ${a.t}"></div><div class="ai-content"><strong>${a.title}</strong><br>${a.text}</div></div>`).join('');}
+txt('#dbCtaBtn',T('dbCtaText'));
+
+// ═══════════ TIMELINE ═══════════
+txt('#tlTag','● '+T('tlTag'));txt('#tlTitle',T('tlTitle'));txt('#tlDesc',T('tlDesc'));
+const tlWrap=$('#tlRows');
+if(tlWrap&&ROI.tlRows){tlWrap.innerHTML=ROI.tlRows.map((r,i)=>`<div class="tl-row r ${i>0?'d'+i:''}"><div class="tl-time">${r.time||'>>'}</div><div class="tl-col bad"><h4>${r.bad.title}</h4><p>${r.bad.text}</p></div><div class="tl-col good"><h4>${r.good.title}</h4><p>${r.good.text}</p></div></div>`).join('');}
+
+// ═══════════ TESTIMONIALS ═══════════
+txt('#proofTag','● '+T('proofTag'));txt('#proofTitle',T('proofTitle'));
+const proofGrid=$('#proofGrid');
+if(proofGrid){proofGrid.innerHTML=D.testimonials.map((t,i)=>`<div class="pc r d${i+1}"><div class="pc-logo"><img src="${TESTI_LOGOS[i]}" alt="" style="height:28px"></div><div class="q">&ldquo;</div><div class="txt">${t.quote}</div><div class="pc-author"><img src="${TESTI_IMGS[i]}" alt="${t.name}" class="pc-avatar"><div><div class="au">${t.name}</div><div class="ro">${t.role}</div></div></div></div>`).join('');}
+
+// ═══════════ CTA + CALENDAR ═══════════
+txt('#ctaTag','● '+T('ctaTag'));htm('#ctaTitle',T('ctaTitle'));txt('#ctaDesc',T('ctaDesc'));
+const ctaFeat=$('#ctaFeatures');
+if(ctaFeat){const icons=[ICONS.computer,ICONS.cart,ICONS.science];ctaFeat.innerHTML=D.ctaFeatures.map((f,i)=>`<div class="cta-feat"><span class="cf-icon"><img src="${icons[i]}" alt="" style="width:16px;height:16px"></span>${f.replace(/\{B\}/g,BRAND)}</div>`).join('');}
+txt('#pocTitle',T('pocTitle'));txt('#pocSub',T('pocSub'));
+src('#ctaBgImg',CTA_BG);
+txt('#calRetailer','× '+BRAND);
+txt('#calLabel',T('calLabel'));
+const calEmbed=$('#calEmbed');
+if(calEmbed&&CALENDAR){calEmbed.innerHTML='<div class="meetings-iframe-container" data-src="'+CALENDAR+'"></div>';const hs=document.createElement('script');hs.src='https://static.hsappstatic.net/MeetingsEmbed/ex/MeetingsEmbedCode.js';document.body.appendChild(hs);}
+
+// ═══════════ FOOTER ═══════════
+txt('#ftTagline',T('ftTagline'));txt('#ftDesc',T('ftDesc'));txt('#ftPrepared',T('ftPrepared'));
+href('#ftWebsite',D.ftWebsite);href('#ftContact',D.ftContact);
+
+// ═══════════════════════════════════════════════════════
+//  INTERACTIONS
+// ═══════════════════════════════════════════════════════
+
+// ═══════════ CINEMA SCROLL ═══════════
+const doorL=$('#doorL'),doorR=$('#doorR'),doorScroll=$('#doorScroll'),doorsLayer=$('#doorsLayer');
+const darken=$('#darken'),heroC=$('#heroContent'),fog=$('#fog'),nav=$('#nav'),cBottom=$('#cinemaBottom');
+let fogCreated=false;
+function tick(){
+  const y=window.scrollY,vh=window.innerHeight;
+  const dp=Math.min(Math.max(y/vh,0),1);
+  const de=dp<.5?2*dp*dp:(1-Math.pow(-2*dp+2,2)/2);
+  if(doorL)doorL.style.transform='translateX('+(-de*105)+'%)';
+  if(doorR)doorR.style.transform='translateX('+(de*105)+'%)';
+  if(doorScroll)doorScroll.style.opacity=Math.max(1-dp*3,0);
+  if(darken)darken.style.opacity=Math.min(Math.max((y-vh*1.2)/(vh*.4),0),1);
+  const heroP=Math.min(Math.max((y-vh*1.6)/(vh*.5),0),1);
+  if(heroC)heroC.style.opacity=1-Math.pow(1-heroP,3);
+  if(cBottom)cBottom.style.opacity=Math.min(Math.max((y-vh*2)/(vh*.3),0),1);
+  if(dp>.15&&!fogCreated&&fog){fogCreated=true;for(let i=0;i<14;i++){const p=document.createElement('div');p.className='fog-p';const s=60+Math.random()*140;Object.assign(p.style,{width:s+'px',height:s+'px',left:(5+Math.random()*90)+'%',bottom:(-10+Math.random()*30)+'px',animationDelay:Math.random()*1.2+'s',animationDuration:(2+Math.random()*2)+'s'});fog.appendChild(p);}fog.classList.add('active');setTimeout(()=>fog.classList.add('fade'),600);}
+  if(nav){if(y>vh*2.8)nav.classList.add('show');else nav.classList.remove('show');}
+  if(doorsLayer)doorsLayer.style.pointerEvents=dp>.8?'none':'auto';
+  if(nav)nav.classList.toggle('scrolled',y>vh*3);
+}
+window.addEventListener('scroll',tick,{passive:true});tick();
+
+// ═══════════ REVEAL ═══════════
+const obs=new IntersectionObserver(e=>{e.forEach(x=>{if(x.isIntersecting)x.target.classList.add('v');});},{threshold:.1,rootMargin:'0px 0px -60px 0px'});
+$$('.r').forEach(el=>obs.observe(el));
+
+// ═══════════ ROI CALCULATOR ═══════════
+const fmt=n=>{const sep=LANG==='en'?'.':',';const v=n>=1e6?(n/1e6).toFixed(1).replace('.',sep)+' M':Math.round(n/1e3)+' K';return CURR_POS==='before'?CURR+v:v+' '+CURR;};
+const fH=n=>Math.round(n).toLocaleString(D.dateLocale)+' h';
+let pv={s:0,w:0,t:0,a:0};
+function an(el,f,t,d,fn){const t0=performance.now();(function tk(n){const p=Math.min((n-t0)/d,1);el.textContent=fn(f+(t-f)*(1-Math.pow(1-p,3)));if(p<1)requestAnimationFrame(tk);})(t0);}
+function calcROI(){
+  if(!sS||!sR||!sW)return;
+  const st=+sS.value,rv=+sR.value*1000,wr=+sW.value/100;
+  txt('#vS',st);const rvK=(rv/1000)+' K';txt('#vR',CURR_POS==='before'?CURR+rvK:rvK+' '+CURR);txt('#vW',sW.value.replace('.',LANG==='en'?'.':',')+' %');
+  const s=st*rv*.04,w=st*rv*wr*.4,t=st*365*.33,a=s+w;
+  an($('#rS'),pv.s,s,350,fmt);an($('#rW'),pv.w,w,350,fmt);an($('#rT'),pv.t,t,350,fH);an($('#rA'),pv.a,a,350,fmt);
+  pv={s,w,t,a};
+}
+if(sS){sS.oninput=sR.oninput=sW.oninput=calcROI;calcROI();}
+
+// ═══════════ DASHBOARD TABS ═══════════
+document.addEventListener('click',function(e){
+  const tab=e.target.closest('.db-tab');
+  if(tab){$$('.db-tab').forEach(t=>t.classList.remove('active'));tab.classList.add('active');$$('.db-panel').forEach(p=>p.classList.remove('active'));const panel=$('.db-panel[data-panel="'+tab.dataset.tab+'"]');if(panel)panel.classList.add('active');}
+  const af=e.target.closest('.af');
+  if(af){$$('.af').forEach(x=>x.classList.remove('active'));af.classList.add('active');const filter=af.dataset.f;$$('.alert-item').forEach(item=>{item.style.display=(filter==='all'||item.classList.contains(filter))?'flex':'none';});}
+});
+const storeSelect=$('#storeSelect');
+if(storeSelect&&DB.storeData){storeSelect.addEventListener('change',function(){const d=DB.storeData[this.value];if(!d)return;const vals=[d.f+'%',d.r+'%',d.d+'%',d.a+'%'];vals.forEach((v,i)=>{const el=document.getElementById('skv'+i);if(el)el.textContent=v;});});}
+
+// Dashboard animation
+const dbFrame=$('#dbFrame');
+function animKPI(id,from,to,dur,suffix){const el=document.getElementById(id);if(!el)return;const t0=performance.now();(function f(now){const p=Math.min((now-t0)/dur,1);el.textContent=(from+(to-from)*(1-Math.pow(1-p,3))).toFixed(1)+suffix;if(p<1)requestAnimationFrame(f);})(t0);}
+const dbObs=new IntersectionObserver(e=>{e.forEach(x=>{if(x.isIntersecting){x.target.classList.add('flat');if(DB.kpiTargets){DB.kpiTargets.forEach((t,i)=>animKPI('kv'+i,0,t,1000+i*200,DB.kpiSuffixes?DB.kpiSuffixes[i]:''));}}});},{threshold:.2});
+if(dbFrame)dbObs.observe(dbFrame);
+
+
+
+// ═══════════ TABLET DEMO ═══════════
+let dVal=0;
+window.dValOne=function(btn){const row=btn.closest('.prod-row');if(row.classList.contains('done'))return;row.classList.add('done');btn.textContent='✓';dVal++;txt('#vc2',dVal);dUpdateStep(1);if(dVal>=pLen)setTimeout(()=>dGo('conf'),500);};
+window.dValidateAll=function(){$$('.prod-row:not(.done)').forEach((r,i)=>{setTimeout(()=>{r.classList.add('done');r.querySelector('.pr-btn').textContent='✓';dVal++;txt('#vc2',dVal);},i*80);});setTimeout(()=>dGo('conf'),pLen*80+300);};
+window.dGo=function(screen){
+  const map={home:'av0',list:'av1',conf:'av2',stock:'av3',forecast:'av4',perf:'av5'};
+  $$('.app-view').forEach(v=>v.classList.remove('active'));
+  const el=document.getElementById(map[screen]);if(el)el.classList.add('active');
+  if(screen==='home'){dVal=0;txt('#vc2','0');$$('.prod-row').forEach(r=>{r.classList.remove('done');r.querySelector('.pr-btn').textContent=T('validateBtn');});dUpdateStep(0);}
+  if(screen==='list')dUpdateStep(1);
+  if(screen==='conf')dUpdateStep(2);
+  const navMap={home:'order',list:'order',conf:'order',stock:'stock',forecast:'forecast',perf:'perf'};
+  $$('.bnav-item').forEach(b=>b.classList.toggle('active',b.dataset.bnav===navMap[screen]));
+};
+window.dNav=function(tab){const map={order:'home',stock:'stock',forecast:'forecast',perf:'perf'};dGo(map[tab]);};
+function dUpdateStep(n){$$('.ds').forEach(s=>s.classList.toggle('active',parseInt(s.dataset.ds)===n));}
+
+
+
+// ═══════════ SMOOTH SCROLL ═══════════
+document.addEventListener('click',function(e){const a=e.target.closest('a[href^="#"]');if(a){e.preventDefault();const t=$(a.getAttribute('href'));if(t)t.scrollIntoView({behavior:'smooth'});}});
+
+console.log('🚀 FOS Engine v1.0 loaded — '+BRAND+' ('+LANG+')');
+})();
+
+// ── ROI EBITDA Calculator ──
+
+  const fmtInt = (n) => Math.round(n).toLocaleString('es-ES');
+  const fmt1 = (n) => n.toLocaleString('es-ES', { minimumFractionDigits: 1, maximumFractionDigits: 1 });
+
+  const ins = {
+    revenue: document.getElementById('in-revenue'),
+    fyv: document.getElementById('in-fyv'),
+    shrink: document.getElementById('in-shrink'),
+    margin: document.getElementById('in-margin'),
+    reduce: document.getElementById('in-reduce'),
+    uplift: document.getElementById('in-uplift'),
+  };
+
+  function compute() {
+    const revenue = parseFloat(ins.revenue.value) || 0;
+    const fyvPct = (parseFloat(ins.fyv.value) || 0) / 10;
+    const shrinkPct = (parseFloat(ins.shrink.value) || 0) / 10;
+    const marginPct = parseFloat(ins.margin.value) || 0;
+    const reducePct = parseFloat(ins.reduce.value) || 0;
+    const upliftPct = parseFloat(ins.uplift.value) || 0;
+
+    document.getElementById('lbl-revenue').textContent = fmtInt(revenue);
+    document.getElementById('lbl-fyv').textContent = fmt1(fyvPct);
+    document.getElementById('lbl-shrink').textContent = fmt1(shrinkPct);
+    document.getElementById('lbl-margin').textContent = fmtInt(marginPct);
+    document.getElementById('lbl-reduce').textContent = fmtInt(reducePct);
+    document.getElementById('lbl-uplift').textContent = fmtInt(upliftPct);
+
+    const revenueEur = revenue * 1_000_000;
+    const fyvSales = revenueEur * (fyvPct / 100);
+    const shrinkCurrent = fyvSales * (shrinkPct / 100);
+    const shrinkAvoided = shrinkCurrent * (reducePct / 100);
+    const upliftSales = fyvSales * (upliftPct / 100);
+    const upliftMargin = upliftSales * (marginPct / 100);
+    const ebitda = shrinkAvoided + upliftMargin;
+    const perStore = ebitda / 148;
+    const shrinkAfter = shrinkCurrent - shrinkAvoided;
+
+    document.getElementById('kpi-ebitda').textContent = fmtInt(ebitda);
+    document.getElementById('kpi-per-store').textContent = fmtInt(perStore);
+    document.getElementById('kpi-3y').textContent = fmtInt(ebitda * 3);
+    document.getElementById('kpi-reduction-pct').textContent = fmtInt(reducePct);
+
+    document.getElementById('p1-value').textContent = fmtInt(shrinkAvoided);
+    document.getElementById('p2-value').textContent = fmtInt(upliftMargin);
+    document.getElementById('total-ebitda').textContent = fmtInt(ebitda);
+
+    const p1Pct = ebitda > 0 ? (shrinkAvoided / ebitda) * 100 : 50;
+    const p2Pct = ebitda > 0 ? (upliftMargin / ebitda) * 100 : 50;
+    document.getElementById('bar-p1').style.width = p1Pct + '%';
+    document.getElementById('bar-p2').style.width = p2Pct + '%';
+    document.getElementById('leg-p1').textContent = Math.round(p1Pct) + '%';
+    document.getElementById('leg-p2').textContent = Math.round(p2Pct) + '%';
+
+    document.getElementById('y1').textContent = fmtInt(ebitda);
+    document.getElementById('y2').textContent = fmtInt(ebitda * 2);
+    document.getElementById('y3').textContent = fmtInt(ebitda * 3);
+
+    const readingEl = document.getElementById('reading-sentence');
+    readingEl.innerHTML = `Con estos parámetros, Grupo Cuevas recuperaría <strong>${fmtInt(ebitda)} €</strong> anuales de EBITDA, equivalentes a <strong>${fmtInt(perStore)} €</strong> por tienda al año. La reducción del <strong>${fmtInt(reducePct)}%</strong> sobre la merma actual aporta <strong>${fmtInt(shrinkAvoided)} €</strong> y el aumento del <strong>${fmtInt(upliftPct)}%</strong> en ingresos suma <strong>${fmtInt(upliftMargin)} €</strong>. A tres años, el impacto acumulado supera los <strong>${fmtInt(ebitda * 3)} €</strong>.`;
+  }
+
+  Object.values(ins).forEach(el => el.addEventListener('input', compute));
+  compute();
+
+</script>
+</body>
+</html>
