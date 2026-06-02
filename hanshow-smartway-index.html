@@ -1,0 +1,1330 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hanshow × Smartway — Zero Expired. Half the Labor. More Margin.</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<script charset="utf-8" type="text/javascript" src="https://js-eu1.hsforms.net/forms/embed/v2.js" defer></script>
+<style>
+:root{
+  --dark:#1A2E28;--green:#31715B;--lg:#CDE7A1;
+  --mint:#EEF1EA;--white:#FFF;--black:#0A0F0D;
+  --yellow:#FFD712;--coral:#F47C6D;--grey:#E2E0E3;
+  --font:'Poppins',sans-serif;
+  --t:all .4s cubic-bezier(.16,1,.3,1)
+}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth;touch-action:manipulation}
+body{font-family:var(--font);color:var(--dark);background:var(--black);overflow-x:hidden;-webkit-font-smoothing:antialiased}
+::selection{background:var(--green);color:var(--white)}
+img{max-width:100%;display:block}
+
+/* ── HERO ── */
+.hero{position:relative;width:100%;height:100vh;overflow:hidden;display:flex;align-items:center;justify-content:center}
+.hero-video{position:absolute;inset:0;z-index:0}
+.hero-video video{width:100%;height:100%;object-fit:cover;filter:brightness(.48) saturate(1.2)}
+.hero-vignette{position:absolute;inset:0;z-index:1;background:radial-gradient(ellipse 90% 70% at 50% 50%,transparent 15%,rgba(10,15,13,.5) 60%,rgba(10,15,13,.88) 100%);pointer-events:none}
+.hero-darken{position:absolute;inset:0;z-index:2;background:rgba(10,15,13,.35);pointer-events:none}
+
+/* ── HERO SCROLL INDICATOR ── */
+.hero-scroll-wrap{position:absolute;bottom:36px;left:50%;transform:translateX(-50%);z-index:4;display:flex;flex-direction:column;align-items:center;gap:10px}
+.hero-scroll-wrap .hs-label{font-size:.68rem;font-weight:600;text-transform:uppercase;letter-spacing:.12em;color:rgba(255,255,255,.25)}
+.hero-scroll-wrap .hs-arrow{width:18px;height:18px;border-right:2px solid rgba(255,255,255,.2);border-bottom:2px solid rgba(255,255,255,.2);transform:rotate(45deg);animation:sBounce 2s ease infinite}
+@keyframes sBounce{0%,100%{transform:rotate(45deg) translateY(0)}50%{transform:rotate(45deg) translateY(6px)}}
+@keyframes eslFlash{0%,100%{opacity:1}50%{opacity:.18}}
+
+/* ── HERO CONTENT ── */
+.hero-inner{position:relative;z-index:3;display:flex;flex-direction:column;align-items:center;text-align:center;padding:0 32px;animation:heroIn .9s cubic-bezier(.16,1,.3,1) forwards}
+@keyframes heroIn{0%{opacity:0;transform:translateY(20px)}100%{opacity:1;transform:translateY(0)}}
+.hero-logos{display:flex;align-items:center;justify-content:center;gap:16px;margin-bottom:48px}
+.hero-logos img{height:24px;object-fit:contain}
+.hero-logos .x-mark{color:rgba(255,255,255,.3);font-size:1.4rem;font-weight:300}
+.hero-h1{font-size:clamp(2rem,5vw,3.2rem);font-weight:800;color:var(--white);line-height:1.1;letter-spacing:-.03em;margin-bottom:24px;max-width:860px}
+.hero-h1 em{font-style:normal;background:linear-gradient(135deg,var(--lg),#8FD88F);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.hero-sub{font-size:clamp(1rem,1.5vw,1.15rem);color:rgba(255,255,255,.82);font-weight:400;line-height:1.7;max-width:620px;margin-bottom:48px}
+.hero-ctas{display:flex;gap:16px;justify-content:center;flex-wrap:wrap}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+
+/* ── NAV ── */
+.nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:14px 40px;display:flex;align-items:center;justify-content:space-between;background:#243c36;border-radius:0 0 48px 48px;transition:var(--t)}
+.nav.scrolled{background:rgba(36,60,54,.97);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);box-shadow:0 1px 0 rgba(205,231,161,.1)}
+@media(max-width:600px){.nav,.nav.scrolled{padding:12px 20px}}
+.nav-logo{display:flex;align-items:center;gap:10px}
+.nav-logo img{height:28px;object-fit:contain}
+.nav-x{color:rgba(205,231,161,.35);font-size:.9rem;font-weight:300}
+.nav-cta{padding:10px 22px;background:var(--lg);color:#243c36;font-family:var(--font);font-size:.82rem;font-weight:700;border:none;border-radius:100px;cursor:pointer;text-decoration:none;transition:var(--t);white-space:nowrap}
+.nav-cta:hover{background:var(--white);transform:translateY(-1px)}
+
+/* ── UTILS ── */
+.noise::after{content:'';position:absolute;inset:0;z-index:1;opacity:.03;pointer-events:none;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.7' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");background-repeat:repeat;background-size:256px}
+@keyframes revealUp{from{opacity:0;transform:translateY(32px)}to{opacity:1;transform:translateY(0)}}.r{opacity:0;transform:translateY(32px);transition:opacity .8s cubic-bezier(.16,1,.3,1),transform .8s cubic-bezier(.16,1,.3,1);animation:revealUp .8s cubic-bezier(.16,1,.3,1) 0.8s forwards}.r.v{opacity:1;transform:translateY(0);animation:none}.r.d1{animation-delay:.9s}.r.d2{animation-delay:1s}.r.d3{animation-delay:1.1s}.r.d4{animation-delay:1.2s}.r.d5{animation-delay:1.3s}
+.r.d1{transition-delay:.1s}.r.d2{transition-delay:.2s}.r.d3{transition-delay:.3s}.r.d4{transition-delay:.4s}.r.d5{transition-delay:.5s}
+section{padding:120px 32px;position:relative;border-radius:48px 48px 0 0;margin-top:-48px;overflow:hidden}
+.inner{max-width:1100px;margin:0 auto}
+.s-tag{display:inline-flex;align-items:center;gap:6px;font-size:.7rem;font-weight:600;text-transform:uppercase;letter-spacing:.12em;margin-bottom:16px}
+.s-tag.green{color:var(--green)}.s-tag.light{color:var(--lg)}
+.s-title{font-size:clamp(1.6rem,3.5vw,2.5rem);font-weight:800;line-height:1.2;letter-spacing:-.025em;margin-bottom:16px}
+.s-title em{font-style:normal;background:linear-gradient(135deg,var(--lg),#8FD88F);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.s-desc{font-size:1rem;font-weight:300;line-height:1.75;max-width:620px;opacity:.55}.s-desc.c{margin:0 auto;text-align:center}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:16px 36px;font-family:var(--font);font-size:.9rem;font-weight:600;border:none;border-radius:14px;cursor:pointer;text-decoration:none;transition:var(--t)}
+.btn-g{background:var(--green);color:var(--white)}.btn-g:hover{background:var(--lg);color:var(--black);transform:translateY(-2px);box-shadow:0 12px 40px rgba(205,231,161,.25)}
+.btn-o{background:rgba(255,255,255,.08);color:var(--white);border:1px solid rgba(255,255,255,.15)}.btn-o:hover{background:var(--lg);color:var(--black);border-color:var(--lg);transform:translateY(-2px)}
+
+/* ── SECTION STACKING Z-INDEX ── */
+.s-ins{z-index:2}
+.s-demo{z-index:3}
+.s-margin{z-index:4}
+.us-sp{z-index:6}
+.s-cases{z-index:8}
+.s-deploy{z-index:9}
+.s-cta{z-index:10}
+footer{border-radius:48px 48px 0 0;margin-top:-48px;overflow:hidden;z-index:11}
+
+/* ── INSIGHTS (WHITE) ── */
+.s-ins{background:var(--white);padding:100px 32px 200px}
+.s-ins .s-title{color:var(--dark)}
+.s-ins .s-desc{color:rgba(26,46,40,.55)}
+.ins-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:48px}
+@media(max-width:992px){.ins-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:600px){.ins-grid{grid-template-columns:1fr}}
+.ic{background:var(--mint);border-radius:20px;padding:32px 24px;position:relative;overflow:hidden;transition:var(--t)}
+.ic:hover{transform:translateY(-6px);box-shadow:0 20px 60px rgba(26,46,40,.08)}
+.ic .ico{margin-bottom:20px}
+.ic .ico img{width:36px;height:36px;object-fit:contain}
+.ic .stat{font-size:1.1rem;font-weight:700;color:var(--dark);margin-bottom:6px;letter-spacing:-.02em}
+.ic .desc{font-size:.84rem;color:rgba(26,46,40,.5);line-height:1.65}
+
+/* ── IMPACT (scroll-driven, photo) ── */
+.s-impact{position:relative;height:250vh;z-index:4}
+.impact-sticky{position:sticky;top:0;width:100%;height:100vh;overflow:hidden;display:flex;flex-direction:column;justify-content:center}
+.impact-bg{position:absolute;inset:0;z-index:0}
+.impact-bg img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity 1.2s ease}
+.impact-bg img.active{opacity:1}
+.impact-bg::after{content:'';position:absolute;inset:0;background:linear-gradient(90deg,rgba(10,15,13,.9) 0%,rgba(10,15,13,.75) 35%,rgba(10,15,13,.4) 100%);z-index:1}
+.impact-inner{position:relative;z-index:3;width:100%;padding-left:max(40px,6vw);padding-right:24px;display:flex;flex-direction:column;align-items:flex-start}
+.impact-headline{margin-top:8vh;margin-bottom:24px}
+.impact-headline h2{font-size:clamp(1.8rem,3.5vw,2.8rem);font-weight:800;color:var(--white);line-height:1.15;letter-spacing:-.03em;max-width:700px}
+.impact-headline h2 em{font-style:normal;background:linear-gradient(135deg,var(--lg),#8FD88F);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.impact-card-wrap{position:relative;min-height:280px;width:100%;max-width:460px}
+.impact-card{padding:24px;border-radius:16px;backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,.12);opacity:0;transform:translateY(16px) scale(.97);transition:all .7s cubic-bezier(.16,1,.3,1);position:absolute;top:0;left:0;right:0;pointer-events:none}
+.impact-card.visible{opacity:1;transform:translateY(0) scale(1);pointer-events:auto}
+.impact-card:nth-child(1){background:rgba(244,124,109,.15);border-color:rgba(244,124,109,.2)}
+.impact-card:nth-child(2){background:rgba(49,113,91,.18);border-color:rgba(49,113,91,.3)}
+.impact-card:nth-child(3){background:rgba(205,231,161,.14);border-color:rgba(205,231,161,.22)}
+.impact-card .ic-big{font-size:clamp(1.3rem,2.4vw,1.7rem);font-weight:800;color:#fff;line-height:1.2;margin-bottom:8px;letter-spacing:-.02em}
+.impact-card .ic-sub{font-size:.84rem;color:rgba(255,255,255,.85);line-height:1.6}
+.impact-card .ic-detail{margin-top:10px;font-size:.78rem;color:rgba(255,255,255,.75);line-height:1.5;padding-top:10px;border-top:1px solid rgba(255,255,255,.15)}
+.impact-card .ic-gauge{margin-top:12px;height:8px;border-radius:4px;background:rgba(255,255,255,.15);overflow:hidden}
+.impact-card .ic-gauge-fill{height:100%;border-radius:4px;width:0;transition:width 2s cubic-bezier(.16,1,.3,1) .3s}
+.impact-card.visible .ic-gauge-fill{width:var(--gw,100%)}
+.impact-card:nth-child(2) .ic-gauge-fill{background:linear-gradient(90deg,var(--green),var(--lg))}
+.impact-bottom{margin-top:20px;width:100%;max-width:460px}
+.impact-bottom-text{font-size:1rem;color:rgba(255,255,255,.8);line-height:1.6;margin-bottom:12px}
+.impact-dots{display:flex;gap:10px}
+.impact-dot{width:10px;height:10px;border-radius:50%;background:rgba(255,255,255,.2);transition:all .4s ease;cursor:pointer}
+.impact-dot.active{background:var(--lg);box-shadow:0 0 12px rgba(205,231,161,.5);transform:scale(1.2)}
+
+/* ── DEMO ── */
+.s-demo{background:var(--dark);overflow:hidden;padding:0;position:relative;border-radius:48px 48px 0 0;margin-top:-48px}
+.demo-intro{padding:80px 32px 24px;text-align:center;position:relative;z-index:2;background:linear-gradient(180deg,var(--dark) 0%,transparent 100%)}
+.demo-scene{position:relative;width:100%;overflow:hidden;isolation:isolate}
+.aisle-photo{position:relative;width:100%;overflow:hidden}
+.aisle-photo img{width:100%;display:block;filter:brightness(.6) saturate(1.15)}
+.aisle-overlay-top{position:absolute;top:0;left:0;right:0;height:20%;background:linear-gradient(180deg,var(--dark),transparent);z-index:1;pointer-events:none}
+.aisle-overlay-bottom{position:absolute;bottom:0;left:0;right:0;height:35%;background:linear-gradient(0deg,var(--dark),transparent);z-index:1;pointer-events:none}
+.aisle-scan{position:absolute;top:0;bottom:0;left:-8px;width:8px;background:linear-gradient(180deg,transparent 5%,rgba(205,231,161,.6) 25%,rgba(205,231,161,.95) 50%,rgba(205,231,161,.6) 75%,transparent 95%);box-shadow:0 0 40px 15px rgba(205,231,161,.2),0 0 80px 30px rgba(205,231,161,.08);z-index:5;opacity:0;pointer-events:none;border-radius:4px}
+.aisle-scan.active{opacity:1;animation:aisleSweep 2.8s cubic-bezier(.22,.68,.36,1) forwards}
+@keyframes aisleSweep{0%{left:-8px}100%{left:calc(100% + 8px)}}
+
+/* GPS markers */
+.gps-marker{position:absolute;z-index:4;opacity:0;transform:scale(0) translateY(8px);transition:all .5s cubic-bezier(.34,1.56,.64,1);pointer-events:none}
+.gps-marker.show{opacity:1;transform:scale(1) translateY(0)}
+.gps-pin{position:relative}
+.gps-pin-head{width:34px;height:34px;border-radius:50%;background:rgba(244,124,109,.95);border:3px solid rgba(255,255,255,.85);display:flex;align-items:center;justify-content:center;box-shadow:0 4px 20px rgba(244,124,109,.6),0 0 40px rgba(244,124,109,.2);position:relative;z-index:2}
+.gps-pin-head span{font-size:.8rem;line-height:1}
+.gps-pin-tail{position:absolute;bottom:-7px;left:50%;transform:translateX(-50%);width:0;height:0;border-left:7px solid transparent;border-right:7px solid transparent;border-top:9px solid rgba(255,255,255,.85);z-index:1}
+.gps-pulse{position:absolute;top:50%;left:50%;width:34px;height:34px;border-radius:50%;background:rgba(255,215,18,.7);transform:translate(-50%,-50%);animation:gpsPulse 2s ease-out infinite;z-index:0}
+.gps-pulse-2{position:absolute;top:50%;left:50%;width:34px;height:34px;border-radius:50%;background:rgba(255,215,18,.4);transform:translate(-50%,-50%);animation:gpsPulse 2s ease-out infinite .6s;z-index:0}
+.gps-pulse-3{position:absolute;top:50%;left:50%;width:34px;height:34px;border-radius:50%;background:rgba(255,215,18,.2);transform:translate(-50%,-50%);animation:gpsPulse 2s ease-out infinite 1.2s;z-index:0}
+@keyframes gpsPulse{0%{width:34px;height:34px;opacity:1}100%{width:100px;height:100px;opacity:0}}
+.gps-label{position:absolute;top:-26px;left:50%;transform:translateX(-50%);white-space:nowrap;background:rgba(10,15,13,.85);backdrop-filter:blur(10px);color:var(--white);font-size:.55rem;font-weight:600;padding:3px 10px;border-radius:6px;letter-spacing:.02em;border:1px solid rgba(255,255,255,.12)}
+.gps-label::after{content:'';position:absolute;bottom:-4px;left:50%;transform:translateX(-50%);border-left:4px solid transparent;border-right:4px solid transparent;border-top:4px solid rgba(10,15,13,.85)}
+
+/* ESL flash overlays - Hanshow specific */
+.esl-label{position:absolute;z-index:6;pointer-events:none;display:flex;align-items:center;gap:4px;padding:3px 9px;border-radius:4px;font-size:.56rem;font-weight:700;letter-spacing:.02em}
+.esl-label.flash{background:rgba(205,231,161,.2);border:1.5px solid rgba(205,231,161,.85);color:var(--lg);animation:eslFlash .9s ease-in-out infinite}
+.esl-label.urgent{background:rgba(255,215,18,.2);border:1.5px solid rgba(255,215,18,.85);color:var(--yellow);animation:eslFlash .6s ease-in-out infinite}
+.esl-dot{width:5px;height:5px;border-radius:50%;background:currentColor}
+
+/* PDA overlay */
+.pda-overlay{position:absolute;top:50%;left:50%;transform:translate(-50%,-54%);z-index:6;width:min(210px,27vw)}
+.pda-device{position:relative;width:100%}
+.pda-device>img{width:100%;display:block;position:relative;z-index:2;filter:drop-shadow(0 25px 60px rgba(0,0,0,.7))}
+.pda-glow{position:absolute;top:25%;left:50%;transform:translate(-50%,-40%);width:250%;height:250%;background:radial-gradient(ellipse 35% 45% at 50% 50%,rgba(205,231,161,.1),rgba(49,113,91,.05) 40%,transparent 65%);pointer-events:none;z-index:1;animation:pdaGlow 4s ease-in-out infinite}
+@keyframes pdaGlow{0%,100%{opacity:.5;transform:translate(-50%,-40%) scale(1)}50%{opacity:.9;transform:translate(-50%,-40%) scale(1.05)}}
+.pda-screen-content{position:absolute;top:18.5%;left:10%;right:10%;bottom:16%;z-index:3;overflow:hidden;border-radius:6px;background:#f2f2f2;display:flex;flex-direction:column;font-family:var(--font)}
+.pda-app-bar{padding:5px 8px 4px;background:#fff;border-bottom:1px solid #e5e5e5;display:flex;align-items:center;justify-content:space-between;flex-shrink:0}
+.pda-app-bar .pab-left{display:flex;align-items:center;gap:3px}
+.pda-app-bar .pab-left img{height:7px;object-fit:contain}
+.pda-app-bar .pab-left span{font-size:.36rem;color:#333;font-weight:600}
+.pda-app-bar .pab-right{display:flex;align-items:center;gap:2px}
+.pda-app-bar .pab-live{width:4px;height:4px;border-radius:50%;background:#31715B;animation:pulse 2s ease infinite}
+.pda-app-bar .pab-live-txt{font-size:.28rem;font-weight:700;color:#31715B}
+.pda-screen{flex:1;overflow-y:auto;scrollbar-width:none;display:flex;flex-direction:column;transition:opacity .4s ease}
+.pda-screen::-webkit-scrollbar{display:none}
+.pda-screen.hidden{display:none}
+.pda-ws-title{font-size:.6rem;font-weight:700;color:#1a1a1a;padding:6px 8px 1px;letter-spacing:-.01em}
+.pda-ws-date{font-size:.32rem;color:#888;padding:0 8px 4px;font-weight:400}
+.pda-ws-sub{font-size:.3rem;color:#999;padding:0 8px 4px;font-weight:500;text-transform:uppercase;letter-spacing:.04em}
+.pda-ws-list{padding:0 5px 5px;display:flex;flex-direction:column;gap:3px;flex:1}
+.pda-ws-card{background:#fff;border-radius:7px;padding:7px;display:flex;align-items:center;justify-content:space-between;box-shadow:0 1px 3px rgba(0,0,0,.04);border:1px solid transparent}
+.pda-ws-card.hl{border-color:rgba(49,113,91,.2);background:rgba(49,113,91,.03)}
+.pda-ws-card .ws-name{font-size:.4rem;font-weight:700;color:#222;text-transform:uppercase;letter-spacing:.02em}
+.pda-ws-card.hl .ws-name{color:#31715B}
+.pda-ws-card .ws-counts{display:flex;align-items:center;gap:5px}
+.ws-cnt{font-size:.34rem;font-weight:600;color:#666}
+.pda-bottom-nav{padding:3px 0;text-align:center;background:#fff;border-top:1px solid #e5e5e5;flex-shrink:0}
+.pda-bottom-nav .pbn-icon{font-size:.5rem}
+.pda-bottom-nav .pbn-label{font-size:.26rem;font-weight:600;color:#31715B}
+.pda-prod-back{font-size:.32rem;color:#888;padding:4px 7px 2px;cursor:pointer;display:flex;align-items:center;gap:2px}
+.pda-prod-name{font-size:.48rem;font-weight:700;color:#1a1a1a;padding:0 7px;line-height:1.3}
+.pda-prod-ean{font-size:.3rem;color:#999;padding:1px 7px 4px}
+.pda-prod-info{margin:0 5px;background:#fff;border-radius:7px;padding:7px;display:flex;justify-content:space-between;box-shadow:0 1px 3px rgba(0,0,0,.04);margin-bottom:4px}
+.pi-col{text-align:center}
+.pi-label{font-size:.26rem;color:#888;margin-bottom:2px}
+.pi-value{font-size:.36rem;font-weight:700;color:#1a1a1a}
+.pi-value.urgent{color:#F47C6D;background:rgba(244,124,109,.08);padding:2px 4px;border-radius:3px;border:1px solid rgba(244,124,109,.2)}
+.pda-prod-avail{margin:0 5px 4px;background:#fff;border-radius:7px;padding:6px 7px;box-shadow:0 1px 3px rgba(0,0,0,.04)}
+.pda-prod-avail .pa-title{font-size:.32rem;font-weight:600;color:#1a1a1a;margin-bottom:3px}
+.pda-prod-avail .pa-btns{display:flex;gap:3px}
+.pa-btn{flex:1;padding:3px 0;border-radius:5px;font-size:.3rem;font-weight:600;text-align:center;border:1px solid #ddd;background:#fff;color:#666}
+.pa-btn.active{border-color:#31715B;background:rgba(49,113,91,.06);color:#31715B}
+.pda-prod-dlc{margin:0 5px 4px;background:#fff;border-radius:7px;padding:6px 7px;box-shadow:0 1px 3px rgba(0,0,0,.04)}
+.pda-prod-dlc .pd-title{font-size:.32rem;font-weight:600;color:#1a1a1a;margin-bottom:1px}
+.pda-prod-dlc .pd-hint{font-size:.24rem;color:#aaa;margin-bottom:3px}
+.pda-prod-dlc .pd-date{display:flex;align-items:center;gap:3px;justify-content:center}
+.pd-digit{background:#f5f5f5;border:1px solid #ddd;border-radius:4px;padding:3px 5px;font-size:.44rem;font-weight:700;color:#1a1a1a;text-align:center;min-width:17px}
+.pd-sep{font-size:.36rem;color:#bbb}
+.pda-confirm-btn{margin:4px 5px;padding:7px 0;background:#31715B;color:#fff;border:none;border-radius:7px;font-family:var(--font);font-size:.36rem;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:2px;flex-shrink:0}
+
+/* Demo stats */
+.demo-overlay-stats{position:relative;z-index:7;display:flex;flex-direction:column;align-items:center;gap:16px;width:100%;padding:0 20px 48px;margin-top:-260px;background:linear-gradient(180deg,rgba(26,46,40,0) 0%,rgba(26,46,40,.85) 35%,var(--dark) 60%)}
+.demo-stats-bar{display:flex;align-items:center;justify-content:center;gap:32px;flex-wrap:wrap}
+.demo-stat{background:rgba(255,255,255,.04);border:1px solid rgba(205,231,161,.25);border-radius:12px;padding:12px 24px;text-align:center;min-width:130px;backdrop-filter:blur(4px)}
+.demo-stat .dsv{font-size:1.8rem;font-weight:800;color:var(--lg);font-variant-numeric:tabular-nums}
+.demo-stat .dsl{font-size:.65rem;color:rgba(255,255,255,.4);margin-top:2px}
+.demo-result{display:inline-block;padding:10px 24px;background:rgba(205,231,161,.06);border:1px solid rgba(205,231,161,.15);border-radius:12px;font-size:.82rem;color:var(--lg);font-weight:500;opacity:0;transform:translateY(8px);transition:all .6s cubic-bezier(.16,1,.3,1)}
+.demo-result.show{opacity:1;transform:translateY(0)}.demo-result strong{color:var(--white)}
+.demo-replay{position:absolute;top:17%;left:50%;transform:translateX(-50%);z-index:12;display:inline-flex;align-items:center;gap:6px;padding:9px 22px;background:rgba(15,30,25,.55);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);color:rgba(255,255,255,.82);border:1px solid rgba(205,231,161,.22);border-radius:100px;font-family:var(--font);font-size:.82rem;font-weight:500;letter-spacing:.01em;cursor:pointer;opacity:1;transition:background .25s ease,color .25s ease,border-color .25s ease,transform .25s ease}
+.demo-replay.show{opacity:1;transform:translateX(-50%)}
+.demo-replay:hover{background:rgba(205,231,161,.92);color:var(--dark);border-color:rgba(205,231,161,.92);transform:translateX(-50%) translateY(-1px)}
+@media(max-width:768px){.pda-overlay{width:min(170px,34vw)}.gps-pin-head{width:26px;height:26px}.gps-pulse{width:26px;height:26px}}
+
+/* ── HOW IT WORKS (steps with GIFs, below demo) ── */
+.demo-hiw{padding:120px 32px 200px;background:var(--dark);position:relative;z-index:2}
+.demo-hiw-inner{max-width:1100px;margin:0 auto}
+.demo-hiw-title{text-align:center;margin-bottom:72px}
+.demo-hiw-title .s-tag{margin-bottom:12px}
+.demo-hiw-title h3{font-size:clamp(2rem,4vw,3.2rem);font-weight:800;color:var(--white);line-height:1.1;letter-spacing:-.03em}
+.demo-hiw-title h3 em{font-style:normal;background:linear-gradient(135deg,var(--lg),#8FD88F);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.demo-steps{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;align-items:start}
+.demo-step{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:16px;overflow:hidden}
+.vid-clip{overflow:hidden;border-radius:14px 14px 0 0;position:relative}
+@media(max-width:900px){.demo-steps{grid-template-columns:1fr 1fr;gap:14px}}
+@media(max-width:550px){.demo-steps{grid-template-columns:1fr}}
+.demo-step:hover{transform:translateY(-4px);border-color:rgba(205,231,161,.15)}
+.demo-step-vid{width:100%;aspect-ratio:4/3;object-fit:cover;display:block;background:#000}
+.vid-clip.top-crop{aspect-ratio:4/3;position:relative;overflow:hidden}
+.vid-clip.top-crop video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 0%!important;transform:none!important}
+.demo-step-vid.zoom{transform:scale(1.45);transform-origin:center center}
+
+/* Step cards */
+.demo-step{filter:brightness(.35);opacity:.65;transition:filter .5s ease,opacity .5s ease,box-shadow .5s ease,border-color .5s ease;cursor:pointer}
+.demo-step.active{filter:brightness(1);opacity:1;border-width:2.5px;border-color:rgba(255,215,18,.85);box-shadow:0 0 0 3px rgba(255,215,18,.2),0 16px 56px rgba(255,215,18,.18)}
+
+/* Step outer header - number + icon above card */
+.step-wrap{display:flex;flex-direction:column;gap:14px}
+.step-outer-hd{display:flex;align-items:center;gap:10px;padding:0 4px}
+.step-big-num{font-size:4rem;font-weight:300;color:rgba(255,255,255,.2);letter-spacing:-.04em;line-height:1;transition:color .5s ease;flex-shrink:0}
+.step-wrap.active .step-big-num{color:var(--white)}
+.step-outer-icon{width:38px;height:38px;object-fit:contain;opacity:.2;transition:opacity .5s ease;flex-shrink:0}
+.step-wrap.active .step-outer-icon{opacity:1}
+
+
+.demo-step-body{padding:16px}
+
+/* ── Card 4: Remove short dates (action card) ── */
+.action-card{padding:22px;display:flex;flex-direction:column;gap:18px;min-height:220px}
+.action-card-headline{font-size:1.15rem;font-weight:800;color:var(--white);letter-spacing:-.02em;line-height:1.2}
+.action-card-sub{font-size:.78rem;color:rgba(255,255,255,.45);line-height:1.6}
+.action-options{display:flex;flex-direction:column;gap:8px}
+.action-opt{display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:10px;font-size:.78rem;font-weight:600;transition:var(--t)}
+.action-opt.markdown{background:rgba(255,215,18,.1);border:1px solid rgba(255,215,18,.25);color:#FFD712}
+.action-opt.donate{background:rgba(205,231,161,.08);border:1px solid rgba(205,231,161,.18);color:var(--lg)}
+.action-opt.remove{background:rgba(244,124,109,.08);border:1px solid rgba(244,124,109,.2);color:var(--coral)}
+.action-opt img{width:18px;height:18px;flex-shrink:0}
+.action-card-stat{display:flex;align-items:baseline;gap:6px;margin-top:4px}
+.action-card-stat-num{font-size:2rem;font-weight:800;color:#FFD712;letter-spacing:-.04em;line-height:1}
+.action-card-stat-lbl{font-size:.72rem;color:rgba(255,255,255,.4);font-weight:400}
+.demo-step-num{display:inline-flex;align-items:center;justify-content:center;width:28px;height:28px;border-radius:8px;background:rgba(205,231,161,.1);color:var(--lg);font-weight:800;font-size:.78rem;margin-bottom:10px}
+.demo-step-title{font-size:.96rem;font-weight:700;color:var(--white);margin-bottom:6px;line-height:1.3}
+.demo-step-desc{font-size:.82rem;color:rgba(255,255,255,.45);line-height:1.6}
+@media(max-width:900px){.demo-steps{grid-template-columns:1fr 1fr}}
+@media(max-width:550px){.demo-steps{grid-template-columns:1fr}}
+
+/* ── MARGIN CINEMA (Apple-style) ── */
+.s-margin{position:relative;height:500vh;background:var(--black);z-index:5;border-radius:48px 48px 0 0;margin-top:-48px}
+.sm-sticky{position:sticky;top:0;height:100vh;overflow:hidden;display:flex;align-items:center;justify-content:center}
+.sm-bg{position:absolute;inset:0;background:radial-gradient(ellipse 70% 60% at 50% 50%,rgba(205,231,161,.04),transparent 70%);pointer-events:none}
+
+/* Center headline */
+.sm-center{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);text-align:center;width:100%;max-width:1200px;padding:0 40px;pointer-events:none;will-change:opacity,transform;transition:opacity .6s ease,transform .6s ease}
+.sm-eyebrow{font-size:1rem;font-weight:600;text-transform:uppercase;letter-spacing:.14em;color:rgba(205,231,161,.55);margin-bottom:32px}
+.sm-title{font-size:clamp(2.4rem,6.5vw,5.8rem);font-weight:800;color:var(--white);line-height:1.06;letter-spacing:-.05em;margin-bottom:40px}
+.sm-title em{font-style:normal;background:linear-gradient(135deg,var(--lg),#8FD88F);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.sm-sub{font-size:clamp(1.3rem,2.5vw,2rem);color:rgba(255,255,255,.65);font-weight:400;line-height:1.5;letter-spacing:-.02em}
+
+/* Phase blocks */
+.sm-phase{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:100%;max-width:800px;padding:0 40px;text-align:center;opacity:0;pointer-events:none;will-change:opacity,transform;transition:opacity .7s cubic-bezier(.16,1,.3,1),transform .7s cubic-bezier(.16,1,.3,1)}
+.sm-phase-inner{display:flex;flex-direction:column;align-items:center;gap:32px}
+.sm-phase-stat{font-size:clamp(4rem,10vw,9rem);font-weight:900;color:#FFD712;letter-spacing:-.06em;line-height:.9}
+.sm-phase-text{font-size:clamp(1.05rem,1.8vw,1.35rem);color:rgba(255,255,255,.72);line-height:1.75;font-weight:400;max-width:600px}
+.sm-phase-text br{display:block;margin-bottom:4px}
+.sm-stat-pre,.sm-stat-suf{font-size:clamp(1.8rem,4vw,3.5rem);font-weight:300;color:rgba(255,215,18,.6);letter-spacing:-.02em}
+.sm-phase-stat:has(.sm-stat-pre){font-size:clamp(3rem,7vw,6.5rem)}
+
+/* ── SETUP ── */
+.s-setup{background:var(--dark);color:var(--white);overflow:hidden;position:relative;border-top:1px solid rgba(255,255,255,.04)}
+.setup-grid{display:grid;grid-template-columns:1fr 1fr;gap:72px;align-items:center;max-width:1000px;margin:60px auto 0}
+@media(max-width:768px){.setup-grid{grid-template-columns:1fr;gap:40px}}
+.setup-flow{display:flex;flex-direction:column;align-items:center;gap:0}
+.setup-node{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:20px 28px;text-align:center;width:100%;transition:var(--t)}
+.setup-node:hover{background:rgba(205,231,161,.05);border-color:rgba(205,231,161,.15)}
+.setup-node-logo{margin-bottom:10px;display:flex;justify-content:center}
+.setup-node-logo img{height:20px;object-fit:contain}
+.setup-node-desc{font-size:.74rem;color:rgba(255,255,255,.4);line-height:1.5;margin-top:4px}
+.setup-arrow{padding:10px 0;display:flex;flex-direction:column;align-items:center;gap:2px}
+.setup-arrow svg{width:18px;height:18px;color:rgba(205,231,161,.3)}
+.setup-arrow span{font-size:.6rem;font-weight:600;color:var(--lg);opacity:.4;letter-spacing:.05em;text-transform:uppercase}
+.setup-right .s-title{color:var(--white)}
+.setup-right .s-desc{color:rgba(255,255,255,.5);opacity:1}
+.setup-pts{display:flex;flex-direction:column;gap:16px;margin-top:28px}
+.setup-pt{display:flex;align-items:flex-start;gap:12px;font-size:.88rem;color:rgba(255,255,255,.65);line-height:1.6}
+.setup-pt strong{color:var(--white)}
+.setup-pt-dot{width:6px;height:6px;border-radius:50%;background:var(--lg);flex-shrink:0;margin-top:7px}
+
+/* ── VALLARTA SPOTLIGHT (MINT) - Production us-spotlight ── */
+.us-sp{background:linear-gradient(180deg,var(--mint) 0%,#FAFAF8 100%);color:var(--dark);overflow:hidden;padding:64px 32px 96px;position:relative}
+.us-sp::before{content:'';position:absolute;top:0;left:50%;transform:translateX(-50%);width:1100px;height:600px;background:radial-gradient(ellipse at top,rgba(49,113,91,.08),transparent 60%);pointer-events:none;filter:blur(40px)}
+.us-sp-inner{max-width:1100px;margin:0 auto;position:relative;z-index:2}
+.us-sp-top{text-align:center;margin-bottom:36px}
+.us-sp-eyebrow{display:inline-block;font-size:.72rem;font-weight:600;text-transform:uppercase;letter-spacing:.18em;color:var(--green);margin-bottom:0}
+.us-sp-logo{height:180px;object-fit:contain;margin:12px auto 36px;display:block;max-width:540px}
+.us-sp-h{font-size:clamp(1.8rem,3.5vw,2.6rem);font-weight:700;color:var(--dark);line-height:1.2;letter-spacing:-.025em;margin:0 auto 14px;max-width:780px}
+.us-sp-h em{font-style:normal;color:var(--green)}
+.us-sp-sub{font-size:1.02rem;color:rgba(36,60,54,.65);line-height:1.7;font-weight:300;max-width:680px;margin:0 auto}
+.us-sp-feature{max-width:1100px;margin:36px auto 48px;position:relative;border-radius:24px;overflow:hidden;box-shadow:0 30px 70px rgba(36,60,54,.25),0 0 0 1px rgba(49,113,91,.08)}
+.us-sp-video{position:relative;width:100%;aspect-ratio:16/9;background:#000}
+.us-sp-video video{width:100%;height:100%;object-fit:cover;display:block}
+.us-sp-vbadge{position:absolute;top:24px;left:24px;z-index:3;display:inline-flex;align-items:center;gap:6px;padding:6px 12px;background:rgba(255,255,255,.92);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-radius:100px;font-size:.66rem;font-weight:700;color:var(--green);letter-spacing:.04em}
+.us-sp-vbadge::before{content:'';width:6px;height:6px;border-radius:50%;background:#F47C6D;animation:pulse 2s ease infinite}
+.us-sp-overlay{position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.25) 0%,rgba(0,0,0,0) 22%,rgba(0,0,0,.35) 55%,rgba(0,0,0,.92) 100%);pointer-events:none;z-index:1}
+.us-sp-content{position:absolute;left:0;right:0;bottom:0;padding:44px 44px 36px;display:flex;flex-direction:column;gap:24px;z-index:2}
+.us-sp-caption{max-width:680px}
+.us-sp-caption .qtxt{font-size:1.08rem;color:#fff;line-height:1.55;font-weight:400;font-style:italic;margin-bottom:14px;padding-left:16px;border-left:2px solid var(--lg);text-shadow:0 2px 14px rgba(0,0,0,.35)}
+.us-sp-caption .qauthor{display:flex;align-items:center;gap:12px;padding-left:16px}
+.us-sp-caption .qavatar{width:42px;height:42px;border-radius:50%;object-fit:cover;border:2px solid rgba(255,255,255,.25);flex-shrink:0}
+.us-sp-caption .qname{font-weight:700;color:#fff;font-size:.92rem}
+.us-sp-caption .qrole{font-size:.78rem;color:rgba(255,255,255,.7);margin-top:1px}
+.us-sp-kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.us-sp-kpi{padding:18px;border-radius:14px;background:rgba(255,255,255,.08);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,.14);position:relative;overflow:hidden;transition:var(--t);text-align:left}
+
+.us-sp-kpi:hover{background:rgba(255,255,255,.13);border-color:rgba(205,231,161,.32)}
+.us-sp-kpi .kv{font-size:clamp(1.4rem,2.3vw,2rem);font-weight:800;color:#fff;line-height:1;letter-spacing:-.025em;margin-bottom:6px}
+.us-sp-kpi .kl{font-size:.8rem;font-weight:600;color:rgba(255,255,255,.95);margin-bottom:4px}
+.us-sp-kpi .ks{font-size:.8rem;color:rgba(255,255,255,.78);line-height:1.55;font-weight:400}
+@media(max-width:768px){.us-sp-video{aspect-ratio:4/5}.us-sp-content{padding:24px 22px 22px;gap:18px}.us-sp-kpis{grid-template-columns:1fr 1fr;gap:10px}.us-sp-kpi{padding:14px}.us-sp-caption .qtxt{font-size:.94rem;margin-bottom:12px}.us-sp-caption .qavatar{width:36px;height:36px}}
+@media(max-width:600px){.us-sp-content{padding:18px 16px 18px;gap:14px}.us-sp-kpi{padding:12px}.us-sp-kpi .kv{font-size:1.3rem}.us-sp-kpi .kl{font-size:.72rem}.us-sp-kpi .ks{display:none}}
+.us-sp-cta-wrap{text-align:center}
+.us-sp-cta-link{display:inline-flex;align-items:center;gap:10px;padding:14px 28px;background:var(--green);border:1px solid var(--green);border-radius:100px;color:#fff;font-size:.86rem;font-weight:600;text-decoration:none;transition:var(--t)}
+.us-sp-cta-link:hover{background:var(--dark);border-color:var(--dark);transform:translateY(-2px);box-shadow:0 12px 30px rgba(36,60,54,.18)}
+/* ── CASES ── */
+.s-cases{background:var(--dark);color:var(--white);overflow:hidden}
+.cases-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:48px}
+@media(max-width:900px){.cases-grid{grid-template-columns:1fr}}
+.case-card{background:#FFD712;border-radius:18px;padding:26px 22px;position:relative;overflow:hidden;transition:var(--t)}
+.case-card:hover{transform:translateY(-4px);box-shadow:0 16px 40px rgba(255,215,18,.25)}
+.cc-badge{display:inline-flex;align-items:center;gap:6px;padding:5px 12px;background:rgba(26,46,40,.12);border-radius:100px;font-size:.72rem;font-weight:700;color:var(--dark);margin-bottom:18px}
+.cc-badge img{width:13px;height:13px}
+.cc-kpis{display:grid;grid-template-columns:1fr 1px 1fr;margin-bottom:18px}
+.cc-kpi{display:flex;flex-direction:column;align-items:center;text-align:center;padding:12px 8px}
+.cc-kpi-icon{width:22px;height:22px;object-fit:contain;margin-bottom:6px}
+.cc-kpi .ckv{font-size:2rem;font-weight:900;color:var(--dark);letter-spacing:-.04em;line-height:1;margin-bottom:4px}
+.cc-kpi .ckl{font-size:.64rem;font-weight:600;color:rgba(26,46,40,.55);text-transform:uppercase;letter-spacing:.05em}
+.cc-divider{width:1px;background:rgba(26,46,40,.2);margin:8px 0}
+.cc-sep{height:1px;background:rgba(26,46,40,.18);margin:0 0 16px}
+.case-card h3{font-size:.95rem;font-weight:700;color:var(--dark);margin-bottom:6px}
+.case-card p{font-size:.8rem;color:rgba(26,46,40,.6);line-height:1.65}
+
+/* ── DEPLOY (dark + photo bg) ── */
+.s-deploy{background:var(--black);position:relative;overflow:hidden;padding:140px 32px}
+.deploy-bg{position:absolute;inset:0;z-index:0}
+.deploy-bg img{width:100%;height:100%;object-fit:cover;opacity:.3;filter:blur(8px)}
+.deploy-bg::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,var(--black) 0%,rgba(10,15,13,.6) 50%,var(--black) 100%)}
+.deploy-inner{position:relative;z-index:2;max-width:1100px;margin:0 auto}
+.deploy-inner::before{content:'';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:700px;height:700px;background:radial-gradient(circle,rgba(205,231,161,.12) 0%,transparent 60%);border-radius:50%;pointer-events:none;z-index:0;filter:blur(50px);animation:pulse 6s ease-in-out infinite}
+.deploy-header{text-align:center;margin-bottom:72px;position:relative;z-index:2}
+.deploy-header h2{font-size:clamp(2rem,5vw,3.6rem);font-weight:800;color:var(--white);line-height:1.1;letter-spacing:-.03em;margin-bottom:20px}
+.deploy-header h2 em{font-style:normal;background:linear-gradient(135deg,var(--lg),#8FD88F,var(--green));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;background-size:200% auto;animation:textShimmer 3s linear infinite}
+@keyframes textShimmer{to{background-position:200% center}}
+.deploy-header p{font-size:1.05rem;color:rgba(255,255,255,.55);max-width:580px;margin:0 auto;line-height:1.65}
+.deploy-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:20px;position:relative;z-index:2}
+.deploy-card{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:20px;padding:36px 28px;backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);transition:var(--t);grid-column:span 2}
+.deploy-card:hover{transform:translateY(-6px);background:rgba(255,255,255,.07);border-color:rgba(205,231,161,.25);box-shadow:0 20px 50px rgba(0,0,0,.3)}
+.deploy-card:nth-child(4){grid-column:1/4}
+.deploy-card:nth-child(5){grid-column:4/7}
+.dc-icon{width:48px;height:48px;border-radius:12px;background:linear-gradient(135deg,rgba(49,113,91,.25),rgba(205,231,161,.15));border:1px solid rgba(205,231,161,.2);display:flex;align-items:center;justify-content:center;color:var(--lg);margin-bottom:20px}
+.dc-icon img{width:24px;height:24px;object-fit:contain}
+.dc-title{font-size:1.05rem;font-weight:700;color:var(--white);margin-bottom:10px;letter-spacing:-.01em}
+.dc-desc{font-size:.86rem;color:rgba(255,255,255,.5);line-height:1.6}
+@media(max-width:992px){.deploy-grid{grid-template-columns:repeat(2,1fr)}.deploy-card{grid-column:span 1}.deploy-card:nth-child(4){grid-column:span 1}.deploy-card:nth-child(5){grid-column:1/3}}
+@media(max-width:600px){.deploy-grid{grid-template-columns:1fr}.deploy-card,.deploy-card:nth-child(4),.deploy-card:nth-child(5){grid-column:1/-1!important}}
+
+/* ── CTA ── */
+.s-cta{background:var(--dark);overflow:hidden;padding:0;position:relative}
+.cta-bg{position:absolute;inset:0;z-index:0}
+.cta-bg img{width:100%;height:100%;object-fit:cover}
+.cta-bg::after{content:'';position:absolute;inset:0;background:linear-gradient(90deg,rgba(10,15,13,.92) 0%,rgba(10,15,13,.78) 40%,rgba(10,15,13,.65) 60%,rgba(10,15,13,.5) 100%)}
+.cta-split{display:grid;grid-template-columns:1fr 1.1fr;gap:48px;max-width:1200px;margin:0 auto;padding:100px 48px;position:relative;z-index:2;align-items:center}
+@media(max-width:992px){.cta-split{grid-template-columns:1fr;padding:80px 24px}}
+.cta-left .s-tag{color:var(--lg)}
+.cta-left .s-title{color:var(--white);font-size:clamp(1.8rem,3.5vw,2.6rem);line-height:1.2;margin-bottom:20px}
+.cta-desc{font-size:.95rem;color:rgba(255,255,255,.5);line-height:1.75;margin-bottom:32px;max-width:480px}
+.cta-features{display:flex;flex-direction:column;gap:12px;margin-bottom:36px}
+.cta-feat{display:flex;align-items:center;gap:12px;font-size:.86rem;color:rgba(255,255,255,.65)}
+.cta-feat .cf-check{width:20px;height:20px;border-radius:6px;background:rgba(205,231,161,.1);border:1px solid rgba(205,231,161,.2);display:flex;align-items:center;justify-content:center;flex-shrink:0;color:var(--lg);font-size:.7rem}
+.cal-frame{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:20px;padding:24px;backdrop-filter:blur(20px);box-shadow:0 24px 64px rgba(0,0,0,.35);position:relative;overflow:hidden}
+.cal-frame::before{content:'';position:absolute;top:-1px;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--green),var(--lg),var(--green));background-size:200% 100%;animation:shimmer 3s ease infinite}
+@keyframes shimmer{0%{background-position:200% 0}100%{background-position:-200% 0}}
+.cal-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;padding-bottom:16px;border-bottom:1px solid rgba(255,255,255,.08)}
+.cal-header-left{display:flex;align-items:center;gap:10px}
+.cal-header-left img{height:18px;object-fit:contain}
+.cal-header-left span{font-size:.78rem;color:rgba(255,255,255,.4);font-weight:500}
+.cal-header-right{display:flex;align-items:center;gap:6px;font-size:.7rem;font-weight:600;color:var(--lg)}
+.cal-header-right .ld{width:6px;height:6px;border-radius:50%;background:var(--lg);animation:pulse 2s ease infinite}
+.hs-form-wrap{background:#fff;border-radius:24px;padding:clamp(28px,4vw,48px);box-shadow:0 30px 60px rgba(26,46,40,.15);position:relative}
+.hs-form-wrap>h3{font-size:1.2rem;font-weight:700;color:#243C36;margin:0 0 24px;font-family:var(--font)}
+#hs-form-container{min-height:200px}
+#hs-form-container .hs-form-private{padding:0!important}
+#hs-form-container fieldset{border:none!important;padding:0!important;margin:0!important;max-width:100%!important}
+#hs-form-container .hs-form-field{margin-bottom:16px!important}
+#hs-form-container input[type=text],#hs-form-container input[type=email],#hs-form-container input[type=tel],#hs-form-container input[type=number],#hs-form-container input[type=phone],#hs-form-container select,#hs-form-container input:not([type=submit]):not([type=checkbox]){width:100%!important;box-sizing:border-box!important;border-radius:12px!important;border:1.5px solid transparent!important;background:#EEF1EA!important;color:#243C36!important;font-family:var(--font)!important;font-size:.92rem!important;padding:13px 16px!important;outline:none!important;transition:all .2s ease!important}
+#hs-form-container input::placeholder{color:rgba(36,60,54,.35)!important}
+#hs-form-container input:focus,#hs-form-container select:focus{border-color:#31715B!important;background:#fff!important;box-shadow:0 0 0 4px rgba(49,113,91,.1)!important}
+#hs-form-container label{color:#243C36!important;font-size:.8rem!important;font-weight:600!important;font-family:var(--font)!important;margin-bottom:6px!important;display:block!important}
+#hs-form-container .hs-button,#hs-form-container input[type=submit]{background:#243C36!important;color:#CDE7A1!important;border-radius:100px!important;font-family:var(--font)!important;font-weight:700!important;border:1.5px solid #243C36!important;width:100%!important;padding:16px!important;font-size:.95rem!important;cursor:pointer!important;transition:all .25s ease!important;margin-top:28px!important}
+#hs-form-container .hs-button:hover,#hs-form-container input[type=submit]:hover{background:#CDE7A1!important;color:#243C36!important;transform:translateY(-1px)!important}
+#hs-form-container .hs-error-msgs{color:#F47C6D!important;font-size:.72rem!important;font-weight:500!important;font-family:var(--font)!important;margin-top:6px!important;list-style:none!important;padding:0!important}
+
+/* ── FOOTER ── */
+footer{background:var(--dark);color:rgba(255,255,255,.5);padding:64px 32px 48px;position:relative;overflow:hidden}
+
+.ft-inner{max-width:900px;margin:0 auto;text-align:center}
+.ft-logos{display:flex;align-items:center;justify-content:center;gap:16px;margin-bottom:28px}
+.ft-logos img{height:22px;object-fit:contain;opacity:.6}
+.ft-logos .x-mark{color:rgba(255,255,255,.2);font-size:1.1rem;font-weight:300}
+.ft-tagline{font-size:1rem;font-weight:600;color:var(--white);margin-bottom:8px}
+.ft-desc{font-size:.82rem;color:rgba(255,255,255,.35);line-height:1.65;max-width:500px;margin:0 auto 32px}
+.ft-line{height:1px;background:rgba(255,255,255,.06);margin-bottom:24px}
+.ft-bottom{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px}
+.ft-prepared{font-size:.75rem;color:rgba(255,255,255,.25)}
+.ft-links{display:flex;gap:20px}
+.ft-links a{color:var(--lg);text-decoration:none;font-size:.78rem;font-weight:500;opacity:.5;transition:opacity .2s}
+.ft-links a:hover{opacity:1}
+@media(max-width:600px){.nav{padding:14px 20px}section{padding:80px 20px}.ft-bottom{justify-content:center;text-align:center}.hero-h1{font-size:1.8rem}}
+</style>
+</head>
+<body>
+
+<!-- ═══ HERO ═══ -->
+<div class="hero" id="hero">
+  <div class="hero-video">
+    <video autoplay muted loop playsinline>
+      <source src="https://25665345.fs1.hubspotusercontent-eu1.net/hubfs/25665345/ABM%20Productions/video%20hero%20hanshow.mp4" type="video/mp4">
+    </video>
+  </div>
+  <div class="hero-vignette"></div>
+  <div class="hero-darken"></div>
+  <div class="hero-inner">
+    <div class="hero-logos">
+      <img src="https://25665345.fs1.hubspotusercontent-eu1.net/hubfs/25665345/ABM%20Productions/Smartway%20logo%20whit%20epng.png" alt="Smartway">
+      <span class="x-mark">×</span>
+      <img src="https://25665345.fs1.hubspotusercontent-eu1.net/hubfs/25665345/ABM%20Productions/Hanshow%20logo%20white.png" alt="Hanshow" style="height:18px">
+    </div>
+    <h1 class="hero-h1">Check Dates 4X faster.<br><em>Zero Expired.</em> More Margin.</h1>
+    <p class="hero-sub">Turn date management into a 4-second task with Hanshow ESLs.<br>Go live in 1 day. No IT integration required.</p>
+  </div>
+  <div class="hero-scroll-wrap">
+    <span class="hs-arrow"></span>
+  </div>
+</div>
+
+<!-- ═══ NAV ═══ -->
+<nav class="nav" id="nav">
+  <div class="nav-logo">
+    <img src="https://25665345.fs1.hubspotusercontent-eu1.net/hubfs/25665345/ABM%20Productions/Smartway%20logo%20whit%20epng.png" alt="Smartway">
+    <span class="nav-x">×</span>
+    <img src="https://25665345.fs1.hubspotusercontent-eu1.net/hubfs/25665345/ABM%20Productions/Hanshow%20logo%20white.png" alt="Hanshow" style="height:16px">
+  </div>
+  <a href="#cta" class="nav-cta">Start a pilot →</a>
+</nav>
+
+<!-- ═══ INSIGHTS (WHITE SECTION) ═══ -->
+<section class="s-ins" id="insights">
+  <div class="inner"><div style="text-align:center">
+    <div class="s-tag green r">● The Problem</div>
+    <h2 class="s-title r">Date management in US grocery<br>is still <em style="font-style:normal;color:var(--coral)">done by hand.</em></h2>
+    <p class="s-desc c r">Every week, teams walk every aisle, scan every SKU, hoping to catch what's about to expire. It's slow, imperfect, and costs you money every single day.</p>
+  </div>
+  <div class="ins-grid">
+    <div class="ic r d1">
+      <div class="ico"><img src="https://25665345.fs1.hubspotusercontent-eu1.net/hubfs/25665345/ABM%20Productions/Smartway%20Icons/Watch-1--Streamline-Core.svg" alt=""></div>
+      <div class="stat">Hours of labor, every week</div>
+      <div class="desc">Associates spend hours manually checking expiration dates, walking every aisle, touching every product. Highest-labor, lowest-signal task in the store.</div>
+    </div>
+    <div class="ic r d2">
+      <div class="ico"><img src="https://25665345.fs1.hubspotusercontent-eu1.net/hubfs/25665345/ABM%20Productions/Smartway%20Icons/Justice-Hammer--Streamline-Core.svg" alt=""></div>
+      <div class="stat">Expired stock reaches customers</div>
+      <div class="desc">Manual checks are inconsistent. Products slip through. Expired items on the shelf are a compliance risk, a trust problem, and a lawsuit waiting to happen.</div>
+    </div>
+    <div class="ic r d3">
+      <div class="ico"><img src="https://25665345.fs1.hubspotusercontent-eu1.net/hubfs/25665345/ABM%20Productions/Smartway%20Icons/Graph-Arrow-Decrease--Streamline-Core.svg" alt=""></div>
+      <div class="stat">Markdowns too late or too early</div>
+      <div class="desc">Without real-time tracking, you discount products that still have margin left, or miss the window entirely and write them off at full cost.</div>
+    </div>
+    <div class="ic r d4">
+      <div class="ico"><img src="https://25665345.fs1.hubspotusercontent-eu1.net/hubfs/25665345/ABM%20Productions/Smartway%20Icons/Chart-Monitoring-Indicator--Streamline-Core.svg" alt=""></div>
+      <div class="stat">HQ blind to store-level risk</div>
+      <div class="desc">No real-time view across stores. Shrink data arrives weeks late. You're reacting to problems, not preventing them, and you can't benchmark which stores are struggling.</div>
+    </div>
+  </div>
+</div></section>
+
+<!-- ═══ DEMO ═══ -->
+<section class="s-demo" id="demo">
+<div class="demo-intro"><div class="inner">
+  <div class="s-tag light r">● Your GPS for short dates</div>
+  <h2 class="s-title r" style="color:var(--white)">Check 500 SKUs in 4 minutes.</h2>
+  <p class="s-desc c r" style="color:rgba(255,255,255,.35)">Like a GPS guides your car, Smartway guides your team to the right product, at the right time, in the exact aisle location. The Hanshow ESL flashes - no hunting, no guessing.</p>
+</div></div>
+
+<div class="demo-scene">
+  <div class="aisle-photo" id="aislePhoto">
+    <img src="https://25665345.fs1.hubspotusercontent-eu1.net/hubfs/25665345/ABM%20Productions/rayon%20png.png" alt="Grocery aisle">
+    <div class="aisle-overlay-top"></div>
+    <div class="aisle-overlay-bottom"></div>
+    <div class="aisle-scan" id="aisleScan"></div>
+    <button class="demo-replay show" id="demoReplay" onclick="startDemo()">↻ Run the demo</button>
+
+
+    <!-- GPS markers -->
+    <!-- GPS markers - scattered naturally across the fridge aisle -->
+    <div class="gps-marker" id="m0" style="top:12%;left:6%">
+      <div class="gps-pin">
+        <div class="gps-pulse"></div><div class="gps-pulse-2"></div><div class="gps-pulse-3"></div>
+        <div class="gps-label">Organic Whole Milk · exp Jun 01</div>
+        <div class="gps-pin-head"><span>🥛</span></div>
+        <div class="gps-pin-tail"></div>
+      </div>
+    </div>
+    <div class="gps-marker" id="m1" style="top:52%;left:18%">
+      <div class="gps-pin">
+        <div class="gps-pulse"></div><div class="gps-pulse-2"></div><div class="gps-pulse-3"></div>
+        <div class="gps-label">Smoked Turkey Deli · exp Jun 01</div>
+        <div class="gps-pin-head"><span>🥩</span></div>
+        <div class="gps-pin-tail"></div>
+      </div>
+    </div>
+    <div class="gps-marker" id="m2" style="top:28%;left:26%">
+      <div class="gps-pin">
+        <div class="gps-pulse"></div><div class="gps-pulse-2"></div><div class="gps-pulse-3"></div>
+        <div class="gps-label">Pre-made Salad · exp Jun 02</div>
+        <div class="gps-pin-head"><span>🥗</span></div>
+        <div class="gps-pin-tail"></div>
+      </div>
+    </div>
+    <div class="gps-marker" id="m3" style="top:14%;right:6%">
+      <div class="gps-pin">
+        <div class="gps-pulse"></div><div class="gps-pulse-2"></div><div class="gps-pulse-3"></div>
+        <div class="gps-label">Ground Beef 85% · exp Jun 01</div>
+        <div class="gps-pin-head"><span>🍗</span></div>
+        <div class="gps-pin-tail"></div>
+      </div>
+    </div>
+    <div class="gps-marker" id="m4" style="top:44%;right:20%">
+      <div class="gps-pin">
+        <div class="gps-pulse"></div><div class="gps-pulse-2"></div><div class="gps-pulse-3"></div>
+        <div class="gps-label">Artisan Sourdough · exp Jun 02</div>
+        <div class="gps-pin-head"><span>🥖</span></div>
+        <div class="gps-pin-tail"></div>
+      </div>
+    </div>
+    <div class="gps-marker" id="m5" style="top:60%;right:7%">
+      <div class="gps-pin">
+        <div class="gps-pulse"></div><div class="gps-pulse-2"></div><div class="gps-pulse-3"></div>
+        <div class="gps-label">Aged Cheddar Block · exp Jun 03</div>
+        <div class="gps-pin-head"><span>🧀</span></div>
+        <div class="gps-pin-tail"></div>
+      </div>
+    </div>
+
+    <!-- PDA overlay -->
+    <div class="pda-overlay">
+      <div class="pda-glow"></div>
+      <div class="pda-device">
+        <img src="https://25665345.fs1.hubspotusercontent-eu1.net/hubfs/25665345/ABM%20Productions/zebra%20png.png" alt="Zebra PDA">
+        <div class="pda-screen-content">
+          <div class="pda-app-bar">
+            <div class="pab-left">
+              <img src="https://25665345.fs1.hubspotusercontent-eu1.net/hubfs/25665345/ABM%20Productions/Smartway%20logo%20whit%20epng.png" alt="Smartway" style="height:7px;filter:invert(1) brightness(0)">
+              <span>smartway</span>
+            </div>
+            <div class="pab-right"><span class="pab-live"></span><span class="pab-live-txt">Live</span></div>
+          </div>
+          <!-- Screen 1: Department list -->
+          <div class="pda-screen" id="pdaScreen1">
+            <div class="pda-ws-title">Short dates today</div>
+            <div class="pda-ws-date">Jun 01, 2025</div>
+            <div class="pda-ws-sub">Sections · 6 alerts</div>
+            <div class="pda-ws-list">
+              <div class="pda-ws-card hl">
+                <div class="ws-name">🥛 Dairy</div>
+                <div class="ws-counts"><span class="ws-cnt" style="color:#F47C6D">3 exp</span></div>
+              </div>
+              <div class="pda-ws-card">
+                <div class="ws-name">🥩 Deli</div>
+                <div class="ws-counts"><span class="ws-cnt" style="color:#F47C6D">2 exp</span></div>
+              </div>
+              <div class="pda-ws-card">
+                <div class="ws-name">🥖 Bakery</div>
+                <div class="ws-counts"><span class="ws-cnt" style="color:#FFD712">1 soon</span></div>
+              </div>
+              <div class="pda-ws-card">
+                <div class="ws-name">🥦 Produce</div>
+                <div class="ws-counts"><span class="ws-cnt" style="color:#31715B">OK</span></div>
+              </div>
+            </div>
+            <div class="pda-bottom-nav"><div class="pbn-icon">🔔</div><div class="pbn-label">6 Date Alerts</div></div>
+          </div>
+          <!-- Screen 2: Product detail -->
+          <div class="pda-screen hidden" id="pdaScreen2">
+            <div class="pda-prod-back">← Back</div>
+            <div class="pda-prod-name">Organic Whole Milk 1gal</div>
+            <div class="pda-prod-ean">EAN 0-41290-03044-6 · Dairy A3</div>
+            <div class="pda-prod-info">
+              <div class="pi-col"><div class="pi-label">Expires</div><div class="pi-value urgent">Jun 01</div></div>
+              <div class="pi-col"><div class="pi-label">Location</div><div class="pi-value">A3 · Shelf 2</div></div>
+              <div class="pi-col"><div class="pi-label">Units</div><div class="pi-value">4</div></div>
+            </div>
+            <div class="pda-prod-avail">
+              <div class="pa-title">Availability</div>
+              <div class="pa-btns"><div class="pa-btn active">✓ In stock</div><div class="pa-btn">✕ Out</div></div>
+            </div>
+            <div class="pda-prod-dlc">
+              <div class="pd-title">Shortest date on shelf</div>
+              <div class="pd-hint">Enter date from label (DD/MM/YY)</div>
+              <div class="pd-date">
+                <span class="pd-digit" id="pdDlcD">01</span><span class="pd-sep">/</span>
+                <span class="pd-digit" id="pdDlcM">06</span><span class="pd-sep">/</span>
+                <span class="pd-digit" id="pdDlcY">25</span>
+              </div>
+            </div>
+            <button class="pda-confirm-btn">✓ Confirm &amp; next</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="demo-overlay-stats">
+  <div class="demo-stats-bar">
+    <div class="demo-stat"><div class="dsv" id="dStatProducts">0</div><div class="dsl">products detected</div></div>
+    <div class="demo-stat"><div class="dsv" id="dStatTime">0.0s</div><div class="dsl">detection time</div></div>
+    <div class="demo-stat"><div class="dsv" id="dStatAisles">0</div><div class="dsl">aisles scanned</div></div>
+  </div>
+  <div class="demo-result" id="demoResult"></div>
+</div>
+
+<div class="demo-hiw">
+  <div class="demo-hiw-inner">
+    <div class="demo-hiw-title">
+      <h3>4 steps. <em>4 sec per SKUs.</em></h3>
+    </div>
+    <div class="demo-steps">
+
+      <div class="step-wrap active" data-wrap="0">
+        <div class="step-outer-hd">
+          <span class="step-big-num">01</span>
+          <img class="step-outer-icon" src="https://25665345.fs1.hubspotusercontent-eu1.net/hubfs/25665345/ABM%20Productions/Smartway%20Icons/Task-List--Streamline-Core.svg" alt="">
+        </div>
+        <div class="demo-step r d1 active" data-step="0">
+          <div class="vid-clip top-crop"><video class="demo-step-vid top" muted playsinline preload="auto">
+            <source src="https://25665345.fs1.hubspotusercontent-eu1.net/hubfs/25665345/ABM%20Productions/GIF%201%20Flash%20Evo.mov" type="video/mp4">
+          </video></div>
+          <div class="demo-step-body">
+            <div class="demo-step-title">Open PDA, see today's alerts</div>
+            <div class="demo-step-desc">Only the ~4% of products that actually need attention today.</div>
+          </div>
+        </div>
+      </div>
+<div class="step-wrap" data-wrap="1">
+        <div class="step-outer-hd">
+          <span class="step-big-num">02</span>
+          <img class="step-outer-icon" src="https://25665345.fs1.hubspotusercontent-eu1.net/hubfs/25665345/ABM%20Productions/Smartway%20Icons/Bolt-Charging-Power--Streamline-Core.svg" alt="">
+        </div>
+        <div class="demo-step r d2" data-step="1">
+          <div class="vid-clip"><video class="demo-step-vid zoom" muted playsinline preload="auto">
+            <source src="https://25665345.fs1.hubspotusercontent-eu1.net/hubfs/25665345/ABM%20Productions/GIF%20Flash%20Evo%202.mp4" type="video/mp4">
+          </video></div>
+          <div class="demo-step-body">
+            <div class="demo-step-title">Hanshow ESL flashes</div>
+            <div class="demo-step-desc">Walk to the aisle. The label on the exact product lights up.</div>
+          </div>
+        </div>
+      </div>
+<div class="step-wrap" data-wrap="2">
+        <div class="step-outer-hd">
+          <span class="step-big-num">03</span>
+          <img class="step-outer-icon" src="https://25665345.fs1.hubspotusercontent-eu1.net/hubfs/25665345/ABM%20Productions/Smartway%20Icons/Watch-1--Streamline-Core.svg" alt="">
+        </div>
+        <div class="demo-step r d3" data-step="2">
+          <div class="vid-clip"><video class="demo-step-vid" muted playsinline preload="auto">
+            <source src="https://25665345.fs1.hubspotusercontent-eu1.net/hubfs/25665345/ABM%20Productions/GIF%20flash%20evo%203.mp4" type="video/mp4">
+          </video></div>
+          <div class="demo-step-body">
+            <div class="demo-step-title">Check & enter shortest date</div>
+            <div class="demo-step-desc">4–5 seconds. AI calculates shelf life and markdown timing.</div>
+          </div>
+        </div>
+      </div>
+<div class="step-wrap" data-wrap="3">
+        <div class="step-outer-hd">
+          <span class="step-big-num">04</span>
+          <img class="step-outer-icon" src="https://25665345.fs1.hubspotusercontent-eu1.net/hubfs/25665345/ABM%20Productions/Smartway%20Icons/Target--Streamline-Core.svg" alt="">
+        </div>
+        <div class="demo-step r d4" data-step="3">
+          <div class="vid-clip"><video class="demo-step-vid" muted playsinline preload="auto">
+            <source src="https://25665345.fs1.hubspotusercontent-eu1.net/hubfs/25665345/ABM%20Productions/GIF%20Flash%20EVO%204.mp4" type="video/mp4">
+          </video></div>
+          <div class="demo-step-body">
+            <div class="demo-step-title">Remove short dates</div>
+            <div class="demo-step-desc">Markdown, donate or remove. The ESL confirms - done.</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- ═══ MARGIN CINEMA (Apple-style sticky scroll) ═══ -->
+<div class="s-margin" id="margin-section">
+  <div class="sm-sticky">
+    <div class="sm-bg"></div>
+
+    <!-- Phase 0: Headline always present -->
+    <div class="sm-center" id="smCenter">
+      <div class="sm-eyebrow" id="smEye">Smartway × Hanshow</div>
+      <h2 class="sm-title" id="smTitle">Don't let your margin<br>expire <em>on shelf.</em></h2>
+      <p class="sm-sub" id="smSub"><span style="color:#FFD712;font-weight:700">Live in 24h.</span><br>No IT integration.</p>
+    </div>
+
+    <!-- Phase 0: 78% faster -->
+    <div class="sm-phase" id="smP0">
+      <div class="sm-phase-inner">
+        <div class="sm-phase-stat" style="font-size:clamp(2.8rem,6.5vw,6rem)">78% faster<br>date checks.</div>
+        <div class="sm-phase-text">No more walking every aisle. Your team goes only to the products that need attention, every morning, from day one.</div>
+      </div>
+    </div>
+
+        <!-- Phase 1 -->
+    <div class="sm-phase" id="smP1">
+      <div class="sm-phase-inner">
+        <div class="sm-phase-stat">2h to deploy.</div>
+        <div class="sm-phase-text">Per section. Hanshow already holds your product catalog, shelf positions and ESL assignments - Smartway connects directly. No ERP, no API team, no IT roadmap.</div>
+      </div>
+    </div>
+
+    <!-- Phase 2 -->
+    <div class="sm-phase" id="smP2">
+      <div class="sm-phase-inner">
+        <div class="sm-phase-stat">+0.6 pts</div>
+        <div class="sm-phase-text">Gross margin recovered on average.<br>The AI markdown engine knows exactly when to discount - not too early, not too late. Products that would be written off become recovered revenue.</div>
+      </div>
+    </div>
+
+    <!-- Phase 3 -->
+    <div class="sm-phase" id="smP3">
+      <div class="sm-phase-inner">
+        <div class="sm-phase-stat">Zero expired.</div>
+        <div class="sm-phase-text">98.7% of expiry alerts treated every day.<br>In stores with Hanshow ESLs. Your HQ sees every short-dated product across every store, in real time. Not weeks later in a shrink report.</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ═══ VALLARTA SPOTLIGHT (MINT SECTION) ═══ -->
+<section class="us-sp" id="results">
+<div class="us-sp-inner">
+
+  <div class="us-sp-top r">
+    <div class="us-sp-eyebrow">TRUSTED BY US RETAILERS</div>
+    <img class="us-sp-logo" src="https://25665345.fs1.hubspotusercontent-eu1.net/hubfs/25665345/ABM%20Productions/Vallarta%20logo%20black.png" alt="Vallarta Supermarkets">
+    <h2 class="us-sp-h">How Vallarta deployed<br><em>34 stores in 5 weeks?</em></h2>
+    <p class="us-sp-sub">A field-first methodology built for US grocery teams. Zero expired products on shelves, 50% time saved on date checks, +58 NPS and full team adoption from day 1.</p>
+  </div>
+
+  <div class="us-sp-feature r">
+    <div class="us-sp-video">
+      <video autoplay muted loop playsinline>
+        <source src="https://25665345.fs1.hubspotusercontent-eu1.net/hubfs/25665345/ABM%20Productions/Steve%20video%20Vallarta%20loop.mp4" type="video/mp4">
+      </video>
+    </div>
+    <div class="us-sp-vbadge">Vallarta Supermarkets · CIO</div>
+    <div class="us-sp-overlay"></div>
+    <div class="us-sp-content">
+      <div class="us-sp-caption">
+        <div class="qtxt">Congratulations on an outstanding implementation. Your hard work and dedication are truly commendable, and the exceptional results speak for themselves.</div>
+        <div class="qauthor">
+          <img class="qavatar" src="https://25665345.fs1.hubspotusercontent-eu1.net/hubfs/25665345/ABM%20Productions/steve%20vallarta.png" alt="Steve Netherton">
+          <div><div class="qname">Steve Netherton</div><div class="qrole">CIO, Vallarta Supermarkets</div></div>
+        </div>
+      </div>
+      <div class="us-sp-kpis">
+        <div class="us-sp-kpi">
+          <div class="kv">−75%</div>
+          <div class="kl">Time on date checks</div>
+          <div class="ks">No more walking every aisle. Smartway guided teams straight to expiring products.</div>
+        </div>
+        <div class="us-sp-kpi">
+          <div class="kv">~0</div>
+          <div class="kl">Expired units after week 6</div>
+          <div class="ks">The aisle stays clean because the alerts run before the date hits.</div>
+        </div>
+        <div class="us-sp-kpi">
+          <div class="kv">Week 1</div>
+          <div class="kl">First shrink delta</div>
+          <div class="ks">First measurable shrink reduction visible in the weekly report. No 12-week ramp.</div>
+        </div>
+        <div class="us-sp-kpi">
+          <div class="kv">6 months</div>
+          <div class="kl">CFO payback period</div>
+          <div class="ks">Vallarta's CFO ran the math. Recovered shrink covers Smartway inside two quarters.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="us-sp-cta-wrap r">
+    <a href="https://smartway.ai/case-studies/us-retail-case-study-vallarta-smartway-ai?utm_source=lp&utm_medium=cta&utm_campaign=lphanshow&utm_term=read-val-story&utm_content=case-val" target="_blank" rel="noopener" class="us-sp-cta-link">Read the full Vallarta case study →</a>
+  </div>
+
+</div>
+</section>
+<!-- ═══ ANONYMOUS CASES ═══ -->
+<section class="s-cases" id="cases">
+<div class="inner">
+  <div style="text-align:center">
+    <div class="s-tag light r">● More results</div>
+    <h2 class="s-title r" style="color:var(--white)">Results across the US<br>retail market.</h2>
+  </div>
+  <div class="cases-grid">
+    <div class="case-card r d1">
+      <div class="cc-badge">
+        <img src="https://25665345.fs1.hubspotusercontent-eu1.net/hubfs/25665345/ABM%20Productions/Smartway%20Icons/Shopping-Basket-1--Streamline-Core.svg" alt="">
+        30 stores
+      </div>
+      <div class="cc-kpis">
+        <div class="cc-kpi">
+          <img class="cc-kpi-icon" src="https://25665345.fs1.hubspotusercontent-eu1.net/hubfs/25665345/ABM%20Productions/Smartway%20Icons/Graph-Arrow-Decrease--Streamline-Core.svg" alt="">
+          <div class="ckv">−13%</div>
+          <div class="ckl">Shrink</div>
+        </div>
+        <div class="cc-divider"></div>
+        <div class="cc-kpi">
+          <img class="cc-kpi-icon" src="https://25665345.fs1.hubspotusercontent-eu1.net/hubfs/25665345/ABM%20Productions/Smartway%20Icons/Watch-1--Streamline-Core.svg" alt="">
+          <div class="ckv">−78%</div>
+          <div class="ckl">Time spent</div>
+        </div>
+      </div>
+      <div class="cc-sep"></div>
+      <h3>30-store regional chain</h3>
+      <p>Full deployment across produce, dairy, and deli. Team autonomy reached in under 2 weeks. Shrink reduction measured at month 2.</p>
+    </div>
+    <div class="case-card r d2">
+      <div class="cc-badge">
+        <img src="https://25665345.fs1.hubspotusercontent-eu1.net/hubfs/25665345/ABM%20Productions/Smartway%20Icons/Shopping-Basket-1--Streamline-Core.svg" alt="">
+        500 stores
+      </div>
+      <div class="cc-kpis">
+        <div class="cc-kpi">
+          <img class="cc-kpi-icon" src="https://25665345.fs1.hubspotusercontent-eu1.net/hubfs/25665345/ABM%20Productions/Smartway%20Icons/Graph-Arrow-Decrease--Streamline-Core.svg" alt="">
+          <div class="ckv">−8%</div>
+          <div class="ckl">Shrink</div>
+        </div>
+        <div class="cc-divider"></div>
+        <div class="cc-kpi">
+          <img class="cc-kpi-icon" src="https://25665345.fs1.hubspotusercontent-eu1.net/hubfs/25665345/ABM%20Productions/Smartway%20Icons/Watch-1--Streamline-Core.svg" alt="">
+          <div class="ckv">−70%</div>
+          <div class="ckl">Time spent</div>
+        </div>
+      </div>
+      <div class="cc-sep"></div>
+      <h3>500-store national banner</h3>
+      <p>Phased rollout starting with fresh perimeter. HQ gained full real-time visibility across the network for the first time.</p>
+    </div>
+    <div class="case-card r d3">
+      <div class="cc-badge">
+        <img src="https://25665345.fs1.hubspotusercontent-eu1.net/hubfs/25665345/ABM%20Productions/Smartway%20Icons/Shopping-Basket-1--Streamline-Core.svg" alt="">
+        350 stores
+      </div>
+      <div class="cc-kpis">
+        <div class="cc-kpi">
+          <img class="cc-kpi-icon" src="https://25665345.fs1.hubspotusercontent-eu1.net/hubfs/25665345/ABM%20Productions/Smartway%20Icons/Graph-Arrow-Decrease--Streamline-Core.svg" alt="">
+          <div class="ckv">−13%</div>
+          <div class="ckl">Shrink</div>
+        </div>
+        <div class="cc-divider"></div>
+        <div class="cc-kpi">
+          <img class="cc-kpi-icon" src="https://25665345.fs1.hubspotusercontent-eu1.net/hubfs/25665345/ABM%20Productions/Smartway%20Icons/Watch-1--Streamline-Core.svg" alt="">
+          <div class="ckv">−78%</div>
+          <div class="ckl">Time spent</div>
+        </div>
+      </div>
+      <div class="cc-sep"></div>
+      <h3>350-store independent group</h3>
+      <p>Deployed with no IT integration. Smartway connected to existing shelf data in under a day. Full adoption in 3 weeks.</p>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- ═══ DEPLOY - why smartway now (dark + photo bg) ═══ -->
+<section class="s-deploy" id="value">
+<div class="deploy-bg">
+  <img src="https://25665345.fs1.hubspotusercontent-eu1.net/hubfs/25665345/ABM%20Productions/Background%20spain.png" alt="">
+</div>
+<div class="deploy-inner">
+  <div class="deploy-header r">
+    <div style="display:flex;align-items:center;justify-content:center;gap:10px;margin-bottom:24px">
+      <img src="https://25665345.fs1.hubspotusercontent-eu1.net/hubfs/25665345/ABM%20Productions/Smartway%20logo%20whit%20epng.png" alt="Smartway" style="height:28px;object-fit:contain;opacity:.8">
+      <span style="color:rgba(205,231,161,.4);font-size:1.4rem;font-weight:300">+</span>
+      <img src="https://25665345.fs1.hubspotusercontent-eu1.net/hubfs/25665345/ABM%20Productions/Hanshow%20logo%20white.png" alt="Hanshow" style="height:20px;object-fit:contain;opacity:.8">
+    </div>
+    <h2>The fastest path to<br><em>zero expired.</em></h2>
+    <p>Already working with Hanshow?<br>Smartway connects to your ESL infrastructure in 2 hours.</p>
+  </div>
+  <div class="deploy-grid">
+    <div class="deploy-card r d1">
+      <div class="dc-icon"><img src="https://25665345.fs1.hubspotusercontent-eu1.net/hubfs/25665345/ABM%20Productions/Smartway%20Icons/Bolt-Charging-Power--Streamline-Core.svg" alt=""></div>
+      <div class="dc-title">Deployed in hours</div>
+      <div class="dc-desc">Smartway connects directly to your Hanshow ESL network. 2 hours per section. No data migration, no ERP project. Your first store is live the same day.</div>
+    </div>
+    <div class="deploy-card r d2">
+      <div class="dc-icon"><img src="https://25665345.fs1.hubspotusercontent-eu1.net/hubfs/25665345/ABM%20Productions/Smartway%20Icons/Watch-1--Streamline-Core.svg" alt=""></div>
+      <div class="dc-title">Hours saved weekly</div>
+      <div class="dc-desc">Each store recovers significant labor hours that shift to higher-value tasks. Managers spend time on customers, not on shelf walking.</div>
+    </div>
+    <div class="deploy-card r d3">
+      <div class="dc-icon"><img src="https://25665345.fs1.hubspotusercontent-eu1.net/hubfs/25665345/ABM%20Productions/Smartway%20Icons/Chart-Monitoring-Indicator--Streamline-Core.svg" alt=""></div>
+      <div class="dc-title">HQ visibility across all stores</div>
+      <div class="dc-desc">A real-time dashboard shows shrink trends, compliance rates, and markdown performance across your entire network, accessible from day one.</div>
+    </div>
+    <div class="deploy-card r d4">
+      <div class="dc-icon"><img src="https://25665345.fs1.hubspotusercontent-eu1.net/hubfs/25665345/ABM%20Productions/Smartway%20Icons/Wifi-Signal-Full--Streamline-Core.svg" alt=""></div>
+      <div class="dc-title">55–75% faster with ESL flash</div>
+      <div class="dc-desc">The Hanshow ESL that flashes when an alert triggers is the key differentiator. Associates go straight to the exact product. No scanning, no searching.</div>
+    </div>
+    <div class="deploy-card r d5">
+      <div class="dc-icon"><img src="https://25665345.fs1.hubspotusercontent-eu1.net/hubfs/25665345/ABM%20Productions/Smartway%20Icons/Target--Streamline-Core.svg" alt=""></div>
+      <div class="dc-title">98.7% alert treatment rate</div>
+      <div class="dc-desc">In stores with Hanshow ESLs, Smartway achieves near-perfect alert resolution. The visual flash is what drives this compliance. Zero ambiguity, zero missed products.</div>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- ═══ CTA ═══ -->
+<section class="s-cta" id="cta">
+<div class="cta-bg">
+  <img src="https://25665345.fs1.hubspotusercontent-eu1.net/hubfs/25665345/ABM%20Productions/rayon%20png.png" alt="">
+</div>
+<div class="cta-split">
+  <div class="cta-left r">
+    <div class="s-tag" style="color:var(--lg)">● Next step</div>
+    <h2 class="s-title" style="color:var(--white);font-size:clamp(1.8rem,3.5vw,2.6rem)">Start a pilot.<br><em>ROI from day 1.</em></h2>
+    <p class="cta-desc">Smartway connects directly to your Hanshow ESL infrastructure. No IT project. No weeks of setup. Your team is operational the same day you decide to start.</p>
+    <div class="cta-features">
+      <div class="cta-feat"><div class="cf-check">✓</div> Go live in 1 day. No IT integration required</div>
+      <div class="cta-feat"><div class="cf-check">✓</div> Works with your existing Hanshow ESL network</div>
+      <div class="cta-feat"><div class="cf-check">✓</div> Free pilot. Measurable results from week 1</div>
+      <div class="cta-feat"><div class="cf-check">✓</div> 30-min expert call · Personalized ROI simulation</div>
+    </div>
+  </div>
+  <div class="r d2">
+    <div class="hs-form-wrap">
+      <h3>Start your free pilot</h3>
+      <div id="hs-form-container"></div>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- ═══ FOOTER ═══ -->
+<footer>
+<div class="ft-inner">
+  <div class="ft-logos">
+    <img src="https://25665345.fs1.hubspotusercontent-eu1.net/hubfs/25665345/ABM%20Productions/Smartway%20logo%20whit%20epng.png" alt="Smartway">
+    <span class="x-mark">×</span>
+    <img src="https://25665345.fs1.hubspotusercontent-eu1.net/hubfs/25665345/ABM%20Productions/Hanshow%20logo%20white.png" alt="Hanshow" style="height:20px">
+  </div>
+  <div class="ft-tagline">The #1 AI platform for expiry date management in US retail.</div>
+  <div class="ft-desc">Smartway helps retailers eliminate short-dated shrink, protect fresh margins, and build a culture of food safety excellence - deployed in hours, not months.</div>
+  <div class="ft-line"></div>
+  <div class="ft-bottom">
+    <div class="ft-prepared">Distributed by Hanshow sales team · Smartway × Hanshow Partnership 2025</div>
+    <div class="ft-links"><a href="https://smartway.ai" target="_blank">smartway.ai</a><a href="mailto:hello@smartway.ai">Contact</a></div>
+  </div>
+</div>
+</footer>
+
+<script>
+/* ═══════════ MARGIN CINEMA SCROLL ═══════════ */
+(function(){
+  const sec = document.getElementById('margin-section');
+  if(!sec) return;
+  const center = document.getElementById('smCenter');
+  const phases = [document.getElementById('smP0'),document.getElementById('smP1'),document.getElementById('smP2'),document.getElementById('smP3')];
+  // Each block: [fadeIn start, full start, full end, fadeOut end]
+  // NO overlap between any two consecutive blocks
+  const blocks = [
+    {el: center,    range:[-0.05, 0.00, 0.07, 0.13]},
+    {el: phases[0], range:[0.16, 0.21, 0.30, 0.36]},
+    {el: phases[1], range:[0.39, 0.45, 0.54, 0.60]},
+    {el: phases[2], range:[0.63, 0.69, 0.78, 0.84]},
+    {el: phases[3], range:[0.87, 0.92, 1.00, 1.00]},
+  ];
+
+  function ease(x){return x<.5?2*x*x:1-Math.pow(-2*x+2,2)/2;}
+
+  function tick(){
+    const rect = sec.getBoundingClientRect();
+    const total = sec.offsetHeight - window.innerHeight;
+    const p = Math.min(Math.max(-rect.top/total,0),1);
+
+    blocks.forEach(b => {
+      if(!b.el) return;
+      const [i0,i1,i2,i3] = b.range;
+      let op = 0;
+      if(p >= i0 && p < i1)      op = ease((p-i0)/(i1-i0));
+      else if(p >= i1 && p <= i2) op = 1;
+      else if(p > i2 && p <= i3)  op = ease(1-(p-i2)/(i3-i2));
+      const dy = (1-op)*20;
+      b.el.style.opacity = op;
+      if(b.el === center){
+        b.el.style.transform = `translate(-50%,calc(-50% + ${dy}px))`;
+      } else {
+        b.el.style.transform = `translate(-50%,calc(-50% + ${dy}px))`;
+      }
+    });
+  }
+
+  window.addEventListener('scroll', tick, {passive:true});
+  tick();
+})();
+
+/* ═══════════ NAV SCROLL ═══════════ */
+const nav=document.getElementById('nav');
+window.addEventListener('scroll',()=>{
+  if(window.scrollY>80)nav.classList.add('scrolled');
+  else nav.classList.remove('scrolled');
+},{passive:true});
+
+/* ═══════════ SCROLL REVEAL ═══════════ */
+const revealObs=new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('v');revealObs.unobserve(e.target);}});
+},{threshold:0,rootMargin:'0px 0px -20px 0px'});
+document.querySelectorAll('.r').forEach(el=>revealObs.observe(el));
+
+// Robust reveal: scroll listener + initial check
+function revealVisible(){
+  const vp = window.innerHeight;
+  document.querySelectorAll('.r:not(.v)').forEach(el=>{
+    const r = el.getBoundingClientRect();
+    if(r.top < vp + 80 && r.bottom > -80){ el.classList.add('v'); }
+  });
+}
+// Run on scroll
+window.addEventListener('scroll', revealVisible, {passive:true});
+// Run after load
+setTimeout(revealVisible, 100);
+setTimeout(revealVisible, 500);
+setTimeout(revealVisible, 1200);
+
+/* ═══════════ IMPACT SCROLL ═══════════ */
+const impactBgImgs=document.querySelectorAll('#impactBg img');
+const impactCardsEls=document.querySelectorAll('.impact-card');
+const impactDotsEls=document.querySelectorAll('.impact-dot');
+let currentImpact=0;
+
+function goImpact(i){
+  currentImpact=i;
+  impactBgImgs.forEach((img,j)=>img.classList.toggle('active',j===i));
+  impactCardsEls.forEach((c,j)=>c.classList.toggle('visible',j===i));
+  impactDotsEls.forEach((d,j)=>d.classList.toggle('active',j===i));
+}
+
+const impactSection=document.getElementById('impactSection');
+function impactScroll(){
+  if(!impactSection)return;
+  const r=impactSection.getBoundingClientRect();
+  const total=impactSection.offsetHeight-window.innerHeight;
+  const scrolled=Math.min(Math.max(-r.top,0),total);
+  const progress=scrolled/total;
+  const idx=Math.min(2,Math.floor(progress*3));
+  if(idx!==currentImpact)goImpact(idx);
+}
+window.addEventListener('scroll',impactScroll,{passive:true});
+
+/* ═══════════ DEMO ANIMATION ═══════════ */
+const markers=Array.from({length:6},(_,i)=>document.getElementById('m'+i));
+const statP=document.getElementById('dStatProducts');
+const statT=document.getElementById('dStatTime');
+const statA=document.getElementById('dStatAisles');
+const scan=document.getElementById('aisleScan');
+const result=document.getElementById('demoResult');
+const replayBtn=document.getElementById('demoReplay');
+const pda1=document.getElementById('pdaScreen1'),pda2=document.getElementById('pdaScreen2');
+let demoRunning=false;
+
+function resetDemo(){
+  markers.forEach(m=>{if(m)m.classList.remove('show');});
+  if(scan){scan.classList.remove('active');void scan.offsetWidth;}
+  if(statP)statP.textContent='0';
+  if(statT)statT.textContent='0.0s';
+  if(statA)statA.textContent='0';
+  if(result){result.classList.remove('show');result.textContent='';}
+  if(pda1)pda1.classList.remove('hidden');
+  if(pda2)pda2.classList.add('hidden');
+}
+
+function startDemo(){
+  if(demoRunning)return;
+  demoRunning=true;
+  resetDemo();
+  if(replayBtn)replayBtn.style.opacity='0';
+
+  let t=0,p=0,a=1;
+  const tInt=setInterval(()=>{t+=.1;if(statT)statT.textContent=t.toFixed(1)+'s';},100);
+  if(statA)statA.textContent=a;
+
+  setTimeout(()=>{if(scan)scan.classList.add('active');},600);
+
+  const switchAt=1200+markers.length*380+600;
+  markers.forEach((m,i)=>{
+    setTimeout(()=>{
+      if(m)m.classList.add('show');
+      p++;if(statP)statP.textContent=p;
+      if(statA)statA.textContent=i<3?'1':'2';
+    },1200+i*380);
+  });
+
+  setTimeout(()=>{
+    clearInterval(tInt);
+    if(pda1)pda1.classList.add('hidden');
+    if(pda2)pda2.classList.remove('hidden');
+    if(statT)statT.textContent='4.2s';
+    if(statP)statP.textContent=markers.length;
+    if(statA)statA.textContent='2';
+  },switchAt);
+
+  setTimeout(()=>{
+    if(result){
+      result.innerHTML='⚡ <strong>'+markers.length+' short-dated products</strong> geolocalized in 2 aisles in 4.2s. Zero time wasted searching.';
+      result.classList.add('show');
+    }
+    if(replayBtn)replayBtn.style.opacity='1';
+    demoRunning=false;
+    // Reset PDA after 6s
+    setTimeout(()=>{
+      if(pda1&&pda2){pda2.classList.add('hidden');pda1.classList.remove('hidden');}
+    },6000);
+  },switchAt+600);
+}
+
+/* ═══════════ DEMO INTERSECTION OBSERVER ═══════════ */
+const demoSection=document.getElementById('demo');
+let demoStarted=false;
+if(demoSection){
+  new IntersectionObserver((entries)=>{
+    if(entries[0].isIntersecting&&!demoStarted){
+      demoStarted=true;
+      setTimeout(startDemo,800);
+    }
+  },{threshold:.3}).observe(demoSection);
+}
+
+
+
+/* ═══════════ MARGIN CINEMA SCROLL ═══════════ */
+(function(){
+  const sec = document.getElementById('margin-section');
+  if(!sec) return;
+  const center = document.getElementById('smCenter');
+  const phases = [document.getElementById('smP0'),document.getElementById('smP1'),document.getElementById('smP2'),document.getElementById('smP3')];
+  // Each block: [fadeIn start, full start, full end, fadeOut end]
+  // NO overlap between any two consecutive blocks
+  const blocks = [
+    {el: center,    range:[-0.05, 0.00, 0.07, 0.13]},
+    {el: phases[0], range:[0.16, 0.21, 0.30, 0.36]},
+    {el: phases[1], range:[0.39, 0.45, 0.54, 0.60]},
+    {el: phases[2], range:[0.63, 0.69, 0.78, 0.84]},
+    {el: phases[3], range:[0.87, 0.92, 1.00, 1.00]},
+  ];
+
+  function ease(x){return x<.5?2*x*x:1-Math.pow(-2*x+2,2)/2;}
+
+  function tick(){
+    const rect = sec.getBoundingClientRect();
+    const total = sec.offsetHeight - window.innerHeight;
+    const p = Math.min(Math.max(-rect.top/total,0),1);
+
+    blocks.forEach(b => {
+      if(!b.el) return;
+      const [i0,i1,i2,i3] = b.range;
+      let op = 0;
+      if(p >= i0 && p < i1)      op = ease((p-i0)/(i1-i0));
+      else if(p >= i1 && p <= i2) op = 1;
+      else if(p > i2 && p <= i3)  op = ease(1-(p-i2)/(i3-i2));
+      const dy = (1-op)*20;
+      b.el.style.opacity = op;
+      if(b.el === center){
+        b.el.style.transform = `translate(-50%,calc(-50% + ${dy}px))`;
+      } else {
+        b.el.style.transform = `translate(-50%,calc(-50% + ${dy}px))`;
+      }
+    });
+  }
+
+  window.addEventListener('scroll', tick, {passive:true});
+  tick();
+})();
+
+
+
+/* ═══════════ HUBSPOT FORM ═══════════ */
+(function(){
+  function loadForm(){
+    if(window.hbspt && document.getElementById('hs-form-container')){
+      hbspt.forms.create({
+        region:'eu1',
+        portalId:'25665345',
+        formId:'8a75fe37-0e89-43dc-a199-1ef4f9756d5a',
+        target:'#hs-form-container'
+      });
+      return true;
+    }
+    return false;
+  }
+  if(!loadForm()){
+    var t=0;
+    var i=setInterval(function(){if(loadForm()||++t>80)clearInterval(i);},150);
+  }
+  window.addEventListener('load',loadForm,false);
+})();
+
+console.log('Hanshow × Smartway LP v3 loaded');
+
+/* ═══════════ STEP VIDEO FLOW ═══════════ */
+(function(){
+  const stepCards = Array.from(document.querySelectorAll('.demo-step[data-step]'));
+  const stepWraps = Array.from(document.querySelectorAll('.step-wrap[data-wrap]'));
+  const stepVideos = stepCards.map(c => c.querySelector('.demo-step-vid'));
+  const arrows = Array.from(document.querySelectorAll('.demo-step-arrow'));
+  if(!stepCards.length) return;
+
+  let current = 0;
+  let hovering = false;
+  let hoverIdx = -1;
+  let rafId = null;
+
+  function activate(idx){
+    current = idx;
+    if(rafId) cancelAnimationFrame(rafId);
+
+    stepCards.forEach((c,i) => c.classList.toggle('active', i===idx));
+    stepWraps.forEach((w,i) => w.classList.toggle('active', i===idx));
+
+    // Light up arrows leading to and including active step
+    arrows.forEach((a,i) => {
+      a.style.color = i < idx ? 'rgba(205,231,161,.6)' : 'rgba(205,231,161,.18)';
+    });
+
+    stepVideos.forEach((v,i) => {
+      if(!v) return;
+      if(i === idx){
+        v.currentTime = 0;
+        v.play().catch(()=>{});
+      } else {
+        v.pause();
+        v.currentTime = 0;
+      }
+    });
+  }
+
+  // Auto-advance on video end
+  stepVideos.forEach((v,i) => {
+    if(!v) return;
+    v.addEventListener('ended', () => {
+      if(!hovering) activate((i+1) % stepCards.length);
+    });
+  });
+
+  // Hover on wrap (covers header + card)
+  const hoverTargets = stepWraps.length ? stepWraps : stepCards;
+  hoverTargets.forEach((el,i) => {
+    el.addEventListener('mouseenter', () => {
+      hovering = true;
+      hoverIdx = i;
+      activate(i);
+    });
+    el.addEventListener('mouseleave', () => {
+      hovering = false;
+      activate((hoverIdx + 1) % stepCards.length);
+    });
+  });
+
+  // Start when section enters viewport
+  const hiwSection = document.querySelector('.demo-hiw');
+  if(hiwSection){
+    let started = false;
+    const io = new IntersectionObserver(entries => {
+      if(entries[0].isIntersecting && !started){
+        started = true;
+        activate(0);
+      }
+    }, {threshold: 0.2});
+    io.observe(hiwSection);
+  } else {
+    activate(0);
+  }
+})();
+</script>
+</body>
+</html>
