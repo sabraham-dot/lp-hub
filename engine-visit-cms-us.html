@@ -46,7 +46,7 @@ section{padding:110px 32px;position:relative}
 .nav-meta{font-size:.8rem;color:rgba(255,255,255,.92);font-weight:600;letter-spacing:.01em;white-space:nowrap}
 .nav-right{display:flex;align-items:center;gap:20px}
 .nav-cta{padding:10px 26px;background:var(--lg);color:#243c36;font-family:'Poppins',sans-serif;font-size:.8rem;font-weight:700;border:none;border-radius:100px;cursor:pointer;text-decoration:none;transition:var(--t)}.nav-cta:hover{background:var(--yellow);color:var(--black);transform:translateY(-1px)}
-@media(max-width:760px){.nav{padding:10px 14px;border-radius:0 0 24px 24px}.nav-sep,.nav-meta{display:none}.nav-left{gap:6px}.nav-left img{height:18px}.nav-x{font-size:.75rem}.nav-cta{padding:8px 14px;font-size:.72rem}}
+@media(max-width:760px){.nav{padding:10px 16px;border-radius:0 0 24px 24px}.nav-sep,.nav-meta{display:none}.nav-left{gap:8px}.nav-left img{height:22px}.nav-left img:nth-child(3),.nav-x{display:none}.nav-cta{padding:8px 16px;font-size:.74rem}}
 
 /* ── HERO (two-column with video) ── */
 .s-hero{min-height:100vh;display:flex;align-items:center;position:relative;overflow:hidden;padding:140px 32px 100px;background:var(--lg)}
@@ -195,14 +195,18 @@ section{padding:110px 32px;position:relative}
 .demo-stats-mobile{display:none}
 @media(max-width:600px){
   /* hide desktop overlays */
-  .demo-replay{display:none}
+  .demo-replay{display:none !important}
   .demo-overlay-stats{display:none}
-  /* mobile replay button — above the scene */
-  .demo-replay-mobile{display:flex;justify-content:center;padding:12px 20px 0}
+  /* mobile replay button — inside demo-intro, below subtitle */
+  .demo-replay-mobile{display:flex;justify-content:center;margin-top:20px}
   .demo-replay-mobile button{display:inline-flex;align-items:center;gap:6px;padding:10px 24px;background:rgba(49,113,91,.85);color:var(--white);border:1px solid rgba(205,231,161,.25);border-radius:100px;font-family:'Poppins',sans-serif;font-size:.82rem;font-weight:600;cursor:pointer;width:auto}
   .demo-replay-mobile button:hover{background:var(--yellow);color:var(--dark)}
   /* mobile stats — below the scene, in hiw section */
-  .demo-stats-mobile{display:flex;gap:8px;padding:24px 16px 0}
+  .demo-overlay-stats{display:none!important}
+  .demo-hiw{padding-top:0}
+  .demo-stats-mobile{display:flex;gap:8px;padding:20px 16px;background:var(--dark)}
+  .demo-stats-mobile .demo-stat{flex:1;min-width:0;padding:14px 8px;border-radius:10px}
+  .demo-hiw-title{margin-bottom:32px;padding-top:32px}
   .demo-stats-mobile .demo-stat{flex:1;min-width:0;padding:10px 6px;border-radius:10px}
   .demo-stats-mobile .dsv{font-size:1.15rem;font-weight:800;color:var(--lg);display:block}
   .demo-stats-mobile .dsl{font-size:.56rem;color:var(--on-dark-3);white-space:nowrap;display:block;margin-top:2px}
@@ -576,11 +580,11 @@ footer::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;back
     <div class="s-tag light r">● Your GPS for short-dated products</div>
     <h2 class="s-title r" style="color:var(--white)">1,000 SKUs checked in <em>4 minutes</em></h2>
     <p class="s-desc c r">Like a GPS guides your car, smartdetection guides your team to the right product, at the right time, in the right aisle.</p>
+    <!-- mobile only: replay button below subtitle -->
+    <div class="demo-replay-mobile r">
+      <button onclick="replayDemo()">↻ Replay demo</button>
+    </div>
   </div></div>
-  <!-- mobile only: replay above the scene -->
-  <div class="demo-replay-mobile">
-    <button onclick="replayDemo()">↻ Replay demo</button>
-  </div>
   <div class="demo-scene">
     <div class="aisle-photo" id="aislePhoto">
       <img src="https://25665345.fs1.hubspotusercontent-eu1.net/hubfs/25665345/ABM%20Productions/rayon%20png.png" alt="Aisle">
@@ -611,14 +615,15 @@ footer::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;back
   </div>
 </section>
 
+<!-- mobile only: KPIs between demo scene and how-it-works -->
+<div class="demo-stats-mobile">
+  <div class="demo-stat"><span class="dsv" id="dSPm">0</span><span class="dsl">products detected</span></div>
+  <div class="demo-stat"><span class="dsv" id="dSTm">0.0s</span><span class="dsl">detection time</span></div>
+  <div class="demo-stat"><span class="dsv" id="dSAm">0</span><span class="dsl">aisles scanned</span></div>
+</div>
+
 <!-- ═══ 4 STEPS ═══ -->
 <div class="demo-hiw">
-  <!-- mobile only: KPIs at the top of this section -->
-  <div class="demo-stats-mobile">
-    <div class="demo-stat"><span class="dsv" id="dSPm">0</span><span class="dsl">products detected</span></div>
-    <div class="demo-stat"><span class="dsv" id="dSTm">0.0s</span><span class="dsl">detection time</span></div>
-    <div class="demo-stat"><span class="dsv" id="dSAm">0</span><span class="dsl">aisles scanned</span></div>
-  </div>
   <div class="demo-hiw-inner">
     <div class="demo-hiw-title">
       <h3>How does it work?</h3>
