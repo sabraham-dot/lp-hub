@@ -434,7 +434,7 @@ footer::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;back
     <div class="hero-right">
       <div class="hero-video-card">
         <div class="hero-video-frame">
-          <iframe id="heroVimeo" src="https://player.vimeo.com/video/1164737982?h=28813a5055&badge=0&autopause=0&player_id=0&app_id=58479&autoplay=1&muted=1&loop=1" allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share" referrerpolicy="strict-origin-when-cross-origin" title="Store visit"></iframe>
+          <iframe id="heroVimeo" src="https://player.vimeo.com/video/1164737982?h=28813a5055&badge=0&autopause=0&player_id=0&app_id=58479&autoplay=1&muted=1&loop=1&background=1&playsinline=1" allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share" referrerpolicy="strict-origin-when-cross-origin" title="Store visit"></iframe>
         </div>
         <div class="hero-video-label">
           <span>A word from Christophe</span>
@@ -638,7 +638,8 @@ footer::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;back
         </div>
         <div class="demo-step r d1 active" data-step="0">
           <div class="vid-clip top-crop"><video class="demo-step-vid top" muted playsinline preload="auto">
-            <source src="https://25665345.fs1.hubspotusercontent-eu1.net/hubfs/25665345/ABM%20Productions/GIF%201%20Flash%20Evo.mov" type="video/mp4">
+            <source src="https://25665345.fs1.hubspotusercontent-eu1.net/hubfs/25665345/ABM%20Productions/GIF%201%20Flash%20Evo.mov" type="video/quicktime">
+            <source src="https://25665345.fs1.hubspotusercontent-eu1.net/hubfs/25665345/ABM%20Productions/GPS%20Detection.mp4" type="video/mp4">
           </video></div>
           <div class="demo-step-body">
             <div class="demo-step-title">Open PDA, see today's alerts</div>
@@ -1153,7 +1154,7 @@ var hs=document.createElement('script');hs.src='https://static.hsappstatic.net/M
     stepWraps.forEach(function(w,i){w.classList.toggle('active',i===idx);});
     stepVideos.forEach(function(v,i){
       if(!v)return;
-      if(i===idx){v.currentTime=0;v.play().catch(function(){});}
+      if(i===idx){v.load();v.currentTime=0;v.play().catch(function(){});}
       else{v.pause();v.currentTime=0;}
     });
   }
@@ -1173,6 +1174,35 @@ var hs=document.createElement('script');hs.src='https://static.hsappstatic.net/M
       if(entries[0].isIntersecting&&!started){started=true;activate(0);}
     },{threshold:0.2}).observe(hiwSection);
   } else {activate(0);}
+})();
+
+/* ═══ iOS VIDEO AUTOPLAY FIX ═══ */
+(function(){
+  // Force play on all autoplay+muted videos on first user gesture (iOS Safari)
+  var iosFixed=false;
+  function iosFixVideos(){
+    if(iosFixed)return; iosFixed=true;
+    document.querySelectorAll('video[autoplay]').forEach(function(v){
+      v.muted=true;v.load();v.play().catch(function(){});
+    });
+  }
+  document.addEventListener('touchstart',iosFixVideos,{once:true,passive:true});
+  document.addEventListener('click',iosFixVideos,{once:true,passive:true});
+  document.addEventListener('scroll',iosFixVideos,{once:true,passive:true});
+
+  // IntersectionObserver for videos not visible on load
+  if('IntersectionObserver' in window){
+    var vObs=new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if(e.isIntersecting){
+          var v=e.target;
+          if(v.paused){v.muted=true;v.load();v.play().catch(function(){});}
+          vObs.unobserve(v);
+        }
+      });
+    },{threshold:0.1});
+    document.querySelectorAll('video[autoplay]').forEach(function(v){vObs.observe(v);});
+  }
 })();
 
 console.log('🚀 Smartway Visit LP v2.1 - Asda demo loaded');
