@@ -582,7 +582,7 @@ footer::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;back
     <p class="s-desc c r">Like a GPS guides your car, smartdetection guides your team to the right product, at the right time, in the right aisle.</p>
     <!-- mobile only: replay button below subtitle -->
     <div class="demo-replay-mobile r">
-      <button onclick="replayDemo()">↻ Replay demo</button>
+      <button id="demoReplay" onclick="replayDemo()">↻ Replay demo</button>
     </div>
   </div></div>
   <div class="demo-scene">
@@ -591,7 +591,7 @@ footer::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;back
       <div class="aisle-overlay-top"></div>
       <div class="aisle-overlay-bottom"></div>
       <div class="aisle-scan" id="aisleScan"></div>
-      <button class="demo-replay show" id="demoReplay" onclick="replayDemo()">↻ Replay demo</button>
+      <button class="demo-replay show" id="demoReplayDesktop" onclick="replayDemo()">↻ Replay demo</button>
       <div class="pda-overlay"><div class="pda-glow"></div><div class="pda-device">
         <img src="https://25665345.fs1.hubspotusercontent-eu1.net/hubfs/25665345/ABM%20Productions/zebra%20png.png" alt="PDA">
         <div class="pda-screen-content">
@@ -1080,7 +1080,7 @@ var dObs=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isInt
 dObs.observe($('demo'));
 function setStat(id,val){var e=$('dS'+id);if(e)e.textContent=val;var em=$('dS'+id+'m');if(em)em.textContent=val;}
 function startDemo(){
-  var scan=$('aisleScan'),res=$('demoResult'),rb=$('demoReplay');
+  var scan=$('aisleScan'),res=$('demoResult'),rb=$('demoReplay'),rbD=$('demoReplayDesktop');
   res.classList.remove('show');markers.forEach(function(m){m.classList.remove('show');});
   setStat('P','0');setStat('T','0.0s');setStat('A','0');
   if(rb)rb.style.opacity='0';
@@ -1088,9 +1088,9 @@ function startDemo(){
   setTimeout(function(){scan.classList.remove('active');void scan.offsetWidth;scan.classList.add('active');},600);
   markers.forEach(function(m,i){setTimeout(function(){m.classList.add('show');setStat('P',i+1);setStat('A',i<(markers.length/2)?'1':'2');},1200+i*380);});
   var sd=1200+markers.length*380+600;
-  setTimeout(function(){clearInterval(tI);setStat('T','4.2s');setStat('P',markers.length);setStat('A','2');res.innerHTML='⚡ <strong>'+markers.length+' short-dated products</strong> geolocated across 2 aisles in 4.2s. Zero time wasted searching.';res.classList.add('show');if(rb)rb.style.opacity='1';},sd);
+  setTimeout(function(){clearInterval(tI);setStat('T','4.2s');setStat('P',markers.length);setStat('A','2');res.innerHTML='⚡ <strong>'+markers.length+' short-dated products</strong> geolocated across 2 aisles in 4.2s. Zero time wasted searching.';res.classList.add('show');if(rb)rb.style.opacity='1';if(rbD)rbD.style.opacity='1';},sd);
 }
-window.replayDemo=function(){demoPlayed=false;var rb=$('demoReplay');if(rb)rb.style.opacity='0';$('demoResult').classList.remove('show');markers.forEach(function(m){m.classList.remove('show');});setStat('P','0');setStat('T','0.0s');setStat('A','0');setTimeout(startDemo,400);};
+window.replayDemo=function(){demoPlayed=false;var rb=$('demoReplay'),rbD=$('demoReplayDesktop');if(rb)rb.style.opacity='0';if(rbD)rbD.style.opacity='0';$('demoResult').classList.remove('show');markers.forEach(function(m){m.classList.remove('show');});setStat('P','0');setStat('T','0.0s');setStat('A','0');setTimeout(startDemo,400);};
 
 /* ═══ TRANSFORM - photo slideshow + hover + lightbox (Gadisa) ═══ */
 (function(){
