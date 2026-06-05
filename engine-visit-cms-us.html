@@ -1,0 +1,836 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Smartway × Asda · Store visit report</title>
+<meta name="description" content="What we observed during our visit to Asda, the proof we gathered, and how smarter date management protects your margin.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --dark:#1A2E28;--green:#31715B;--lg:#CDE7A1;--mint:#EEF1EA;--mint2:#F6F8F2;
+  --white:#FFF;--black:#0A0F0D;--yellow:#FFD712;--coral:#F47C6D;--grey:#E2E0E3;--amber:#F5A623;
+  /* readable text-on-dark scale (boss feedback #1) */
+  --on-dark-1:rgba(255,255,255,.92);
+  --on-dark-2:rgba(255,255,255,.74);
+  --on-dark-3:rgba(255,255,255,.6);
+  --t:all .4s cubic-bezier(.16,1,.3,1)
+}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth;touch-action:manipulation;scroll-padding-top:80px}
+body{font-family:'Poppins',sans-serif;color:var(--dark);background:var(--black);overflow-x:hidden;-webkit-font-smoothing:antialiased}
+::selection{background:var(--green);color:var(--white)}
+img{max-width:100%;display:block}
+.r{opacity:0;transform:translateY(36px);transition:all .8s cubic-bezier(.16,1,.3,1)}.r.v{opacity:1;transform:translateY(0)}
+.r.d1{transition-delay:.1s}.r.d2{transition-delay:.2s}.r.d3{transition-delay:.3s}.r.d4{transition-delay:.4s}
+section{padding:110px 32px;position:relative}
+.inner{max-width:1100px;margin:0 auto}
+.noise::after{content:'';position:absolute;inset:0;z-index:1;opacity:.03;pointer-events:none;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.7' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");background-repeat:repeat;background-size:256px}
+.s-tag{display:inline-flex;align-items:center;gap:6px;font-size:.7rem;font-weight:600;text-transform:uppercase;letter-spacing:.12em;margin-bottom:16px}
+.s-tag.green{color:var(--green)}.s-tag.light{color:var(--lg)}.s-tag.coral{color:var(--coral)}
+.s-title{font-size:clamp(1.6rem,3.5vw,2.5rem);font-weight:700;line-height:1.2;letter-spacing:-.025em;margin-bottom:16px}
+.s-title em{font-style:normal;background:linear-gradient(135deg,var(--lg),#8FD88F);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.s-desc{font-size:1rem;font-weight:300;line-height:1.75;max-width:620px;opacity:.6}.s-desc.c{margin:0 auto;text-align:center}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:16px 36px;font-family:'Poppins',sans-serif;font-size:.9rem;font-weight:600;border:none;border-radius:14px;cursor:pointer;text-decoration:none;transition:var(--t)}
+.btn-g{background:var(--green);color:var(--white)}.btn-g:hover{background:var(--yellow);color:var(--black);transform:translateY(-2px);box-shadow:0 12px 40px rgba(255,215,18,.3)}
+.btn-o{background:rgba(255,255,255,.1);color:var(--white);border:1px solid rgba(255,255,255,.22)}.btn-o:hover{background:var(--yellow);color:var(--black);border-color:var(--yellow);transform:translateY(-2px)}
+
+/* ── NAV ── */
+.nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:14px 40px;display:flex;align-items:center;justify-content:space-between;background:#243c36;border-radius:0 0 40px 40px;transition:var(--t)}
+.nav.scrolled{background:rgba(36,60,54,.97);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);box-shadow:0 8px 32px rgba(0,0,0,.25)}
+.nav-left{display:flex;align-items:center;gap:10px}.nav-left img{height:24px;object-fit:contain}
+.nav-x{color:rgba(205,231,161,.4);font-size:.9rem;font-weight:300}
+.nav-sep{color:rgba(255,255,255,.3);font-size:.85rem;font-weight:200;margin:0 4px}
+.nav-meta{font-size:.8rem;color:rgba(255,255,255,.92);font-weight:600;letter-spacing:.01em;white-space:nowrap}
+.nav-right{display:flex;align-items:center;gap:20px}
+.nav-cta{padding:10px 26px;background:var(--lg);color:#243c36;font-family:'Poppins',sans-serif;font-size:.8rem;font-weight:700;border:none;border-radius:100px;cursor:pointer;text-decoration:none;transition:var(--t)}.nav-cta:hover{background:var(--yellow);color:var(--black);transform:translateY(-1px)}
+@media(max-width:760px){.nav{padding:12px 18px}.nav-sep,.nav-meta{display:none}}
+
+/* ── HERO (two-column with video) ── */
+.s-hero{min-height:100vh;display:flex;align-items:center;position:relative;overflow:hidden;padding:140px 32px 100px;background:var(--lg)}
+.hero-bg{display:none}
+.s-hero .btn-o{background:rgba(36,60,54,.06);color:var(--dark);border-color:rgba(36,60,54,.25)}
+.s-hero .btn-o:hover{background:var(--yellow);color:var(--black);border-color:var(--yellow)}
+.hero-inner{position:relative;z-index:2;max-width:1140px;margin:0 auto;display:grid;grid-template-columns:1.25fr .95fr;gap:56px;align-items:center}
+.hero-badge{display:inline-flex;align-items:center;gap:8px;padding:8px 20px;border-radius:100px;background:rgba(36,60,54,.07);border:1px solid rgba(36,60,54,.16);font-size:.72rem;font-weight:600;color:var(--green);margin-bottom:24px;width:fit-content}
+.hero-badge .dot{width:6px;height:6px;border-radius:50%;background:var(--green);animation:pulse 2s ease infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+.hero-logos{display:flex;align-items:center;gap:16px;margin-bottom:28px}
+.hero-logos img{height:32px;object-fit:contain}.hero-logos .hx{color:rgba(255,255,255,.3);font-size:1.3rem;font-weight:300}
+.hero-h1{font-size:clamp(1.9rem,3.9vw,2.9rem);font-weight:800;color:var(--dark);line-height:1.12;letter-spacing:-.03em;margin-bottom:18px;max-width:620px}
+.hero-h1 em{font-style:normal;color:var(--green)}
+.hero-sub{font-size:clamp(.96rem,1.4vw,1.08rem);color:rgba(36,60,54,.7);font-weight:400;line-height:1.7;margin-bottom:28px;max-width:520px}
+.hero-meta{display:flex;gap:12px;margin-bottom:32px;flex-wrap:wrap}
+.hero-meta-item{display:flex;align-items:center;gap:8px;font-size:.78rem;color:rgba(36,60,54,.62);font-weight:500;background:rgba(255,255,255,.55);border:1px solid rgba(36,60,54,.1);padding:8px 16px;border-radius:100px}
+.hero-meta-item b{color:var(--green);font-weight:600}
+.hero-meta-item img{width:16px;height:16px;object-fit:contain;flex-shrink:0}
+.hero-ctas{display:flex;gap:14px;flex-wrap:wrap}
+.hero-video-card{position:relative;display:flex;flex-direction:column;width:100%;max-width:320px;margin-left:auto}
+.hero-video-frame{position:relative;padding:177.78% 0 0 0;border-radius:18px 18px 0 0;overflow:hidden;box-shadow:0 32px 80px rgba(0,0,0,.5);background:#000}
+.hero-video-frame iframe{position:absolute;top:0;left:0;width:100%;height:100%;border:none}
+.hero-video-label{position:relative;z-index:2;margin-top:-1px;display:flex;align-items:center;gap:8px;padding:14px 18px;border-radius:0 0 18px 18px;background:rgba(10,15,13,.92);backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,.1);border-top:none}
+.hero-video-label img{height:15px;object-fit:contain}
+.hero-video-label span{font-size:.72rem;color:var(--white);font-weight:600}
+.hvl-date{color:var(--on-dark-3)!important;font-weight:400!important;margin-left:auto}
+.hero-scroll{position:absolute;bottom:28px;left:50%;transform:translateX(-50%);z-index:2;display:flex;flex-direction:column;align-items:center;gap:8px}
+.hs-label{font-size:.6rem;font-weight:600;text-transform:uppercase;letter-spacing:.12em;color:rgba(36,60,54,.4)}
+.hero-scroll .bar{display:block;width:1px;height:34px;background:linear-gradient(to bottom,rgba(36,60,54,.35),transparent);animation:scL 2s ease infinite}
+@keyframes scL{0%{transform:scaleY(0);transform-origin:top}50%{transform:scaleY(1);transform-origin:top}51%{transform-origin:bottom}100%{transform:scaleY(0);transform-origin:bottom}}
+@media(max-width:900px){.hero-inner{grid-template-columns:1fr;text-align:center}.hero-badge,.hero-logos,.hero-ctas,.hero-meta{justify-content:center;margin-left:auto;margin-right:auto}.hero-h1,.hero-sub{margin-left:auto;margin-right:auto}.hero-video-card{max-width:280px;margin:8px auto 0}}
+
+/* ── PROBLEM (light) - section 1 ── */
+.s-problem{background:var(--mint);overflow:hidden}
+.s-problem::before{content:'';position:absolute;top:-200px;right:-200px;width:500px;height:500px;border-radius:50%;background:radial-gradient(circle,rgba(244,124,109,.07),transparent 70%);pointer-events:none}
+.prob-head{text-align:center;margin-bottom:48px}
+.prob-line{font-size:.75rem;font-weight:500;color:rgba(36,60,54,.4);margin-bottom:14px}
+.prob-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+@media(max-width:900px){.prob-grid{grid-template-columns:1fr}}
+.prob-card{background:var(--white);border-radius:20px;overflow:hidden;transition:var(--t);border:1px solid rgba(36,60,54,.05);display:flex;flex-direction:column}
+.prob-card:hover{transform:translateY(-6px);box-shadow:0 20px 60px rgba(36,60,54,.09)}
+.prob-card-img{width:100%;height:200px;object-fit:cover;background:var(--grey)}
+.prob-card-body{padding:26px 24px;flex:1;display:flex;flex-direction:column}
+.prob-status{display:inline-flex;align-items:center;gap:6px;padding:5px 14px;border-radius:100px;font-size:.66rem;font-weight:600;margin-bottom:14px;width:fit-content;text-transform:uppercase;letter-spacing:.04em}
+.prob-status .ps-icon{width:13px;height:13px;flex-shrink:0}
+.prob-status.critical{background:rgba(244,124,109,.1);color:var(--coral);border:1px solid rgba(244,124,109,.18)}
+.prob-status.warning{background:rgba(245,166,35,.1);color:var(--amber);border:1px solid rgba(245,166,35,.18)}
+.prob-card-cat{font-size:.7rem;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:var(--green);margin-bottom:8px}
+.prob-card-title{font-size:1.04rem;font-weight:700;color:var(--dark);line-height:1.32;margin-bottom:10px}
+.prob-card-text{font-size:.84rem;color:rgba(36,60,54,.58);line-height:1.65}
+
+/* ── PROOF (green) - section 2 ── */
+.s-proof{background:var(--dark);overflow:hidden}
+.proof-head{text-align:center;margin-bottom:44px}
+.s-proof .s-title{color:var(--white)}
+.s-proof .s-desc{color:var(--on-dark-2);opacity:1}
+.proof-feature{display:grid;grid-template-columns:1.1fr 1fr;gap:0;background:var(--white);border-radius:24px;overflow:hidden;box-shadow:0 16px 50px rgba(36,60,54,.1);margin-bottom:24px;cursor:zoom-in}
+@media(max-width:820px){.proof-feature{grid-template-columns:1fr}}
+.proof-feature-img{position:relative;min-height:340px;background:var(--grey)}
+.proof-feature-img img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.proof-feature-tag{position:absolute;top:18px;left:18px;z-index:2;display:inline-flex;align-items:center;gap:6px;padding:6px 14px;background:rgba(244,124,109,.95);color:#fff;border-radius:100px;font-size:.66rem;font-weight:700;letter-spacing:.03em}
+.proof-feature-body{padding:clamp(28px,3.5vw,48px);display:flex;flex-direction:column;justify-content:center}
+.proof-feature-body .pf-eyebrow{font-size:.7rem;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:var(--coral);margin-bottom:12px}
+.proof-feature-body h3{font-size:clamp(1.2rem,2vw,1.5rem);font-weight:700;color:var(--dark);line-height:1.25;margin-bottom:14px}
+.proof-feature-body p{font-size:.92rem;color:rgba(36,60,54,.6);line-height:1.7;margin-bottom:10px}
+.proof-feature-body .pf-meta{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px}
+.pf-chip{font-size:.72rem;font-weight:600;color:var(--dark);background:var(--mint);border:1px solid rgba(36,60,54,.08);padding:6px 12px;border-radius:100px}
+.gallery-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+@media(max-width:900px){.gallery-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:500px){.gallery-grid{grid-template-columns:1fr}}
+.gallery-item{border-radius:16px;overflow:hidden;aspect-ratio:1;position:relative;cursor:pointer;background:var(--grey)}
+.gallery-item img{width:100%;height:100%;object-fit:cover;transition:transform .6s}.gallery-item:hover img{transform:scale(1.05)}
+.gallery-item .gi-caption{position:absolute;bottom:0;left:0;right:0;padding:14px 14px;background:linear-gradient(transparent,rgba(10,15,13,.82));color:var(--white);font-size:.7rem;font-weight:500;line-height:1.4;opacity:0;transform:translateY(6px);transition:all .3s}.gallery-item:hover .gi-caption{opacity:1;transform:translateY(0)}
+
+/* ── LIGHTBOX ── */
+.lightbox{position:fixed;inset:0;z-index:300;background:rgba(10,15,13,.93);backdrop-filter:blur(18px);display:none;align-items:center;justify-content:center;padding:40px;cursor:pointer}
+.lightbox.open{display:flex}
+.lb-content{max-width:820px;max-height:86vh;position:relative;cursor:default}
+.lb-content img{width:100%;max-height:76vh;object-fit:contain;border-radius:14px}
+.lb-caption{text-align:center;color:var(--white);font-size:.88rem;font-weight:500;margin-top:16px;padding:0 20px}
+.lb-close{position:absolute;top:-16px;right:-16px;width:38px;height:38px;border-radius:50%;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);color:var(--white);font-size:1.2rem;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:var(--t)}.lb-close:hover{background:var(--coral)}
+
+/* ── TRANSFORM - section 3 : Gadisa-style (cream bg + dark-green card, green strong + grey span) ── */
+.s-transform{background:var(--mint);color:var(--dark);overflow:hidden}
+.tr-head{text-align:center;max-width:720px;margin:0 auto 48px}
+.tr-label{display:inline-block;padding:6px 16px;background:var(--dark);color:var(--lg);border-radius:999px;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.10em;margin-bottom:24px}
+.tr-title{font-size:clamp(1.85rem,3.6vw,2.6rem);color:var(--dark);margin:0 0 8px;font-weight:700;line-height:1.15;letter-spacing:-.02em}
+.tr-title .accent{color:var(--green)}
+.tr-link{margin:14px 0 0;font-size:13.5px;color:var(--green);opacity:.8}
+.tr-link a{color:inherit;text-decoration:none;border-bottom:1px dashed currentColor;padding-bottom:1px;transition:opacity .2s}
+.tr-link a:hover{opacity:1}
+.tr-stakes{display:grid;grid-template-columns:1fr 1fr;gap:24px;max-width:1100px;margin:0 auto}
+@media(max-width:900px){.tr-stakes{grid-template-columns:1fr}}
+.tr-col{background:var(--white);border-radius:24px;padding:clamp(28px,3vw,40px);border:1px solid rgba(26,46,40,.08)}
+.tr-col--dark{background:var(--dark);color:var(--mint);border-color:var(--dark)}
+.tr-col-head{display:flex;align-items:center;gap:16px;margin-bottom:24px;padding-bottom:16px;border-bottom:1px solid rgba(26,46,40,.08)}
+.tr-col--dark .tr-col-head{border-bottom-color:rgba(205,231,161,.15)}
+.tr-col-head .ico{width:44px;height:44px;border-radius:12px;background:rgba(49,113,91,.08);border:1px solid rgba(49,113,91,.14);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.tr-col--dark .tr-col-head .ico{background:rgba(205,231,161,.12);border-color:rgba(205,231,161,.2)}
+.tr-col-head .ico img{width:24px;height:24px;object-fit:contain}
+.tr-col-head .ttl span{display:block;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.10em;color:var(--green);margin-bottom:3px}
+.tr-col--dark .tr-col-head .ttl span{color:var(--lg)}
+.tr-col-head .ttl h3{font-size:1.2rem;margin:0;color:var(--dark);font-weight:600}
+.tr-col--dark .tr-col-head .ttl h3{color:var(--mint)}
+.tr-list{list-style:none;padding:0;margin:0;display:flex;flex-direction:column}
+.tr-list li{display:flex;align-items:flex-start;gap:16px;padding:16px 0;border-bottom:1px dashed rgba(26,46,40,.08)}
+.tr-col--dark .tr-list li{border-bottom-color:rgba(205,231,161,.14)}
+.tr-list li:last-child{border-bottom:none;padding-bottom:0}
+.tr-list li:first-child{padding-top:4px}
+.tr-list li::before{content:"";flex-shrink:0;margin-top:9px;width:7px;height:7px;border-radius:50%;background:var(--coral)}
+.tr-col--dark .tr-list li::before{background:var(--lg)}
+.tr-list strong{display:block;font-weight:600;margin-bottom:5px;color:var(--dark);font-size:1.02rem;line-height:1.3;letter-spacing:-.01em}
+.tr-col--dark .tr-list strong{color:var(--lg)}
+.tr-list span{color:rgba(36,60,54,.6);font-size:.88rem;line-height:1.55}
+.tr-col--dark .tr-list span{color:rgba(238,241,234,.72)}
+/* photo slideshow (left col) */
+.tr-photo{position:relative;border-radius:12px;overflow:hidden;margin-bottom:24px;aspect-ratio:16/9;background:rgba(36,60,54,.08);cursor:zoom-in;transition:box-shadow .2s ease}
+.tr-photo:hover{box-shadow:0 8px 22px rgba(36,60,54,.14)}
+.tr-photo img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:opacity .35s ease}
+.tr-photo__zoom{position:absolute;top:10px;right:10px;width:30px;height:30px;border-radius:50%;background:rgba(36,60,54,.78);color:var(--mint);display:flex;align-items:center;justify-content:center;font-size:14px;backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);pointer-events:none;z-index:2}
+.tr-col:not(.tr-col--dark) .tr-list li{cursor:default;transition:background .2s,padding-left .2s;border-radius:6px}
+.tr-col:not(.tr-col--dark) .tr-list li:hover{background:rgba(36,60,54,.04);padding-left:8px}
+/* video block (right col) */
+.tr-media{position:relative;border-radius:12px;overflow:hidden;margin-bottom:24px;aspect-ratio:16/9;background:var(--dark)}
+.tr-media video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.tr-media::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(36,60,54,0) 35%,rgba(36,60,54,.85) 100%);pointer-events:none}
+.tr-media-meta{position:absolute;left:16px;right:16px;bottom:14px;display:flex;flex-direction:column;gap:2px;color:var(--mint);z-index:1}
+.tr-media-tag{font-size:12px;font-weight:600;color:var(--lg);text-transform:uppercase;letter-spacing:.08em}
+.tr-media-sub{font-size:13px;line-height:1.4;color:rgba(238,241,234,.92)}
+
+/* ── DEMO (dark) ── */
+.s-demo{background:var(--dark);overflow:hidden;padding:0;position:relative}
+.demo-intro{padding:90px 32px 24px;text-align:center;position:relative;z-index:2;background:linear-gradient(180deg,var(--dark),transparent)}
+.demo-intro .s-desc{color:var(--on-dark-2);opacity:1}
+.demo-scene{position:relative;width:100%;overflow:hidden}
+.aisle-photo{position:relative;width:100%}.aisle-photo img{width:100%;display:block;filter:brightness(.62) saturate(1.15)}
+.aisle-overlay-top{position:absolute;top:0;left:0;right:0;height:20%;background:linear-gradient(180deg,var(--dark),transparent);z-index:1;pointer-events:none}
+.aisle-overlay-bottom{position:absolute;bottom:0;left:0;right:0;height:35%;background:linear-gradient(0deg,var(--dark),transparent);z-index:1;pointer-events:none}
+.demo-overlay-stats{position:relative;z-index:7;display:flex;flex-direction:column;align-items:center;gap:16px;width:100%;padding:0 20px 48px;margin-top:-130px;background:linear-gradient(180deg,transparent 0%,var(--dark) 45%,var(--dark) 100%)}
+.demo-stats-bar{display:flex;align-items:center;justify-content:center;gap:24px;flex-wrap:wrap}
+.demo-stat{background:rgba(255,255,255,.05);border:1px solid rgba(205,231,161,.28);border-radius:12px;padding:12px 24px;text-align:center;min-width:130px}
+.demo-stat .dsv{font-size:1.8rem;font-weight:800;color:var(--lg);font-variant-numeric:tabular-nums}.demo-stat .dsl{font-size:.66rem;color:var(--on-dark-3);margin-top:2px}
+.demo-result{display:inline-block;padding:10px 24px;background:rgba(205,231,161,.08);border:1px solid rgba(205,231,161,.2);border-radius:12px;font-size:.84rem;color:var(--lg);font-weight:500;opacity:0;transform:translateY(8px);transition:all .6s cubic-bezier(.16,1,.3,1)}.demo-result.show{opacity:1;transform:translateY(0)}.demo-result strong{color:var(--white)}
+.demo-replay{display:inline-flex;align-items:center;gap:6px;padding:10px 24px;background:rgba(49,113,91,.85);color:var(--white);border:1px solid rgba(205,231,161,.25);border-radius:100px;font-family:'Poppins',sans-serif;font-size:.78rem;font-weight:600;cursor:pointer;opacity:0;transform:translateY(8px);transition:all .6s cubic-bezier(.16,1,.3,1)}.demo-replay.show{opacity:1;transform:translateY(0)}.demo-replay:hover{background:var(--lg);color:var(--dark)}
+.aisle-scan{position:absolute;top:0;bottom:0;left:-8px;width:8px;background:linear-gradient(180deg,transparent 5%,rgba(205,231,161,.6) 25%,rgba(205,231,161,.95) 50%,rgba(205,231,161,.6) 75%,transparent 95%);box-shadow:0 0 40px 15px rgba(205,231,161,.2);z-index:5;opacity:0;pointer-events:none;border-radius:4px}.aisle-scan.active{opacity:1;animation:aisleSweep 2.8s cubic-bezier(.22,.68,.36,1) forwards}
+@keyframes aisleSweep{0%{left:-8px}100%{left:calc(100% + 8px)}}
+.gps-marker{position:absolute;z-index:4;opacity:0;transform:scale(0) translateY(8px);transition:all .5s cubic-bezier(.34,1.56,.64,1);pointer-events:none}.gps-marker.show{opacity:1;transform:scale(1) translateY(0)}
+.gps-pin-head{width:34px;height:34px;border-radius:50%;background:rgba(244,124,109,.95);border:3px solid rgba(255,255,255,.85);display:flex;align-items:center;justify-content:center;box-shadow:0 4px 20px rgba(244,124,109,.6);position:relative;z-index:2}.gps-pin-head span{font-size:.8rem;line-height:1}
+.gps-pin-tail{position:absolute;bottom:-7px;left:50%;transform:translateX(-50%);border-left:7px solid transparent;border-right:7px solid transparent;border-top:9px solid rgba(255,255,255,.85);z-index:1}
+.gps-pulse{position:absolute;top:50%;left:50%;width:34px;height:34px;border-radius:50%;background:rgba(255,215,18,.7);transform:translate(-50%,-50%);animation:gpsPulse 2s ease-out infinite;z-index:0}
+@keyframes gpsPulse{0%{width:34px;height:34px;opacity:1}100%{width:110px;height:110px;opacity:0}}
+.gps-label{position:absolute;top:-26px;left:50%;transform:translateX(-50%);white-space:nowrap;background:rgba(10,15,13,.85);backdrop-filter:blur(10px);color:var(--white);font-size:.55rem;font-weight:600;padding:3px 10px;border-radius:6px;border:1px solid rgba(255,255,255,.14)}.gps-label::after{content:'';position:absolute;bottom:-4px;left:50%;transform:translateX(-50%);border-left:4px solid transparent;border-right:4px solid transparent;border-top:4px solid rgba(10,15,13,.85)}
+.pda-overlay{position:absolute;top:50%;left:50%;transform:translate(-50%,-54%);z-index:6;width:min(220px,28vw)}
+.pda-device{position:relative;width:100%}.pda-device>img{width:100%;display:block;position:relative;z-index:2;filter:drop-shadow(0 25px 60px rgba(0,0,0,.7))}
+.pda-glow{position:absolute;top:25%;left:50%;transform:translate(-50%,-40%);width:250%;height:250%;background:radial-gradient(ellipse 35% 45%,rgba(205,231,161,.1),rgba(49,113,91,.05) 40%,transparent 65%);pointer-events:none;z-index:1;animation:pdaGlow 4s ease-in-out infinite}
+@keyframes pdaGlow{0%,100%{opacity:.5;transform:translate(-50%,-40%) scale(1)}50%{opacity:.9;transform:translate(-50%,-40%) scale(1.05)}}
+.pda-screen-content{position:absolute;top:18.5%;left:10%;right:10%;bottom:16%;z-index:3;overflow:hidden;border-radius:6px;background:#f2f2f2;display:flex;flex-direction:column;font-family:'Poppins',sans-serif}
+.pda-app-bar{padding:5px 8px 4px;background:#fff;border-bottom:1px solid #e5e5e5;display:flex;align-items:center;justify-content:space-between;flex-shrink:0}.pda-app-bar .pab-left{display:flex;align-items:center;gap:3px}.pda-app-bar .pab-left img{height:7px;object-fit:contain}.pda-app-bar .pab-left span{font-size:.36rem;color:#333;font-weight:600}
+.pab-right{display:flex;align-items:center;gap:2px}.pab-live{width:4px;height:4px;border-radius:50%;background:#31715B;animation:pulse 2s ease infinite}.pab-live-txt{font-size:.28rem;font-weight:700;color:#31715B}
+.pda-screen{flex:1;overflow-y:auto;scrollbar-width:none;padding:6px}.pda-screen::-webkit-scrollbar{display:none}
+.pda-ws-title{font-size:.55rem;font-weight:700;color:#1a1a1a;padding:2px 2px 0}.pda-ws-date{font-size:.3rem;color:#888;padding:0 2px 3px}
+.pda-ws-card{background:#fff;border-radius:6px;padding:6px;display:flex;align-items:center;justify-content:space-between;box-shadow:0 1px 3px rgba(0,0,0,.04);margin-bottom:3px;border:1px solid transparent}
+.pda-ws-card .ws-name{font-size:.36rem;font-weight:700;color:#222;text-transform:uppercase}.pda-ws-card .ws-count{font-size:.32rem;font-weight:600;color:#666}
+.pda-ws-card.highlight{border-color:rgba(49,113,91,.25);background:rgba(49,113,91,.03)}.pda-ws-card.highlight .ws-name{color:var(--green)}
+@media(max-width:768px){.pda-overlay{width:min(180px,34vw)}.gps-pin-head{width:24px;height:24px}.gps-pin-head span{font-size:.6rem}.gps-label{font-size:.45rem;top:-20px}}
+@media(max-width:500px){.pda-overlay{width:min(150px,40vw)}.gps-label{display:none}.gps-pin-head{width:20px;height:20px;border-width:2px}.gps-pin-head span{font-size:.5rem}}
+
+/* ── OPPORTUNITY (dark, softened) ── */
+.s-opp{background:var(--black);overflow:hidden;position:relative}
+.s-opp::before{content:'';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:760px;height:760px;background:radial-gradient(circle,rgba(205,231,161,.06),transparent 60%);border-radius:50%;pointer-events:none}
+.opp-inner{position:relative;z-index:2;max-width:860px;margin:0 auto;text-align:center}
+.opp-headline{font-size:clamp(1.25rem,2.7vw,1.85rem);font-weight:300;color:var(--on-dark-2);line-height:1.6;margin-bottom:48px}.opp-headline strong{color:var(--white);font-weight:700}.opp-headline .hl{color:var(--lg);font-weight:700}
+.opp-counter{display:flex;gap:28px;justify-content:center;margin-bottom:52px;flex-wrap:wrap}
+.oc-item{text-align:center;min-width:130px}.oc-val{font-size:2rem;font-weight:800;color:var(--white)}.oc-label{font-size:.7rem;color:var(--on-dark-3);margin-top:6px;line-height:1.5}
+.opp-boxes{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-bottom:48px;max-width:680px;margin-left:auto;margin-right:auto}
+@media(max-width:600px){.opp-boxes{grid-template-columns:1fr}}
+.opp-box{border-radius:20px;padding:36px 28px;text-align:center;background:var(--yellow);border:1px solid var(--yellow)}
+.opp-box.net{background:var(--yellow);border-color:var(--yellow)}
+.opp-box .ob-label{font-size:.68rem;font-weight:600;text-transform:uppercase;letter-spacing:.1em;margin-bottom:10px;color:rgba(26,46,40,.65)}
+.opp-box .ob-amount{font-size:clamp(2.2rem,5vw,3.2rem);font-weight:900;letter-spacing:-.03em;line-height:1;margin-bottom:8px;color:var(--green)}
+.opp-box .ob-sub{font-size:.82rem;color:rgba(26,46,40,.72)}.opp-box .ob-sub strong{color:var(--dark);font-weight:700}
+.opp-ctas{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+
+/* ── VALLARTA SPOTLIGHT (light) - the section that slaps ── */
+.us-sp{background:linear-gradient(180deg,var(--mint) 0%,#FAFAF8 100%);color:var(--dark);overflow:hidden;padding:64px 32px 96px;position:relative}
+.us-sp::before{content:'';position:absolute;top:0;left:50%;transform:translateX(-50%);width:1100px;height:600px;background:radial-gradient(ellipse at top,rgba(49,113,91,.08),transparent 60%);pointer-events:none;filter:blur(40px)}
+.us-sp-inner{max-width:1100px;margin:0 auto;position:relative;z-index:2}
+.us-sp-top{text-align:center;margin-bottom:36px}
+.us-sp-eyebrow{display:inline-block;font-size:.72rem;font-weight:600;text-transform:uppercase;letter-spacing:.18em;color:var(--green);margin-bottom:0}
+.us-sp-logo{height:150px;object-fit:contain;margin:12px auto 30px;display:block;max-width:480px}
+.us-sp-h{font-size:clamp(1.8rem,3.5vw,2.6rem);font-weight:700;color:var(--dark);line-height:1.2;letter-spacing:-.025em;margin:0 auto 14px;max-width:780px}
+.us-sp-h em{font-style:normal;color:var(--green)}
+.us-sp-sub{font-size:1.02rem;color:rgba(36,60,54,.65);line-height:1.7;font-weight:300;max-width:680px;margin:0 auto}
+.us-sp-feature{max-width:1100px;margin:36px auto 48px;position:relative;border-radius:24px;overflow:hidden;box-shadow:0 30px 70px rgba(36,60,54,.25),0 0 0 1px rgba(49,113,91,.08)}
+.us-sp-video{position:relative;width:100%;aspect-ratio:16/9;background:#000}
+.us-sp-video video{width:100%;height:100%;object-fit:cover;display:block}
+.us-sp-vbadge{position:absolute;top:24px;left:24px;z-index:3;display:inline-flex;align-items:center;gap:6px;padding:6px 12px;background:rgba(255,255,255,.92);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-radius:100px;font-size:.66rem;font-weight:700;color:var(--green);letter-spacing:.04em}
+.us-sp-vbadge::before{content:'';width:6px;height:6px;border-radius:50%;background:#F47C6D;animation:pulse 2s ease infinite}
+.us-sp-overlay{position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.25) 0%,rgba(0,0,0,0) 22%,rgba(0,0,0,.35) 55%,rgba(0,0,0,.92) 100%);pointer-events:none;z-index:1}
+.us-sp-content{position:absolute;left:0;right:0;bottom:0;padding:44px 44px 36px;display:flex;flex-direction:column;gap:24px;z-index:2}
+.us-sp-caption{max-width:680px}
+.us-sp-caption .qtxt{font-size:1.08rem;color:#fff;line-height:1.55;font-weight:400;font-style:italic;margin-bottom:14px;padding-left:16px;border-left:2px solid var(--lg);text-shadow:0 2px 14px rgba(0,0,0,.35)}
+.us-sp-caption .qauthor{display:flex;align-items:center;gap:12px;padding-left:16px}
+.us-sp-caption .qavatar{width:42px;height:42px;border-radius:50%;object-fit:cover;border:2px solid rgba(255,255,255,.25);flex-shrink:0}
+.us-sp-caption .qname{font-weight:700;color:#fff;font-size:.92rem}
+.us-sp-caption .qrole{font-size:.78rem;color:rgba(255,255,255,.7);margin-top:1px}
+.us-sp-kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.us-sp-kpi{padding:18px;border-radius:14px;background:rgba(255,255,255,.08);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,.14);position:relative;overflow:hidden;transition:var(--t);text-align:left}
+.us-sp-kpi:hover{background:rgba(255,255,255,.13);border-color:rgba(205,231,161,.32)}
+.us-sp-kpi .kv{font-size:clamp(1.4rem,2.3vw,2rem);font-weight:800;color:#fff;line-height:1;letter-spacing:-.025em;margin-bottom:6px}
+.us-sp-kpi .kl{font-size:.8rem;font-weight:600;color:rgba(255,255,255,.95);margin-bottom:4px}
+.us-sp-kpi .ks{font-size:.8rem;color:rgba(255,255,255,.78);line-height:1.55;font-weight:400}
+@media(max-width:768px){.us-sp-video{aspect-ratio:4/5}.us-sp-content{padding:24px 22px 22px;gap:18px}.us-sp-kpis{grid-template-columns:1fr 1fr;gap:10px}.us-sp-kpi{padding:14px}.us-sp-caption .qtxt{font-size:.94rem;margin-bottom:12px}.us-sp-caption .qavatar{width:36px;height:36px}}
+@media(max-width:600px){.us-sp-content{padding:18px 16px 18px;gap:14px}.us-sp-kpi{padding:12px}.us-sp-kpi .kv{font-size:1.3rem}.us-sp-kpi .kl{font-size:.72rem}.us-sp-kpi .ks{display:none}.us-sp-logo{height:100px}}
+.us-sp-cta-wrap{text-align:center}
+.us-sp-cta-link{display:inline-flex;align-items:center;gap:10px;padding:14px 28px;background:var(--green);border:1px solid var(--green);border-radius:100px;color:#fff;font-size:.86rem;font-weight:600;text-decoration:none;transition:var(--t)}
+.us-sp-cta-link:hover{background:var(--yellow);border-color:var(--yellow);color:var(--black);transform:translateY(-2px);box-shadow:0 12px 30px rgba(255,215,18,.3)}
+
+/* ── DEPLOY (dark + photo) ── */
+.s-deploy{background:var(--black);position:relative;overflow:hidden;padding:140px 32px}
+.deploy-bg{position:absolute;inset:0}.deploy-bg img{width:100%;height:100%;object-fit:cover;opacity:.22;filter:blur(8px)}.deploy-bg::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,var(--black),rgba(10,15,13,.6) 50%,var(--black))}
+.deploy-inner{position:relative;z-index:2;max-width:1100px;margin:0 auto}
+.deploy-inner::before{content:'';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:600px;height:600px;background:radial-gradient(circle,rgba(205,231,161,.1),transparent 60%);border-radius:50%;pointer-events:none;filter:blur(50px)}
+.deploy-header{text-align:center;margin-bottom:64px;position:relative;z-index:2}
+.deploy-header h2{font-size:clamp(2rem,4.5vw,3.2rem);font-weight:800;color:var(--white);line-height:1.15;letter-spacing:-.03em;margin-bottom:16px}
+.deploy-header h2 em{font-style:normal;background:linear-gradient(135deg,var(--lg),#8FD88F,var(--green));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;background-size:200% auto;animation:ts 3s linear infinite}
+@keyframes ts{to{background-position:200% center}}
+.deploy-header p{font-size:1rem;color:var(--on-dark-2);max-width:560px;margin:0 auto;line-height:1.6}
+.deploy-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;position:relative;z-index:2}
+@media(max-width:768px){.deploy-grid{grid-template-columns:1fr}}
+.deploy-card{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:20px;padding:36px 28px;backdrop-filter:blur(24px);transition:var(--t)}.deploy-card:hover{transform:translateY(-6px);background:rgba(255,255,255,.08);border-color:rgba(205,231,161,.3);box-shadow:0 20px 50px rgba(0,0,0,.3)}
+.dc-icon{width:48px;height:48px;border-radius:12px;background:linear-gradient(135deg,rgba(49,113,91,.3),rgba(205,231,161,.18));border:1px solid rgba(205,231,161,.22);display:flex;align-items:center;justify-content:center;color:var(--lg);margin-bottom:20px}.dc-icon svg{width:24px;height:24px}
+.dc-title{font-size:1.05rem;font-weight:700;color:var(--white);margin-bottom:8px}.dc-desc{font-size:.85rem;color:var(--on-dark-2);line-height:1.6}
+
+/* ── CTA + CALENDAR (dark + photo) ── */
+.s-cta{background:var(--dark);overflow:hidden;padding:0;position:relative}
+.cta-bg{position:absolute;inset:0}.cta-bg img{width:100%;height:100%;object-fit:cover}.cta-bg::after{content:'';position:absolute;inset:0;background:linear-gradient(90deg,rgba(10,15,13,.92),rgba(10,15,13,.8) 40%,rgba(10,15,13,.62) 60%,rgba(10,15,13,.45))}
+.cta-split{display:grid;grid-template-columns:1fr 1.1fr;gap:48px;max-width:1200px;margin:0 auto;padding:100px 48px;position:relative;z-index:2;align-items:center}@media(max-width:992px){.cta-split{grid-template-columns:1fr;padding:80px 24px}}
+.cta-left{display:flex;flex-direction:column;justify-content:center}
+.cta-left .s-tag{color:var(--lg)}.cta-left .s-title{color:var(--white);font-size:clamp(1.8rem,3.5vw,2.6rem);line-height:1.2;margin-bottom:20px}
+.cta-left .s-title em{font-style:normal;background:linear-gradient(135deg,var(--lg),#8FD88F);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.cta-desc{font-size:.95rem;color:var(--on-dark-2);line-height:1.75;margin-bottom:32px;max-width:480px}
+.cta-features{display:flex;flex-direction:column;gap:14px;margin-bottom:36px}
+.cta-feat{display:flex;align-items:center;gap:12px;font-size:.9rem;color:var(--on-dark-1);font-weight:400}
+.cf-icon{width:32px;height:32px;border-radius:10px;background:rgba(205,231,161,.12);border:1px solid rgba(205,231,161,.16);display:flex;align-items:center;justify-content:center;flex-shrink:0}.cf-icon img{width:16px;height:16px}
+.cta-poc{display:inline-flex;align-items:center;gap:14px;padding:18px 28px;border-radius:16px;background:linear-gradient(135deg,rgba(205,231,161,.12),rgba(49,113,91,.14));border:1px solid rgba(205,231,161,.2);backdrop-filter:blur(12px);max-width:fit-content}
+.poc-title{font-size:.85rem;font-weight:700;color:var(--lg)}.poc-sub{font-size:.74rem;color:var(--on-dark-3);font-weight:400;margin-top:2px}
+.cal-frame{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:20px;padding:24px;backdrop-filter:blur(20px);box-shadow:0 24px 64px rgba(0,0,0,.35);position:relative;overflow:hidden}
+.cal-frame::before{content:'';position:absolute;top:-1px;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--green),var(--lg),var(--green));background-size:200% 100%;animation:shimmer 3s ease infinite}
+@keyframes shimmer{0%{background-position:200% 0}100%{background-position:-200% 0}}
+.cal-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;padding-bottom:16px;border-bottom:1px solid rgba(255,255,255,.08)}
+.cal-header-left{display:flex;align-items:center;gap:10px}.cal-header-left img{height:18px;object-fit:contain}.cal-header-left span{font-size:.78rem;color:var(--on-dark-3);font-weight:500}
+.cal-header-right{display:flex;align-items:center;gap:6px;font-size:.7rem;font-weight:600;color:var(--lg)}
+.cal-header-right .ld{width:6px;height:6px;border-radius:50%;background:var(--lg);animation:pulse 2s ease infinite}
+.cal-embed{border-radius:14px;overflow:hidden;min-height:580px;background:var(--white)}
+
+/* ── FOOTER ── */
+footer{background:var(--dark);color:var(--on-dark-3);padding:64px 32px 48px;position:relative;overflow:hidden}
+footer::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--green),var(--lg),var(--green));background-size:200% 100%;animation:shimmer 4s ease infinite}
+.ft-inner{max-width:900px;margin:0 auto;text-align:center}
+.ft-logos{display:flex;align-items:center;justify-content:center;gap:16px;margin-bottom:28px}.ft-logos img{height:24px;opacity:.7;object-fit:contain}.x-mark{color:rgba(255,255,255,.25);font-size:1.1rem;font-weight:300}
+.ft-tagline{font-size:1rem;font-weight:600;color:var(--white);margin-bottom:8px}
+.ft-desc{font-size:.82rem;color:var(--on-dark-3);line-height:1.65;max-width:500px;margin:0 auto 32px}
+.ft-line{height:1px;background:rgba(255,255,255,.08);margin-bottom:24px}
+.ft-bottom{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px}
+.ft-prepared{font-size:.75rem;color:var(--on-dark-3)}
+.ft-links a{color:var(--lg);text-decoration:none;font-size:.78rem;font-weight:500;opacity:.7;transition:opacity .2s}.ft-links a:hover{opacity:1}
+@media(max-width:600px){section{padding:80px 20px}.ft-bottom{justify-content:center;text-align:center}.hero-h1{font-size:1.7rem}}
+</style>
+</head>
+<body>
+
+<!-- ═══ NAV ═══ -->
+<nav class="nav" id="nav">
+  <div class="nav-left">
+    <img src="https://25665345.fs1.hubspotusercontent-eu1.net/hubfs/25665345/ABM%20Productions/Smartway%20logo%20whit%20epng.png" alt="Smartway">
+    <span class="nav-x">×</span>
+    <img src="https://25665345.fs1.hubspotusercontent-eu1.net/hubfs/25665345/ABM%20Productions/Asda%20logo%20white.png" alt="Asda" style="height:26px;object-fit:contain">
+    <span class="nav-sep">|</span>
+    <span class="nav-meta">Store visit · London · 28 Apr 2026</span>
+  </div>
+  <div class="nav-right"><a href="#calendar" class="nav-cta">Let's talk →</a></div>
+</nav>
+
+<!-- ═══ HERO (with video) ═══ -->
+<section class="s-hero" id="hero">
+  <div class="hero-bg"><img src="https://25665345.fs1.hubspotusercontent-eu1.net/hubfs/25665345/ABM%20Productions/Asda%20hero.jpg" alt="Asda store"></div>
+  <div class="hero-inner">
+    <div class="hero-left">
+      <div class="hero-logos">
+        <img src="https://25665345.fs1.hubspotusercontent-eu1.net/hubfs/25665345/ABM%20Productions/Smartway%20logo%20whit%20epng.png" alt="Smartway" style="filter:brightness(0) saturate(100%)">
+        <span class="hx" style="color:rgba(36,60,54,.35)">×</span>
+        <img src="https://25665345.fs1.hubspotusercontent-eu1.net/hubfs/25665345/ABM%20Productions/Asda%20logo%20black.png" alt="Asda" style="height:38px;object-fit:contain">
+      </div>
+      <h1 class="hero-h1">We visited Asda, and we see real room to <em>protect your margin</em>.</h1>
+      <p class="hero-sub">Our team spent time in your store. Here's what we observed, the proof we gathered, and how a few changes to date management could give your team time back and recover margin, every single day.</p>
+      <div class="hero-meta">
+        <div class="hero-meta-item"><img src="https://25665345.fs1.hubspotusercontent-eu1.net/hubfs/25665345/ABM%20Productions/Smartway%20Icons/Signage-5--Streamline-Core.svg" alt=""> <b>London</b></div>
+        <div class="hero-meta-item"><img src="https://25665345.fs1.hubspotusercontent-eu1.net/hubfs/25665345/ABM%20Productions/Smartway%20Icons/Watch-1--Streamline-Core.svg" alt=""> <b>28 Apr 2026</b></div>
+        <div class="hero-meta-item"><img src="https://25665345.fs1.hubspotusercontent-eu1.net/hubfs/25665345/ABM%20Productions/Smartway%20Icons/Mall--Streamline-Core.svg" alt=""> <b>1,200</b> stores</div>
+      </div>
+      <div class="hero-ctas">
+        <a href="#calendar" class="btn btn-g">Debrief this visit</a>
+        <a href="#problem" class="btn btn-o">See what we found ↓</a>
+      </div>
+    </div>
+    <div class="hero-right">
+      <div class="hero-video-card">
+        <div class="hero-video-frame">
+          <iframe id="heroVimeo" src="https://player.vimeo.com/video/1164737982?h=28813a5055&badge=0&autopause=0&player_id=0&app_id=58479&autoplay=1&muted=1&loop=1" allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share" referrerpolicy="strict-origin-when-cross-origin" title="Store visit"></iframe>
+        </div>
+        <div class="hero-video-label">
+          <span>A word from Christophe</span>
+          <span class="hvl-date">Visit of 28 Apr 2026</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ SECTION 1 - THE PROBLEM ═══ -->
+<section class="s-problem" id="problem"><div class="inner">
+  <div class="prob-head">
+    <div class="r" style="display:flex;justify-content:center;margin-bottom:18px"><img src="https://25665345.fs1.hubspotusercontent-eu1.net/hubfs/25665345/ABM%20Productions/Asda%20logo%20black.png" alt="Asda" style="height:34px;object-fit:contain"></div>
+    <div class="prob-line r">From our visit · Asda & Asda Express, London · 28 Apr 2026</div>
+    <h2 class="s-title r">Three things we saw on the shelves</h2>
+    <p class="s-desc c r">None of this is unusual for a store managing dates manually. But each one quietly costs a little margin and a lot of time, every day.</p>
+  </div>
+  <div class="prob-grid" id="probGrid"></div>
+</div></section>
+
+<!-- ═══ SECTION 2 - THE PROOF ═══ -->
+<section class="s-proof" id="proof"><div class="inner">
+  <div class="proof-head">
+    <div class="s-tag light r">● The evidence</div>
+    <h2 class="s-title r">What the photos show</h2>
+    <p class="s-desc c r">All taken during our visit on 28 April. Tap any photo to enlarge.</p>
+  </div>
+
+  <!-- featured proof -->
+  <div class="proof-feature r" onclick="openLightbox('https://25665345.fs1.hubspotusercontent-eu1.net/hubfs/25665345/ABM%20Productions/photo%20asda.jpg','Asda Cheese Twist 2pk. Best Before 27 Apr, photographed 28 Apr at £2.48. No markdown applied, still on the shop floor.')">
+    <div class="proof-feature-img">
+      <span class="proof-feature-tag">● Photo evidence</span>
+      <img src="https://25665345.fs1.hubspotusercontent-eu1.net/hubfs/25665345/ABM%20Productions/photo%20asda.jpg" alt="Expired Cheese Twist on shelf">
+    </div>
+    <div class="proof-feature-body">
+      <div class="pf-eyebrow">The clearest example</div>
+      <h3>One day past its Best Before, still on sale at full price</h3>
+      <p>Asda Cheese Twist 2pk. Best Before 27 Apr, photographed on 28 Apr, one day past date, priced at £2.48, still in the open display basket on the shop floor. No markdown applied, not removed from sale.</p>
+      <div class="pf-meta">
+        <span class="pf-chip">Best Before 27 Apr</span>
+        <span class="pf-chip">Photographed 28 Apr</span>
+        <span class="pf-chip">£2.48 · no markdown</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="gallery-grid" id="galGrid"></div>
+</div></section>
+
+<!-- ═══ SECTION 3 - HOW TO TRANSFORM IT (the rebound, Gadisa style) ═══ -->
+<section class="s-transform" id="transform"><div class="inner">
+  <div class="tr-head">
+    <span class="tr-label r">From problem to advantage</span>
+    <h2 class="tr-title r">The same three points, <span class="accent">turned around</span></h2>
+  </div>
+
+  <div class="tr-stakes">
+    <!-- LEFT - the problem -->
+    <div class="tr-col r d1">
+      <div class="tr-col-head">
+        <div class="ico"><img src="https://25665345.fs1.hubspotusercontent-eu1.net/hubfs/25665345/ABM%20Productions/Target--Streamline-Core@4x.png" alt=""></div>
+        <div class="ttl">
+          <span>What we saw</span>
+          <h3>Today · by hand</h3>
+        </div>
+      </div>
+
+      <div class="tr-photo" id="trPhoto" data-tag="Date checks by hand">
+        <img id="trPhotoImg" src="https://25665345.fs1.hubspotusercontent-eu1.net/hubfs/25665345/ABM%20Productions/20260428_115916.jpg" alt="From our visit to Asda">
+        <span class="tr-photo__zoom" aria-hidden="true">⤢</span>
+      </div>
+
+      <ul class="tr-list">
+        <li data-photo="https://25665345.fs1.hubspotusercontent-eu1.net/hubfs/25665345/ABM%20Productions/20260428_115916.jpg" data-tag="Date checks by hand">
+          <div>
+            <strong>Every product checked, aisle by aisle.</strong>
+            <span>One person's full day spent walking the shelves for date checks.</span>
+          </div>
+        </li>
+        <li data-photo="https://25665345.fs1.hubspotusercontent-eu1.net/hubfs/25665345/ABM%20Productions/photo%20asda.jpg" data-tag="Expired Cheese Twist · £2.48">
+          <div>
+            <strong>Expired stock reaches the shelf.</strong>
+            <span>A product one day past Best Before, still on sale at full price.</span>
+          </div>
+        </li>
+        <li data-photo="https://25665345.fs1.hubspotusercontent-eu1.net/hubfs/25665345/ABM%20Productions/20260428_115741.jpg" data-tag="50% / 75% / 90% stickers">
+          <div>
+            <strong>Markdowns run on the clock.</strong>
+            <span>Fixed 50% / 75% / 90%, applied by hand. Margin given away too early.</span>
+          </div>
+        </li>
+      </ul>
+    </div>
+
+    <!-- RIGHT - the solution -->
+    <div class="tr-col tr-col--dark r d2">
+      <div class="tr-col-head">
+        <div class="ico"><img src="https://25665345.fs1.hubspotusercontent-eu1.net/hubfs/25665345/ABM%20Productions/Ai-Upscale-Spark--Streamline-Core.png" alt=""></div>
+        <div class="ttl">
+          <span>What changes with Smartway</span>
+          <h3>Tomorrow · supported</h3>
+        </div>
+      </div>
+
+      <div class="tr-media">
+        <video autoplay muted loop playsinline>
+          <source src="https://25665345.fs1.hubspotusercontent-eu1.net/hubfs/25665345/ABM%20Productions/video%20hero%20hanshow.mp4" type="video/mp4">
+        </video>
+        <div class="tr-media-meta">
+          <span class="tr-media-tag">Inside a store with Smartway</span>
+          <span class="tr-media-sub">The team is guided straight to the right product, in the right aisle.</span>
+        </div>
+      </div>
+
+      <ul class="tr-list">
+        <li>
+          <div>
+            <strong>Check only the ~4% that actually needs a look.</strong>
+            <span>A daily shortlist replaces the full aisle-by-aisle walk.</span>
+          </div>
+        </li>
+        <li>
+          <div>
+            <strong>Zero expired on the shelf.</strong>
+            <span>Every short date is flagged and located before it hits, never the day after.</span>
+          </div>
+        </li>
+        <li>
+          <div>
+            <strong>The right markdown, at the right moment.</strong>
+            <span>Timing and depth set per product, not by the clock, so margin is recovered, not given away.</span>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div></section>
+
+<!-- ═══ DEMO ═══ -->
+<section class="s-demo" id="demo">
+  <div class="demo-intro"><div class="inner">
+    <div class="s-tag light r">● Your GPS for short-dated products</div>
+    <h2 class="s-title r" style="color:var(--white)">Find every expiring product in seconds</h2>
+    <p class="s-desc c r">Like a GPS guides your car, smartdetection guides your team to the right product, at the right time, in the right aisle.</p>
+  </div></div>
+  <div class="demo-scene">
+    <div class="aisle-photo" id="aislePhoto">
+      <img src="https://25665345.fs1.hubspotusercontent-eu1.net/hubfs/25665345/ABM%20Productions/rayon%20png.png" alt="Aisle">
+      <div class="aisle-overlay-top"></div>
+      <div class="aisle-overlay-bottom"></div>
+      <div class="aisle-scan" id="aisleScan"></div>
+      <div class="pda-overlay"><div class="pda-glow"></div><div class="pda-device">
+        <img src="https://25665345.fs1.hubspotusercontent-eu1.net/hubfs/25665345/ABM%20Productions/zebra%20png.png" alt="PDA">
+        <div class="pda-screen-content">
+          <div class="pda-app-bar"><div class="pab-left"><img src="https://25665345.fs1.hubspotusercontent-eu1.net/hubfs/25665345/ABM%20Productions/Asda%20logo%20black.png" alt="" style="height:7px;object-fit:contain"><span>smartdetection</span></div><div class="pab-right"><span class="pab-live"></span><span class="pab-live-txt">Live</span></div></div>
+          <div class="pda-screen">
+            <div class="pda-ws-title">Short dates today</div>
+            <div class="pda-ws-date" id="pdaDate"></div>
+            <div id="pdaDepts"></div>
+          </div>
+        </div>
+      </div></div>
+    </div>
+  </div>
+  <div class="demo-overlay-stats">
+    <div class="demo-stats-bar">
+      <div class="demo-stat"><div class="dsv" id="dSP">0</div><div class="dsl">products detected</div></div>
+      <div class="demo-stat"><div class="dsv" id="dST">0.0s</div><div class="dsl">detection time</div></div>
+      <div class="demo-stat"><div class="dsv" id="dSA">0</div><div class="dsl">aisles scanned</div></div>
+    </div>
+    <div class="demo-result" id="demoResult"></div>
+    <button class="demo-replay" id="demoReplay" onclick="replayDemo()">↻ Replay demo</button>
+  </div>
+</section>
+
+<!-- ═══ OPPORTUNITY (softened margin) ═══ -->
+<section class="s-opp noise" id="opportunity"><div class="opp-inner">
+  <div class="r" style="display:flex;justify-content:center;margin-bottom:20px"><img src="https://25665345.fs1.hubspotusercontent-eu1.net/hubfs/25665345/ABM%20Productions/Asda%20logo%20white.png" alt="Asda" style="height:34px;object-fit:contain"></div>
+  <div class="s-tag light r">● The margin on the table</div>
+  <h2 class="opp-headline r">A store running dates by hand typically leaves around <strong>$6,000 a month</strong> in <span class="hl">recoverable margin</span> on the shelf. Smarter date management gives it straight back.</h2>
+  <div class="opp-counter r" id="oppCounter"></div>
+  <div class="opp-boxes r">
+    <div class="opp-box"><div class="ob-label">Per store, per month</div><div class="ob-amount">$6K</div><div class="ob-sub">That's <strong>$72K</strong> / year, per store</div></div>
+    <div class="opp-box net"><div class="ob-label">Across all 1,200 stores, per year</div><div class="ob-amount">$86.4M</div><div class="ob-sub">Recoverable margin across <strong>your whole network</strong></div></div>
+  </div>
+  <div class="opp-ctas r">
+    <a href="#calendar" class="btn btn-g">Let's capture this together →</a>
+  </div>
+</div></section>
+
+<!-- ═══ VALLARTA SPOTLIGHT - the section that slaps ═══ -->
+<section class="us-sp" id="results">
+<div class="us-sp-inner">
+  <div class="us-sp-top r">
+    <div class="us-sp-eyebrow">Trusted by US retailers</div>
+    <img class="us-sp-logo" src="https://25665345.fs1.hubspotusercontent-eu1.net/hubfs/25665345/ABM%20Productions/Vallarta%20logo%20black.png" alt="Vallarta Supermarkets">
+    <h2 class="us-sp-h">How Vallarta deployed<br><em>34 stores in 5 weeks</em></h2>
+    <p class="us-sp-sub">A field-first methodology built for grocery teams. Zero expired products on shelves, 75% time saved on date checks, and full team adoption from day 1.</p>
+  </div>
+
+  <div class="us-sp-feature r">
+    <div class="us-sp-video">
+      <video autoplay muted loop playsinline>
+        <source src="https://25665345.fs1.hubspotusercontent-eu1.net/hubfs/25665345/ABM%20Productions/Steve%20video%20Vallarta%20loop.mp4" type="video/mp4">
+      </video>
+    </div>
+    <div class="us-sp-vbadge">Vallarta Supermarkets · CIO</div>
+    <div class="us-sp-overlay"></div>
+    <div class="us-sp-content">
+      <div class="us-sp-caption">
+        <div class="qtxt">Congratulations on an outstanding implementation. Your hard work and dedication are truly commendable, and the exceptional results speak for themselves.</div>
+        <div class="qauthor">
+          <img class="qavatar" src="https://25665345.fs1.hubspotusercontent-eu1.net/hubfs/25665345/ABM%20Productions/steve%20vallarta.png" alt="Steve Netherton">
+          <div><div class="qname">Steve Netherton</div><div class="qrole">CIO, Vallarta Supermarkets</div></div>
+        </div>
+      </div>
+      <div class="us-sp-kpis">
+        <div class="us-sp-kpi">
+          <div class="kv">−75%</div>
+          <div class="kl">Time on date checks</div>
+          <div class="ks">No more walking every aisle. Smartway guided teams straight to expiring products.</div>
+        </div>
+        <div class="us-sp-kpi">
+          <div class="kv">~0</div>
+          <div class="kl">Expired units after week 6</div>
+          <div class="ks">The aisle stays clean because alerts run before the date hits.</div>
+        </div>
+        <div class="us-sp-kpi">
+          <div class="kv">Week 1</div>
+          <div class="kl">First shrink delta</div>
+          <div class="ks">First measurable shrink reduction in the weekly report. No 12-week ramp.</div>
+        </div>
+        <div class="us-sp-kpi">
+          <div class="kv">6 months</div>
+          <div class="kl">CFO payback period</div>
+          <div class="ks">Vallarta's CFO ran the math. Recovered shrink covers Smartway inside two quarters.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="us-sp-cta-wrap r">
+    <a href="https://smartway.ai/case-studies/us-retail-case-study-vallarta-smartway-ai" target="_blank" rel="noopener" class="us-sp-cta-link">Read the full Vallarta case study →</a>
+  </div>
+</div>
+</section>
+
+<!-- ═══ DEPLOY ═══ -->
+<section class="s-deploy" id="deployment">
+  <div class="deploy-bg"><img src="https://25665345.fs1.hubspotusercontent-eu1.net/hubfs/25665345/ABM%20Productions/image%203%20sedt.png" alt=""></div>
+  <div class="deploy-inner">
+    <div class="deploy-header r">
+      <h2>Zero expired on shelves. Smart date management to protect your margin.<br><em>ROI from Day 1.</em></h2>
+      <p>Launch a risk-free pilot in just 2 weeks. No complex IT integration required.</p>
+    </div>
+    <div class="deploy-grid" id="deployGrid"></div>
+  </div>
+</section>
+
+<!-- ═══ CTA + CALENDAR ═══ -->
+<section class="s-cta" id="calendar">
+  <div class="cta-bg"><img src="https://25665345.fs1.hubspotusercontent-eu1.net/hubfs/25665345/ABM%20Productions/Background%20spain.png" alt="" loading="lazy"></div>
+  <div class="cta-split">
+    <div class="cta-left r">
+      <div class="s-tag light">● Next step</div>
+      <h2 class="s-title">Let's debrief this visit with <em>Mark</em></h2>
+      <p class="cta-desc">See how smartdetection can guarantee zero expired products, recover hidden margin and standardise freshness across your Asda stores.</p>
+      <div class="cta-features">
+        <div class="cta-feat"><span class="cf-icon"><img src="https://25665345.fs1.hubspotusercontent-eu1.net/hubfs/25665345/ABM%20Productions/computer%20png.png" alt=""></span> 30 min with a dedicated fresh retail specialist</div>
+        <div class="cta-feat"><span class="cf-icon"><img src="https://25665345.fs1.hubspotusercontent-eu1.net/hubfs/25665345/ABM%20Productions/cart%20png.png" alt=""></span> Personalised analysis for your network</div>
+        <div class="cta-feat"><span class="cf-icon"><img src="https://25665345.fs1.hubspotusercontent-eu1.net/hubfs/25665345/ABM%20Productions/science%20png.png" alt=""></span> Live ROI simulation with your real data</div>
+      </div>
+      <div class="cta-poc r d2"><div><div class="poc-title">Pilot in 2 weeks · ROI from day 1</div><div class="poc-sub">No IT integration needed. Risk-free test in selected stores.</div></div></div>
+    </div>
+    <div class="cta-right r d2">
+      <div class="cal-frame">
+        <div class="cal-header">
+          <div class="cal-header-left"><img src="https://25665345.fs1.hubspotusercontent-eu1.net/hubfs/25665345/ABM%20Productions/Smartway%20logo%20whit%20epng.png" alt="Smartway"><span>× Asda</span></div>
+          <div class="cal-header-right"><span class="ld"></span> Available now</div>
+        </div>
+        <div class="cal-embed" id="calEmbed"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ FOOTER ═══ -->
+<footer><div class="ft-inner">
+  <div class="ft-logos">
+    <img src="https://25665345.fs1.hubspotusercontent-eu1.net/hubfs/25665345/ABM%20Productions/Smartway%20logo%20whit%20epng.png" alt="Smartway">
+    <span class="x-mark">×</span>
+    <img src="https://25665345.fs1.hubspotusercontent-eu1.net/hubfs/25665345/ABM%20Productions/Asda%20logo%20white.png" alt="Asda" style="height:26px;object-fit:contain">
+  </div>
+  <div class="ft-tagline">The #1 food waste management platform worldwide</div>
+  <div class="ft-desc">Used by 20,000+ retail professionals every day to protect freshness, recover margin and make stores smarter.</div>
+  <div class="ft-line"></div>
+  <div class="ft-bottom">
+    <div class="ft-prepared">Prepared for Asda & Asda Express, London · © 2026 Smartway</div>
+    <div class="ft-links"><a href="https://smartway.ai" target="_blank">smartway.ai</a> · <a href="#calendar">Contact</a></div>
+  </div>
+</div></footer>
+
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox" onclick="closeLightbox(event)"><div class="lb-content" onclick="event.stopPropagation()"><div class="lb-close" onclick="closeLightbox()">&times;</div><img id="lbImg" src="" alt=""><div class="lb-caption" id="lbCaption"></div></div></div>
+
+<script>
+(function(){
+'use strict';
+var $=function(id){return document.getElementById(id);};
+
+/* ═══ DATA (Asda visit) ═══ */
+var PROBLEM=[
+  {status:'critical',cat:'Expiry date checking',title:'Date checks are fully manual',
+   text:'One person\'s entire role is dedicated to date checking and markdowns across the store. No technology supports the process. Every product is inspected by hand, aisle by aisle.',
+   img:'https://25665345.fs1.hubspotusercontent-eu1.net/hubfs/25665345/ABM%20Productions/Asda%20date%20checking.png'},
+  {status:'critical',cat:'On shelf',title:'Expired products reach the shelf',
+   text:'Several expired and near-expiry products were identified during the visit. A product one day past its Best Before was still on sale, a clear sign the manual process is leaking.',
+   img:'https://25665345.fs1.hubspotusercontent-eu1.net/hubfs/25665345/ABM%20Productions/photo%20asda.jpg'},
+  {status:'warning',cat:'Markdowns',title:'Markdowns follow the clock, not the data',
+   text:'A fixed rule of 50% in the morning, 75% in the afternoon, 90% in the evening, applied entirely by hand. No system to optimise timing, depth, or category, so margin is often given away too early.',
+   img:'https://25665345.fs1.hubspotusercontent-eu1.net/hubfs/25665345/ABM%20Productions/Asda%20Markdowns.png'}
+];
+
+var GALLERY=[
+  {url:'https://25665345.fs1.hubspotusercontent-eu1.net/hubfs/25665345/ABM%20Productions/20260428_115916.jpg',caption:'A single dedicated person walking the aisles for date checks.'},
+  {url:'https://25665345.fs1.hubspotusercontent-eu1.net/hubfs/25665345/ABM%20Productions/20260428_115924.jpg',caption:'Large volume of marked-down products observed in-store.'},
+  {url:'https://25665345.fs1.hubspotusercontent-eu1.net/hubfs/25665345/ABM%20Productions/20260428_115251.jpg',caption:'Asda Express format: around 2 hours per day on the process.'},
+  {url:'https://25665345.fs1.hubspotusercontent-eu1.net/hubfs/25665345/ABM%20Productions/20260428_115741.jpg',caption:'Tiered markdown stickers: 50% / 75% / 90%, applied by hand.'}
+];
+
+var DEPLOY=[
+  {icon:'clock',title:'Setup in 2 hours',desc:'Just 2 hours per department with a single initial inventory pass.'},
+  {icon:'users',title:'On-site experts',desc:'Our team stays on the ground with your staff throughout launch.'},
+  {icon:'device',title:'Use your own hardware',desc:'Runs perfectly on your existing Zebra PDAs. No new devices.'}
+];
+
+var PRODUCTS=[
+  {emoji:'🧀',name:'Cheese Twist 2pk',exp:'today',pos:{top:'28%',left:'10%'}},
+  {emoji:'🥛',name:'Whole Milk',exp:'j3',pos:{top:'52%',left:'16%'}},
+  {emoji:'🧈',name:'Butter',exp:'j3',pos:{top:'33%',left:'25%'}},
+  {emoji:'🥓',name:'Bacon',exp:'j3',pos:{top:'42%',left:'34%'}},
+  {emoji:'🥧',name:'Pork Pie',exp:'today',pos:{top:'32%',right:'8%'}},
+  {emoji:'🥗',name:'Mixed Salad',exp:'j3',pos:{top:'52%',right:'18%'}},
+  {emoji:'🍰',name:'Trifle',exp:'today',pos:{top:'38%',right:'28%'}},
+  {emoji:'🍗',name:'Roast Chicken',exp:'j3',pos:{top:'48%',right:'36%'}}
+];
+var DEPTS=[{name:'DAIRY',c:'8 · 3',hl:true},{name:'MEAT',c:'7 · 6'},{name:'DELI',c:'0 · 0'},{name:'READY MEALS',c:'231 · 3'}];
+
+/* ═══ DATES ═══ */
+var now=new Date(), j3=new Date(now.getTime()+3*864e5);
+var fmtD=function(d){return d.toLocaleDateString('en-GB',{day:'2-digit',month:'short'});};
+$('pdaDate').textContent=now.toLocaleDateString('en-GB',{weekday:'long',day:'numeric',month:'long',year:'numeric'});
+
+/* ═══ ICONS ═══ */
+var dcIcons={
+  clock:'<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>',
+  users:'<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>',
+  device:'<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>'
+};
+var statusSVG={
+  critical:'<svg class="ps-icon" viewBox="0 0 16 16" fill="none"><path d="M8 1L1 14h14L8 1z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><line x1="8" y1="6" x2="8" y2="9.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><circle cx="8" cy="11.5" r=".8" fill="currentColor"/></svg>',
+  warning:'<svg class="ps-icon" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="6.5" stroke="currentColor" stroke-width="1.5"/><line x1="8" y1="5" x2="8" y2="8.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><circle cx="8" cy="10.8" r=".8" fill="currentColor"/></svg>'
+};
+var statusLabel={critical:'To address',warning:'Watch'};
+
+/* ═══ PROBLEM CARDS ═══ */
+$('probGrid').innerHTML=PROBLEM.map(function(c,i){
+  return '<div class="prob-card r d'+(i+1)+'"><img class="prob-card-img" src="'+c.img+'" alt="'+c.cat+'"><div class="prob-card-body"><div class="prob-status '+c.status+'">'+(statusSVG[c.status]||'')+' '+statusLabel[c.status]+'</div><div class="prob-card-cat">'+c.cat+'</div><div class="prob-card-title">'+c.title+'</div><div class="prob-card-text">'+c.text+'</div></div></div>';
+}).join('');
+
+/* ═══ GALLERY ═══ */
+$('galGrid').innerHTML=GALLERY.map(function(g,i){
+  return '<div class="gallery-item r d'+(i%4+1)+'" onclick="openLightbox(\''+g.url.replace(/'/g,"\\'")+'\',\''+g.caption.replace(/'/g,"\\'")+'\')"><img src="'+g.url+'" alt="'+g.caption+'"><div class="gi-caption">'+g.caption+'</div></div>';
+}).join('');
+
+/* ═══ DEPLOY CARDS ═══ */
+$('deployGrid').innerHTML=DEPLOY.map(function(c,i){
+  return '<div class="deploy-card r d'+(i+1)+'"><div class="dc-icon">'+(dcIcons[c.icon]||dcIcons.clock)+'</div><div class="dc-title">'+c.title+'</div><div class="dc-desc">'+c.desc+'</div></div>';
+}).join('');
+
+/* ═══ OPPORTUNITY COUNTERS ═══ */
+$('oppCounter').innerHTML=[
+  {v:'on shelf',l:'expired products<br>found during the visit'},
+  {v:'60+ h',l:'spent per month<br>on manual checks'},
+  {v:'-50% to -90%',l:'fixed markdowns<br>applied by the clock'}
+].map(function(x){return '<div class="oc-item"><div class="oc-val">'+x.v+'</div><div class="oc-label">'+x.l+'</div></div>';}).join('');
+
+/* ═══ PDA DEPTS ═══ */
+$('pdaDepts').innerHTML=DEPTS.map(function(d){
+  return '<div class="pda-ws-card'+(d.hl?' highlight':'')+'"><span class="ws-name">'+d.name+'</span><span class="ws-count">'+d.c+'</span></div>';
+}).join('');
+
+/* ═══ GPS MARKERS ═══ */
+var ap=$('aislePhoto');
+PRODUCTS.forEach(function(p,i){
+  var style=Object.keys(p.pos).map(function(k){return k+':'+p.pos[k];}).join(';');
+  var exp=p.exp==='today'?fmtD(now):fmtD(j3);
+  var m=document.createElement('div');m.className='gps-marker';m.id='gm'+i;m.style.cssText=style;
+  m.innerHTML='<div style="position:relative"><div class="gps-pulse"></div><div class="gps-pin-head"><span>'+p.emoji+'</span></div><div class="gps-pin-tail"></div></div><div class="gps-label">'+p.name+' · exp '+exp+'</div>';
+  ap.insertBefore(m,ap.querySelector('.pda-overlay'));
+});
+
+/* ═══ NAV SCROLL ═══ */
+window.addEventListener('scroll',function(){$('nav').classList.toggle('scrolled',window.scrollY>60);},{passive:true});
+
+/* ═══ DEMO ANIM ═══ */
+var demoPlayed=false, markers=[].slice.call(document.querySelectorAll('.gps-marker'));
+var dObs=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting&&!demoPlayed){demoPlayed=true;setTimeout(startDemo,800);}});},{threshold:.3});
+dObs.observe($('demo'));
+function startDemo(){
+  var scan=$('aisleScan'),res=$('demoResult'),sP=$('dSP'),sT=$('dST'),sA=$('dSA');
+  res.classList.remove('show');markers.forEach(function(m){m.classList.remove('show');});
+  sP.textContent='0';sT.textContent='0.0s';sA.textContent='0';
+  var ti=0,tI=setInterval(function(){ti+=.1;sT.textContent=ti.toFixed(1)+'s';},100);
+  setTimeout(function(){scan.classList.remove('active');void scan.offsetWidth;scan.classList.add('active');},600);
+  markers.forEach(function(m,i){setTimeout(function(){m.classList.add('show');sP.textContent=i+1;sA.textContent=i<(markers.length/2)?'1':'2';},1200+i*380);});
+  var sd=1200+markers.length*380+600;
+  setTimeout(function(){clearInterval(tI);sT.textContent='4.2s';sP.textContent=markers.length;sA.textContent='2';res.innerHTML='⚡ <strong>'+markers.length+' short-dated products</strong> geolocated across 2 aisles in 4.2s. Zero time wasted searching.';res.classList.add('show');$('demoReplay').classList.add('show');},sd);
+}
+window.replayDemo=function(){demoPlayed=false;$('demoReplay').classList.remove('show');$('demoResult').classList.remove('show');markers.forEach(function(m){m.classList.remove('show');});$('dSP').textContent='0';$('dST').textContent='0.0s';$('dSA').textContent='0';setTimeout(startDemo,400);};
+
+/* ═══ TRANSFORM - photo slideshow + hover + lightbox (Gadisa) ═══ */
+(function(){
+  var box=$('trPhoto'), img=$('trPhotoImg');
+  if(!box||!img)return;
+  var PHOTOS=[
+    {src:'https://25665345.fs1.hubspotusercontent-eu1.net/hubfs/25665345/ABM%20Productions/20260428_115916.jpg',tag:'Date checks by hand'},
+    {src:'https://25665345.fs1.hubspotusercontent-eu1.net/hubfs/25665345/ABM%20Productions/photo%20asda.jpg',tag:'Expired Cheese Twist · £2.48'},
+    {src:'https://25665345.fs1.hubspotusercontent-eu1.net/hubfs/25665345/ABM%20Productions/20260428_115924.jpg',tag:'Markdowns observed in-store'},
+    {src:'https://25665345.fs1.hubspotusercontent-eu1.net/hubfs/25665345/ABM%20Productions/20260428_115741.jpg',tag:'50% / 75% / 90% stickers'},
+    {src:'https://25665345.fs1.hubspotusercontent-eu1.net/hubfs/25665345/ABM%20Productions/20260428_115251.jpg',tag:'Asda Express · ~2h/day'}
+  ];
+  var idx=0,timer=null,paused=false;
+  function show(i){var p=PHOTOS[i];img.style.opacity='0';setTimeout(function(){img.src=p.src;img.alt=p.tag;box.dataset.tag=p.tag;img.style.opacity='1';},200);}
+  function next(){idx=(idx+1)%PHOTOS.length;show(idx);}
+  function start(){if(timer||paused)return;timer=setInterval(next,4000);}
+  function stop(){if(timer){clearInterval(timer);timer=null;}}
+  function pause(){paused=true;stop();}
+  function resume(){paused=false;start();}
+  box.dataset.tag=PHOTOS[0].tag;start();
+  box.addEventListener('mouseenter',pause);box.addEventListener('mouseleave',resume);
+  document.querySelectorAll('.tr-col:not(.tr-col--dark) .tr-list li[data-photo]').forEach(function(li){
+    li.addEventListener('mouseenter',function(){
+      var src=li.dataset.photo,t=li.dataset.tag;if(!src)return;pause();
+      var i=PHOTOS.map(function(p){return p.src;}).indexOf(src);if(i>=0)idx=i;
+      if(img.getAttribute('src')!==src){img.style.opacity='0';setTimeout(function(){img.src=src;if(t){img.alt=t;box.dataset.tag=t;}img.style.opacity='1';},150);}
+      else if(t){img.alt=t;box.dataset.tag=t;}
+    });
+    li.addEventListener('mouseleave',resume);
+  });
+  box.addEventListener('click',function(){pause();window.openLightbox(img.src,box.dataset.tag||'');});
+})();
+
+/* ═══ LIGHTBOX ═══ */
+window.openLightbox=function(src,cap){$('lbImg').src=src;$('lbCaption').textContent=cap;$('lightbox').classList.add('open');document.body.style.overflow='hidden';};
+window.closeLightbox=function(e){if(e&&e.target!==e.currentTarget)return;$('lightbox').classList.remove('open');document.body.style.overflow='';};
+document.addEventListener('keydown',function(e){if(e.key==='Escape')window.closeLightbox();});
+
+/* ═══ REVEAL ═══ */
+var obs=new IntersectionObserver(function(e){e.forEach(function(x){if(x.isIntersecting)x.target.classList.add('v');});},{threshold:.1,rootMargin:'0px 0px -60px 0px'});
+document.querySelectorAll('.r').forEach(function(el){obs.observe(el);});
+
+/* ═══ SMOOTH SCROLL ═══ */
+document.addEventListener('click',function(e){var a=e.target.closest('a[href^="#"]');if(a){e.preventDefault();var t=document.querySelector(a.getAttribute('href'));if(t)t.scrollIntoView({behavior:'smooth'});}});
+
+/* ═══ CALENDAR EMBED ═══ */
+var CALENDAR='https://meetings-eu1.hubspot.com/mark-nagy?embed=true';
+$('calEmbed').innerHTML='<div class="meetings-iframe-container" data-src="'+CALENDAR+'"></div>';
+var hs=document.createElement('script');hs.src='https://static.hsappstatic.net/MeetingsEmbed/ex/MeetingsEmbedCode.js';document.body.appendChild(hs);
+
+console.log('🚀 Smartway Visit LP v2.1 - Asda demo loaded');
+})();
+</script>
+</body>
+</html>
