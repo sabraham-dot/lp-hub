@@ -46,7 +46,7 @@ section{padding:110px 32px;position:relative}
 .nav-meta{font-size:.8rem;color:rgba(255,255,255,.92);font-weight:600;letter-spacing:.01em;white-space:nowrap}
 .nav-right{display:flex;align-items:center;gap:20px}
 .nav-cta{padding:10px 26px;background:var(--lg);color:#243c36;font-family:'Poppins',sans-serif;font-size:.8rem;font-weight:700;border:none;border-radius:100px;cursor:pointer;text-decoration:none;transition:var(--t)}.nav-cta:hover{background:var(--yellow);color:var(--black);transform:translateY(-1px)}
-@media(max-width:760px){.nav{padding:12px 18px}.nav-sep,.nav-meta{display:none}}
+@media(max-width:760px){.nav{padding:10px 14px;border-radius:0 0 24px 24px}.nav-sep,.nav-meta{display:none}.nav-left{gap:6px}.nav-left img{height:18px}.nav-x{font-size:.75rem}.nav-cta{padding:8px 14px;font-size:.72rem}}
 
 /* ── HERO (two-column with video) ── */
 .s-hero{min-height:100vh;display:flex;align-items:center;position:relative;overflow:hidden;padding:140px 32px 100px;background:var(--lg)}
@@ -190,14 +190,22 @@ section{padding:110px 32px;position:relative}
 .demo-stats-bar{display:flex;align-items:center;justify-content:center;gap:24px;flex-wrap:wrap}
 .demo-stat{background:rgba(255,255,255,.05);border:1px solid rgba(205,231,161,.28);border-radius:12px;padding:12px 24px;text-align:center;min-width:130px}
 .demo-stat .dsv{font-size:1.8rem;font-weight:800;color:var(--lg);font-variant-numeric:tabular-nums}.demo-stat .dsl{font-size:.66rem;color:var(--on-dark-3);margin-top:2px}
-/* mobile demo fixes */
+/* mobile demo — button & stats out of the scene */
+.demo-replay-mobile{display:none}
+.demo-stats-mobile{display:none}
 @media(max-width:600px){
-  .demo-replay{top:3%}
-  .demo-overlay-stats{margin-top:0;padding-top:24px}
-  .demo-stats-bar{gap:8px;flex-wrap:nowrap;width:100%}
-  .demo-stat{min-width:0;flex:1;padding:10px 6px;border-radius:10px}
-  .demo-stat .dsv{font-size:1.15rem}
-  .demo-stat .dsl{font-size:.56rem;white-space:nowrap}
+  /* hide desktop overlays */
+  .demo-replay{display:none}
+  .demo-overlay-stats{display:none}
+  /* mobile replay button — above the scene */
+  .demo-replay-mobile{display:flex;justify-content:center;padding:12px 20px 0}
+  .demo-replay-mobile button{display:inline-flex;align-items:center;gap:6px;padding:10px 24px;background:rgba(49,113,91,.85);color:var(--white);border:1px solid rgba(205,231,161,.25);border-radius:100px;font-family:'Poppins',sans-serif;font-size:.82rem;font-weight:600;cursor:pointer;width:auto}
+  .demo-replay-mobile button:hover{background:var(--yellow);color:var(--dark)}
+  /* mobile stats — below the scene, in hiw section */
+  .demo-stats-mobile{display:flex;gap:8px;padding:24px 16px 0}
+  .demo-stats-mobile .demo-stat{flex:1;min-width:0;padding:10px 6px;border-radius:10px}
+  .demo-stats-mobile .dsv{font-size:1.15rem;font-weight:800;color:var(--lg);display:block}
+  .demo-stats-mobile .dsl{font-size:.56rem;color:var(--on-dark-3);white-space:nowrap;display:block;margin-top:2px}
 }
 .demo-result{display:inline-block;padding:10px 24px;background:rgba(205,231,161,.08);border:1px solid rgba(205,231,161,.2);border-radius:12px;font-size:.84rem;color:var(--lg);font-weight:500;opacity:0;transform:translateY(8px);transition:all .6s cubic-bezier(.16,1,.3,1)}.demo-result.show{opacity:1;transform:translateY(0)}.demo-result strong{color:var(--white)}
 .demo-replay{position:absolute;top:17%;left:50%;transform:translateX(-50%);z-index:12;display:inline-flex;align-items:center;gap:6px;padding:9px 22px;background:rgba(15,30,25,.55);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);color:rgba(255,255,255,.82);border:1px solid rgba(205,231,161,.22);border-radius:100px;font-family:'Poppins',sans-serif;font-size:.82rem;font-weight:500;letter-spacing:.01em;cursor:pointer;opacity:1;transition:background .25s ease,color .25s ease,border-color .25s ease,transform .25s ease}.demo-replay.show{opacity:1;transform:translateX(-50%)}.demo-replay:hover{background:var(--yellow);color:var(--black);border-color:var(--yellow);transform:translateX(-50%) translateY(-1px)}
@@ -569,6 +577,10 @@ footer::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;back
     <h2 class="s-title r" style="color:var(--white)">1,000 SKUs checked in <em>4 minutes</em></h2>
     <p class="s-desc c r">Like a GPS guides your car, smartdetection guides your team to the right product, at the right time, in the right aisle.</p>
   </div></div>
+  <!-- mobile only: replay above the scene -->
+  <div class="demo-replay-mobile">
+    <button onclick="replayDemo()">↻ Replay demo</button>
+  </div>
   <div class="demo-scene">
     <div class="aisle-photo" id="aislePhoto">
       <img src="https://25665345.fs1.hubspotusercontent-eu1.net/hubfs/25665345/ABM%20Productions/rayon%20png.png" alt="Aisle">
@@ -601,6 +613,12 @@ footer::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;back
 
 <!-- ═══ 4 STEPS ═══ -->
 <div class="demo-hiw">
+  <!-- mobile only: KPIs at the top of this section -->
+  <div class="demo-stats-mobile">
+    <div class="demo-stat"><span class="dsv" id="dSPm">0</span><span class="dsl">products detected</span></div>
+    <div class="demo-stat"><span class="dsv" id="dSTm">0.0s</span><span class="dsl">detection time</span></div>
+    <div class="demo-stat"><span class="dsv" id="dSAm">0</span><span class="dsl">aisles scanned</span></div>
+  </div>
   <div class="demo-hiw-inner">
     <div class="demo-hiw-title">
       <h3>How does it work?</h3>
@@ -1054,18 +1072,19 @@ window.addEventListener('scroll',function(){$('nav').classList.toggle('scrolled'
 var demoPlayed=false, markers=[].slice.call(document.querySelectorAll('.gps-marker'));
 var dObs=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting&&!demoPlayed){demoPlayed=true;setTimeout(startDemo,800);}});},{threshold:.3});
 dObs.observe($('demo'));
+function setStat(id,val){var e=$('dS'+id);if(e)e.textContent=val;var em=$('dS'+id+'m');if(em)em.textContent=val;}
 function startDemo(){
-  var scan=$('aisleScan'),res=$('demoResult'),sP=$('dSP'),sT=$('dST'),sA=$('dSA'),rb=$('demoReplay');
+  var scan=$('aisleScan'),res=$('demoResult'),rb=$('demoReplay');
   res.classList.remove('show');markers.forEach(function(m){m.classList.remove('show');});
-  sP.textContent='0';sT.textContent='0.0s';sA.textContent='0';
+  setStat('P','0');setStat('T','0.0s');setStat('A','0');
   if(rb)rb.style.opacity='0';
-  var ti=0,tI=setInterval(function(){ti+=.1;sT.textContent=ti.toFixed(1)+'s';},100);
+  var ti=0,tI=setInterval(function(){ti+=.1;setStat('T',ti.toFixed(1)+'s');},100);
   setTimeout(function(){scan.classList.remove('active');void scan.offsetWidth;scan.classList.add('active');},600);
-  markers.forEach(function(m,i){setTimeout(function(){m.classList.add('show');sP.textContent=i+1;sA.textContent=i<(markers.length/2)?'1':'2';},1200+i*380);});
+  markers.forEach(function(m,i){setTimeout(function(){m.classList.add('show');setStat('P',i+1);setStat('A',i<(markers.length/2)?'1':'2');},1200+i*380);});
   var sd=1200+markers.length*380+600;
-  setTimeout(function(){clearInterval(tI);sT.textContent='4.2s';sP.textContent=markers.length;sA.textContent='2';res.innerHTML='⚡ <strong>'+markers.length+' short-dated products</strong> geolocated across 2 aisles in 4.2s. Zero time wasted searching.';res.classList.add('show');if(rb)rb.style.opacity='1';},sd);
+  setTimeout(function(){clearInterval(tI);setStat('T','4.2s');setStat('P',markers.length);setStat('A','2');res.innerHTML='⚡ <strong>'+markers.length+' short-dated products</strong> geolocated across 2 aisles in 4.2s. Zero time wasted searching.';res.classList.add('show');if(rb)rb.style.opacity='1';},sd);
 }
-window.replayDemo=function(){demoPlayed=false;var rb=$('demoReplay');if(rb)rb.style.opacity='0';$('demoResult').classList.remove('show');markers.forEach(function(m){m.classList.remove('show');});$('dSP').textContent='0';$('dST').textContent='0.0s';$('dSA').textContent='0';setTimeout(startDemo,400);};
+window.replayDemo=function(){demoPlayed=false;var rb=$('demoReplay');if(rb)rb.style.opacity='0';$('demoResult').classList.remove('show');markers.forEach(function(m){m.classList.remove('show');});setStat('P','0');setStat('T','0.0s');setStat('A','0');setTimeout(startDemo,400);};
 
 /* ═══ TRANSFORM - photo slideshow + hover + lightbox (Gadisa) ═══ */
 (function(){
