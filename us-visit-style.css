@@ -379,3 +379,6 @@ footer::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;back
 .ft-prepared{font-size:.75rem;color:var(--on-dark-3)}
 .ft-links a{color:var(--lg);text-decoration:none;font-size:.78rem;font-weight:500;opacity:.7;transition:opacity .2s}.ft-links a:hover{opacity:1}
 @media(max-width:600px){section{padding:80px 20px}.ft-bottom{justify-content:center;text-align:center}.hero-h1{font-size:1.7rem}}
+
+/* force Poppins over Webflow body font (higher specificity than body{}) */
+#app,#app *{font-family:'Poppins',sans-serif}
