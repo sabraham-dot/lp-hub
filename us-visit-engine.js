@@ -224,7 +224,7 @@
 
   /* 4 STEPS */
   var STEPS = [
-    { n: '01', ic: 'Task-List--Streamline-Core', cls: 'top-crop', vid: '<source src="' + IC + 'GIF%201%20Flash%20Evo.mov" type="video/quicktime"><source src="' + IC + 'GPS%20Detection.mp4" type="video/mp4">', vcls: 'top', t: 'Open PDA, see today\'s alerts', dsc: 'Only the ~4% of products that actually need attention today.' },
+    { n: '01', ic: 'Task-List--Streamline-Core', cls: 'top-crop', vid: '<source src="' + IC + 'GIF%201%20Flash%20Evo.mp4" type="video/mp4">', vcls: 'top', t: 'Open PDA, see today\'s alerts', dsc: 'Only the ~4% of products that actually need attention today.' },
     { n: '02', ic: 'Bolt-Charging-Power--Streamline-Core', cls: '', vid: '<source src="' + IC + 'GPS%20Detection.mp4" type="video/mp4">', vcls: 'zoom', t: 'Instantly locate the nearest short date', dsc: 'The PDA guides your team directly to the right shelf. No walking, no searching.' },
     { n: '03', ic: 'Watch-1--Streamline-Core', cls: '', vid: '<source src="' + IC + 'GIF%20flash%20evo%203.mp4" type="video/mp4">', vcls: '', t: 'Check and enter the shortest date', dsc: '4 to 5 seconds. The AI calculates shelf life and markdown timing.' },
     { n: '04', ic: 'Target--Streamline-Core', cls: '', vid: '<source src="' + IC + 'Step%204%20detection%20US.mp4" type="video/mp4">', vcls: '', t: 'Remove, markdown or donate', dsc: 'Action confirmed. Next product. Done.' }
