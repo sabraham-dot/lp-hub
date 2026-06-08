@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Smartway × Alimerka | Detecta · Decide · Recupera margen</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --fg-1:#043C36; --fg-2:#3A5C58; --fg-3:#708280; --fg-inv:#EEF1EA;
+  --bg-1:#EEF1EA; --bg-2:#FFFFFF; --bg-3:#F6F8F2; --bg-inv:#043C36; --bg-inv-2:#0A5249;
+  --green:#1E7A5B; --light:#CEDC8E; --yellow:#FFD712; --pink:#F47C6D;
+  --border:rgba(4,60,54,.12); --grey:#E2E0E3;
+  --sh1:0 1px 2px rgba(4,60,54,.06); --sh2:0 4px 12px rgba(4,60,54,.08);
+  --t:all .5s cubic-bezier(.16,1,.3,1);
+}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:'Poppins',sans-serif;color:var(--fg-1);background:var(--bg-1);-webkit-font-smoothing:antialiased;line-height:1.5}
+::selection{background:var(--light);color:var(--fg-1)}
+img{max-width:100%;display:block}
+section{padding:96px 32px;position:relative}
+.inner{max-width:1120px;margin:0 auto}
+.s-tag{display:inline-flex;align-items:center;gap:7px;font-size:.72rem;font-weight:600;text-transform:uppercase;letter-spacing:.1em;color:var(--green);margin-bottom:16px}
+.s-tag .dot{width:7px;height:7px;border-radius:50%;background:var(--green)}
+.s-title{font-size:clamp(1.7rem,3.6vw,2.6rem);font-weight:600;line-height:1.1;letter-spacing:-.01em;margin-bottom:16px}
+.s-desc{font-size:1rem;font-weight:400;line-height:1.6;color:var(--fg-2);max-width:640px}
+.s-desc.c{margin:0 auto;text-align:center}
+.center{text-align:center}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:15px 34px;font-family:inherit;font-size:.9rem;font-weight:600;border:none;border-radius:999px;cursor:pointer;text-decoration:none;transition:var(--t)}
+.btn-primary{background:var(--fg-1);color:var(--fg-inv)}
+.btn-primary:hover{background:var(--bg-inv-2);transform:translateY(-2px)}
+.btn-accent{background:var(--light);color:var(--fg-1)}
+.btn-accent:hover{background:#bccd76;transform:translateY(-2px)}
+.r{opacity:0;transform:translateY(32px);transition:all .8s cubic-bezier(.16,1,.3,1)}
+.r.v{opacity:1;transform:translateY(0)}
+.r.d1{transition-delay:.08s}.r.d2{transition-delay:.16s}.r.d3{transition-delay:.24s}
+
+/* ═══ NAV ═══ */
+.nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:18px 32px;display:flex;align-items:center;justify-content:space-between;transition:var(--t)}
+.nav.scrolled{background:rgba(4,60,54,.97);padding:12px 32px;box-shadow:var(--sh2)}
+.nav-logo{display:flex;align-items:center;gap:10px}
+.nav-logo img{height:24px}
+.nav-x{color:var(--fg-inv);opacity:.4;font-size:1rem;font-weight:300}
+.nav-name{color:var(--fg-inv);font-size:.92rem;font-weight:600;opacity:.9}
+.nav .nav-logo{opacity:0;transition:var(--t)}
+.nav.scrolled .nav-logo{opacity:1}
+.nav-cta{padding:10px 24px;background:var(--light);color:var(--fg-1);font-size:.8rem;font-weight:600;border-radius:999px;text-decoration:none;transition:var(--t);opacity:0;pointer-events:none}
+.nav.scrolled .nav-cta{opacity:1;pointer-events:auto}
+.nav-cta:hover{background:#bccd76}
+
+/* ═══ HERO ═══ */
+.hero{background:var(--bg-inv);color:var(--fg-inv);min-height:46vh;display:flex;flex-direction:column;justify-content:center;padding:104px 32px 56px;position:relative;overflow:hidden}
+.hero-shape{position:absolute;top:-20%;right:-5%;width:380px;height:380px;opacity:.45;pointer-events:none}
+.hero-shape svg{width:100%;height:100%}
+.hero-inner{max-width:1120px;margin:0 auto;width:100%;position:relative;z-index:2}
+.hero-logos{display:flex;align-items:center;gap:14px;margin-bottom:24px}
+.hero-logos img{height:28px}
+.hero-logos .x{color:var(--fg-inv);opacity:.4;font-size:1.2rem;font-weight:300}
+.hero-badge{display:inline-flex;align-items:center;gap:8px;padding:6px 16px;border-radius:999px;background:rgba(206,220,142,.12);font-size:.74rem;font-weight:500;color:var(--light);margin-bottom:22px}
+.hero-badge .pdot{width:6px;height:6px;border-radius:50%;background:var(--light)}
+.hero h1{font-size:clamp(1.8rem,4.2vw,2.8rem);font-weight:600;line-height:1.1;letter-spacing:-.015em;max-width:820px;margin-bottom:18px}
+.hero h1 em{font-style:normal;color:var(--light)}
+.hero-sub{font-size:clamp(.92rem,1.3vw,1.05rem);color:rgba(238,241,234,.65);font-weight:400;max-width:620px;line-height:1.55;margin-bottom:30px}
+.hero-ctas{display:flex;gap:14px;flex-wrap:wrap}
+
+/* ═══ COMPARISON (situación actual vs deseada) — filas emparejadas ═══ */
+.s-compare{background:var(--bg-1)}
+.cmp{margin-top:52px;border-radius:20px;overflow:hidden;box-shadow:var(--sh1)}
+.cmp-headrow{display:grid;grid-template-columns:1fr 1fr}
+.cmp-headrow > div{padding:26px 32px}
+.cmp-h.now{background:var(--bg-2);border-bottom:1px solid var(--border)}
+.cmp-h.future{background:var(--bg-inv)}
+.cmp-h .pill{display:inline-block;font-size:.68rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;padding:5px 12px;border-radius:999px;margin-bottom:12px}
+.cmp-h.now .pill{background:rgba(244,124,109,.12);color:#d4574a}
+.cmp-h.future .pill{background:rgba(206,220,142,.16);color:var(--light)}
+.cmp-h h3{font-size:1.2rem;font-weight:600;letter-spacing:-.01em}
+.cmp-h.future h3{color:var(--fg-inv)}
+.cmp-pair{display:grid;grid-template-columns:1fr 1fr;align-items:stretch}
+.cmp-cell{padding:24px 32px;display:flex;gap:14px}
+.cmp-cell.now{background:var(--bg-2);border-top:1px solid var(--border)}
+.cmp-cell.future{background:var(--bg-inv);border-top:1px solid rgba(238,241,234,.1)}
+.cmp-ico{width:38px;height:38px;border-radius:10px;flex-shrink:0;display:flex;align-items:center;justify-content:center}
+.cmp-cell.now .cmp-ico{background:rgba(244,124,109,.1);color:var(--pink)}
+.cmp-cell.future .cmp-ico{background:rgba(206,220,142,.14);color:var(--light)}
+.cmp-ico svg{width:20px;height:20px}
+.cmp-txt .ti{font-size:.95rem;font-weight:600;margin-bottom:4px;line-height:1.35}
+.cmp-cell.future .cmp-txt .ti{color:var(--fg-inv)}
+.cmp-txt .de{font-size:.84rem;color:var(--fg-3);line-height:1.55}
+.cmp-cell.future .cmp-txt .de{color:rgba(238,241,234,.6)}
+.cmp-txt .de strong{color:var(--fg-1);font-weight:600}
+.cmp-cell.future .cmp-txt .de strong{color:var(--light)}
+/* fila de cierre con los datos destacados */
+.cmp-foot{display:grid;grid-template-columns:1fr 1fr;align-items:stretch}
+.cmp-foot > div{padding:24px 32px;display:flex;align-items:center;gap:16px}
+.cmp-foot .now{background:var(--bg-3);border-top:1px solid var(--border)}
+.cmp-foot .future{background:var(--bg-inv-2);border-top:1px solid rgba(238,241,234,.1)}
+.mfig{font-size:1.8rem;font-weight:700;line-height:1;white-space:nowrap}
+.cmp-foot .now .mfig{color:#bd9e00}
+.cmp-foot .future .mfig{color:var(--light)}
+.mtxt{font-size:.78rem;line-height:1.45}
+.cmp-foot .now .mtxt{color:var(--fg-2)}
+.cmp-foot .future .mtxt{color:rgba(238,241,234,.75)}
+.mtxt strong{font-weight:600}
+.cmp-foot .now .mtxt strong{color:var(--fg-1)}
+.cmp-foot .future .mtxt strong{color:var(--fg-inv)}
+@media(max-width:880px){
+  .cmp-headrow,.cmp-pair,.cmp-foot{grid-template-columns:1fr}
+  .cmp-pair .cmp-cell.future,.cmp-headrow .cmp-h.future,.cmp-foot .future{border-top:none}
+}
+
+/* ═══ JOURNEY (Del estante a la venta) ═══ */
+.s-journey{background:var(--bg-inv);color:var(--fg-inv)}
+.s-journey .s-tag{color:var(--light)}
+.s-journey .s-desc{color:rgba(238,241,234,.6)}
+.jw-video{margin:44px auto 0;max-width:920px;border-radius:18px;overflow:hidden;box-shadow:var(--sh2);position:relative;z-index:2}
+.jw-video iframe{width:100%;aspect-ratio:16/9;display:block;border:none}
+.steps-row{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:56px}
+@media(max-width:900px){.steps-row{grid-template-columns:1fr 1fr}}
+@media(max-width:560px){.steps-row{grid-template-columns:1fr}}
+.step{background:var(--bg-inv-2);border:1px solid rgba(206,220,142,.14);border-radius:16px;padding:28px 24px;position:relative}
+.step-num{width:30px;height:30px;border-radius:50%;background:var(--light);color:var(--fg-1);display:flex;align-items:center;justify-content:center;font-size:.82rem;font-weight:700;margin-bottom:18px}
+.step-label{font-size:1.05rem;font-weight:700;color:var(--light);text-transform:uppercase;letter-spacing:.03em;margin-bottom:10px}
+.step-title{font-size:.92rem;font-weight:600;color:var(--fg-inv);margin-bottom:8px;line-height:1.35}
+.step-desc{font-size:.82rem;color:rgba(238,241,234,.6);line-height:1.55}
+
+/* ═══ LEY 1/2025 highlight ═══ */
+.law{margin-top:48px;background:var(--bg-inv-2);border:1px solid rgba(255,215,18,.25);border-radius:18px;padding:32px 36px;display:flex;gap:24px;align-items:center}
+@media(max-width:760px){.law{flex-direction:column;text-align:center;padding:28px 24px}}
+.law-ico{width:56px;height:56px;border-radius:14px;background:rgba(255,215,18,.14);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.law-ico svg{width:30px;height:30px;color:var(--yellow)}
+.law-body .law-tag{font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--yellow);margin-bottom:8px}
+.law-body h4{font-size:1.15rem;font-weight:600;color:var(--fg-inv);margin-bottom:10px;line-height:1.3}
+.law-body p{font-size:.88rem;color:rgba(238,241,234,.7);line-height:1.6}
+.law-body p strong{color:var(--fg-inv);font-weight:600}
+.law-source{font-size:.72rem;color:rgba(238,241,234,.4);margin-top:10px}
+
+/* ═══ ROI ═══ */
+.s-roi{background:var(--bg-1)}
+.roi-box{background:var(--bg-2);border:1px solid var(--border);border-radius:24px;padding:48px;box-shadow:var(--sh1);margin-top:48px}
+@media(max-width:760px){.roi-box{padding:28px 20px}}
+.roi-grid{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:stretch}
+@media(max-width:880px){.roi-grid{grid-template-columns:1fr;gap:32px}}
+.sg{margin-bottom:30px}
+.sg:last-child{margin-bottom:0}
+.sg-head{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:6px}
+.sg-label{font-size:.88rem;font-weight:500;color:var(--fg-1)}
+.sg-val{font-size:1.15rem;font-weight:700;color:var(--green)}
+.sg-sub{font-size:.72rem;color:var(--fg-3);margin-top:8px;line-height:1.45}
+.sg-sub .liveval{font-weight:700;color:var(--fg-1)}
+.sg-note{display:inline-flex;align-items:center;gap:6px;font-size:.7rem;color:#8a7400;background:rgba(255,215,18,.14);padding:4px 10px;border-radius:999px;margin-top:8px}
+input[type=range]{-webkit-appearance:none;appearance:none;width:100%;height:6px;border-radius:3px;background:var(--grey);outline:none;cursor:pointer;margin-top:6px}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:22px;height:22px;border-radius:50%;background:var(--bg-2);border:3px solid var(--green);cursor:pointer;box-shadow:var(--sh1);transition:transform .2s}
+input[type=range]::-webkit-slider-thumb:hover{transform:scale(1.12)}
+input[type=range]::-moz-range-thumb{width:22px;height:22px;border-radius:50%;background:var(--bg-2);border:3px solid var(--green);cursor:pointer}
+.range-ends{display:flex;justify-content:space-between;font-size:.66rem;color:var(--fg-3);margin-top:6px}
+.roi-results{display:flex;flex-direction:column;gap:14px}
+.rr-top{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media(max-width:480px){.rr-top{grid-template-columns:1fr}}
+.rr{border-radius:16px;padding:22px 24px;position:relative;overflow:hidden}
+.rr .rl{font-size:.74rem;font-weight:500;text-transform:uppercase;letter-spacing:.04em;margin-bottom:6px}
+.rr .rv{font-size:1.7rem;font-weight:700;letter-spacing:-.01em;line-height:1}
+.rr .rsub{font-size:.72rem;margin-top:8px;line-height:1.4}
+.rr.muted{background:var(--bg-3);border:1px solid var(--border)}
+.rr.muted .rl{color:var(--fg-3)}
+.rr.muted .rv{color:var(--fg-1)}
+.rr.hero-res{background:var(--bg-inv);flex:1;display:flex;flex-direction:column;justify-content:center}
+.rr.hero-res .rl{color:rgba(238,241,234,.55)}
+.rr.hero-res .rv{color:var(--light);font-size:2.4rem}
+.rr.hero-res .rsub{font-size:.74rem;color:rgba(238,241,234,.5);margin-top:8px;line-height:1.45}
+/* acumulado 3 años */
+.roi-cum{margin-top:28px;padding-top:28px;border-top:1px solid var(--border)}
+.roi-cum-title{font-size:.74rem;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:var(--fg-3);margin-bottom:16px;text-align:center}
+.roi-cum-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+@media(max-width:600px){.roi-cum-grid{grid-template-columns:1fr}}
+.cum{background:var(--bg-3);border:1px solid var(--border);border-radius:16px;padding:22px 24px;text-align:center}
+.cum.accent{background:var(--bg-inv)}
+.cum-y{font-size:.76rem;font-weight:500;color:var(--fg-3);margin-bottom:8px}
+.cum.accent .cum-y{color:rgba(238,241,234,.6)}
+.cum-v{font-size:1.7rem;font-weight:700;color:var(--fg-1);letter-spacing:-.01em;line-height:1}
+.cum.accent .cum-v{color:var(--light)}
+.roi-foot{text-align:center;margin-top:36px;font-size:.8rem;color:var(--fg-3);line-height:1.6;font-style:italic}
+.roi-foot strong{color:var(--fg-2);font-style:normal}
+
+/* ═══ CTA ═══ */
+/* ═══ FOOTER ═══ */
+footer{background:var(--bg-inv);color:rgba(238,241,234,.4);padding:32px;border-top:1px solid rgba(238,241,234,.08);text-align:center;font-size:.76rem}
+.ft-logos{display:flex;align-items:center;justify-content:center;gap:12px;margin-bottom:14px}
+.ft-logos img{height:20px;opacity:.55}
+.ft-logos .x{opacity:.3}
+
+@media(max-width:600px){section{padding:72px 20px}.nav{padding:14px 20px}.hero{padding:100px 20px 64px}}
+</style>
+</head>
+<body>
+
+<!-- ═══ NAV ═══ -->
+<nav class="nav" id="nav">
+  <div class="nav-logo">
+    <img src="https://25665345.fs1.hubspotusercontent-eu1.net/hubfs/25665345/ABM%20Productions/Smartway%20logo%20whit%20epng.png" alt="smartway">
+    <span class="nav-x">×</span>
+    <span class="nav-name">Alimerka</span>
+  </div>
+  <a href="#roi" class="nav-cta">Ver el impacto</a>
+</nav>
+
+<!-- ═══ HERO ═══ -->
+<header class="hero">
+  <div class="hero-shape">
+    <svg viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M40 200V60c0-15 12-27 27-27s27 12 27 27v140M106 200V20c0-15 12-27 27-27s27 12 27 27v180" stroke="#0A5249" stroke-width="14" stroke-linecap="round"/>
+    </svg>
+  </div>
+  <div class="hero-inner">
+    <div class="hero-logos">
+      <img src="https://25665345.fs1.hubspotusercontent-eu1.net/hubfs/25665345/ABM%20Productions/Smartway%20logo%20whit%20epng.png" alt="smartway">
+      <span class="x">×</span>
+      <span class="nav-name" style="font-size:1.4rem">Alimerka</span>
+    </div>
+    <div class="hero-badge"><span class="pdot"></span> Preparado para Alimerka</div>
+    <h1>Menos merma, <em>más margen</em>, más EBITDA</h1>
+    <p class="hero-sub">Smartway detecta los productos próximos a caducar, guía a tu equipo a la referencia exacta y calcula el descuento justo en el momento preciso con IA.</p>
+    <div class="hero-ctas">
+      <a href="#roi" class="btn btn-accent">Ver el impacto para Alimerka ↓</a>
+    </div>
+  </div>
+</header>
+
+<!-- ═══ SITUACIÓN ACTUAL vs DESEADA ═══ -->
+<section class="s-compare" id="situacion">
+  <div class="inner">
+    <div class="center">
+      <div class="s-tag r"><span class="dot"></span> El punto de partida para Alimerka</div>
+      <h2 class="s-title r">De la gestión manual al control inteligente</h2>
+    </div>
+
+    <div class="cmp r">
+      <!-- cabeceras -->
+      <div class="cmp-headrow">
+        <div class="cmp-h now"><span class="pill">Situación actual</span><h3>Control de fechas 100% manual</h3></div>
+        <div class="cmp-h future"><span class="pill">Con Smartway</span><h3>Margen protegido, proceso estandarizado</h3></div>
+      </div>
+
+      <!-- fila 1 -->
+      <div class="cmp-pair">
+        <div class="cmp-cell now">
+          <div class="cmp-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></div>
+          <div class="cmp-txt">
+            <div class="ti">Revisión manual de fechas, referencia a referencia</div>
+            <div class="de">Horas de equipo dedicadas a recorrer el lineal producto a producto. Una sola familia de fecha corta puede llevar toda una tarde, y cuando falta tiempo, la revisión no se hace.</div>
+          </div>
+        </div>
+        <div class="cmp-cell future">
+          <div class="cmp-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M20 6 9 17l-5-5"/></svg></div>
+          <div class="cmp-txt">
+            <div class="ti">El sistema señala solo lo que necesita atención</div>
+            <div class="de">Aproximadamente un <strong>4% de las referencias</strong> requiere acción cada día. El equipo va directo a ellas, sin recorrer toda la tienda.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- fila 2 -->
+      <div class="cmp-pair">
+        <div class="cmp-cell now">
+          <div class="cmp-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 9v4M12 17h.01"/><path d="M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0Z"/></svg></div>
+          <div class="cmp-txt">
+            <div class="ti">Riesgo de caducados en lineal y de incumplir la norma</div>
+            <div class="de">Sin alerta digital, un producto caducado puede llegar al cliente. Difícil demostrar trazabilidad ante una inspección de la Ley 1/2025.</div>
+          </div>
+        </div>
+        <div class="cmp-cell future">
+          <div class="cmp-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M20 6 9 17l-5-5"/></svg></div>
+          <div class="cmp-txt">
+            <div class="ti">Cero caducados y trazabilidad para la norma</div>
+            <div class="de">Control de fechas digitalizado y registrado. <strong>Conformidad demostrable</strong> ante la Ley 1/2025 de prevención del desperdicio.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- fila 3 -->
+      <div class="cmp-pair">
+        <div class="cmp-cell now">
+          <div class="cmp-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 3v18h18"/><path d="m19 9-5 5-4-4-3 3"/></svg></div>
+          <div class="cmp-txt">
+            <div class="ti">Un % de merma que lastra los resultados cada año</div>
+            <div class="de">Sin un paso intermedio entre vender a precio normal y donar o tirar, el margen recuperable se pierde de forma recurrente.</div>
+          </div>
+        </div>
+        <div class="cmp-cell future">
+          <div class="cmp-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M20 6 9 17l-5-5"/></svg></div>
+          <div class="cmp-txt">
+            <div class="ti">Descuento óptimo antes de donar o tirar</div>
+            <div class="de">El paso intermedio que hoy falta: un descuento calculado por producto que <strong>recupera el 50-80% del valor</strong> antes de la pérdida total.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- fila 4 -->
+      <div class="cmp-pair">
+        <div class="cmp-cell now">
+          <div class="cmp-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.9"/></svg></div>
+          <div class="cmp-txt">
+            <div class="ti">Sin proceso estandarizado que guíe al equipo</div>
+            <div class="de">La calidad del control depende de la experiencia de cada persona. Una incorporación reciente y un veterano no ejecutan igual.</div>
+          </div>
+        </div>
+        <div class="cmp-cell future">
+          <div class="cmp-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M20 6 9 17l-5-5"/></svg></div>
+          <div class="cmp-txt">
+            <div class="ti">Un método único para toda la red</div>
+            <div class="de">El mismo proceso guiado para cualquier persona del equipo, sea veterana o recién incorporada. <strong>Ejecución homogénea</strong> en cada tienda.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- fila de cierre con datos destacados -->
+      <div class="cmp-foot">
+        <div class="now">
+          <div class="mfig">≈ 15,4 M€</div>
+          <div class="mtxt"><strong>Merma anual estimada.</strong> Sobre ~700 M€ de facturación y un 2,2% de merma media en tienda. Ajustable en el simulador.</div>
+        </div>
+        <div class="future">
+          <div class="mfig">−30%</div>
+          <div class="mtxt"><strong>Reducción de merma de referencia</strong> observada de media con clientes Smartway. Aplícalo a tu cifra abajo.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ JOURNEY: Del estante a la venta ═══ -->
+<section class="s-journey" id="como-funciona">
+  <div class="inner">
+    <div class="center">
+      <h2 class="s-title r" style="color:var(--fg-inv)">Cómo funciona</h2>
+    </div>
+
+    <div class="jw-video r">
+      <iframe src="https://player.vimeo.com/video/1168812832?h=1f9a85776e&badge=0&autopause=0&player_id=0&app_id=58479" allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share" referrerpolicy="strict-origin-when-cross-origin" title="El FWMS de Smartway"></iframe>
+    </div>
+
+    <div class="steps-row">
+      <div class="step r d1">
+        <div class="step-num">1</div>
+        <div class="step-label">Detecta</div>
+        <div class="step-title">Detección de productos con fecha corta</div>
+        <div class="step-desc">Solo las referencias que necesitan atención se marcan automáticamente. El equipo deja de revisar el lineal entero.</div>
+      </div>
+      <div class="step r d2">
+        <div class="step-num">2</div>
+        <div class="step-label">Localiza</div>
+        <div class="step-title">Localización en estante</div>
+        <div class="step-desc">El programa guía al equipo al estante indicado y a la referencia indicada. Se encuentra el producto en segundos, sin improvisar.</div>
+      </div>
+      <div class="step r d3">
+        <div class="step-num">3</div>
+        <div class="step-label">Decide</div>
+        <div class="step-title">Cálculo del descuento óptimo</div>
+        <div class="step-desc">Nada de un descuento fijo. El sistema analiza rotación, vida útil y demanda para fijar el descuento justo por producto.</div>
+      </div>
+      <div class="step r d1">
+        <div class="step-num">4</div>
+        <div class="step-label">Recupera margen</div>
+        <div class="step-title">Panel de control para oficina central</div>
+        <div class="step-desc">Visibilidad en tiempo real de conformidad, recuperación de margen y reducción de merma en toda la red.</div>
+      </div>
+    </div>
+
+    <!-- LEY 1/2025 -->
+    <div class="law r">
+      <div class="law-ico">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18M7 6V4a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v2M6 6l1 14a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2l1-14"/><path d="M10 11v6M14 11v6"/></svg>
+      </div>
+      <div class="law-body">
+        <div class="law-tag">Contexto normativo · Ley 1/2025</div>
+        <h4>El control digital de fechas ya no es opcional</h4>
+        <p>Desde abril de 2026 son exigibles las obligaciones clave de la <strong>Ley 1/2025 de prevención de las pérdidas y el desperdicio alimentario</strong>: plan de prevención operativo, jerarquía de uso de excedentes y trazabilidad medible. Han arrancado las <strong>inspecciones, con sanciones de hasta 500.000 €</strong> en los casos más graves. Smartway aporta la medición y la trazabilidad que la norma exige.</p>
+        <div class="law-source">Fuente: Food Retail &amp; Service, "Abril marca un antes y un después en el retail" (01/04/2026).</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ ROI ═══ -->
+<section class="s-roi" id="roi">
+  <div class="inner">
+    <div class="center">
+      <div class="s-tag r"><span class="dot"></span> Retorno de la inversión</div>
+      <h2 class="s-title r">Potencial impacto económico para Alimerka</h2>
+      <p class="s-desc c r">Ajusta las cifras a tu realidad. El cálculo se actualiza al instante.</p>
+    </div>
+
+    <div class="roi-box r">
+      <div class="roi-grid">
+        <!-- SLIDERS -->
+        <div>
+          <div class="sg">
+            <div class="sg-head"><span class="sg-label">Facturación anual de Alimerka</span><span class="sg-val" id="vFact">700 M€</span></div>
+            <input type="range" id="sFact" min="300" max="900" value="700" step="10">
+            <div class="range-ends"><span>300 M€</span><span>900 M€</span></div>
+          </div>
+
+          <div class="sg">
+            <div class="sg-head"><span class="sg-label">% de merma media en tienda</span><span class="sg-val" id="vMerma">2,25 %</span></div>
+            <input type="range" id="sMerma" min="1" max="4" value="2.25" step="0.05">
+            <div class="range-ends"><span>1 %</span><span>4 %</span></div>
+            <div class="sg-sub">Merma anual estimada: <span class="liveval" id="vMermaEur">15,75 M€</span></div>
+          </div>
+
+          <div class="sg">
+            <div class="sg-head"><span class="sg-label">Reducción de merma con Smartway</span><span class="sg-val" id="vRed">30 %</span></div>
+            <input type="range" id="sRed" min="20" max="35" value="30" step="1">
+            <div class="range-ends"><span>20 %</span><span>35 %</span></div>
+            <div class="sg-note">Media observada con nuestros clientes: −30%</div>
+          </div>
+        </div>
+
+        <!-- RESULTS -->
+        <div class="roi-results">
+          <div class="rr-top">
+            <div class="rr muted">
+              <div class="rl">Merma anual actual</div>
+              <div class="rv" id="rMerma">15,75 M€</div>
+            </div>
+            <div class="rr muted">
+              <div class="rl">Impacto por tienda / año</div>
+              <div class="rv" id="rTienda">27,3 k€</div>
+              <div class="rsub" style="color:var(--fg-3)">Sobre 173 tiendas de la red propia.</div>
+            </div>
+          </div>
+          <div class="rr hero-res">
+            <div class="rl">Margen potencialmente recuperable / año</div>
+            <div class="rv" id="rRecup">4,72 M€</div>
+            <div class="rsub">Merma evitada al aplicar la reducción estimada sobre la merma anual.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ACUMULADO 3 AÑOS -->
+      <div class="roi-cum">
+        <div class="roi-cum-title">Impacto acumulado</div>
+        <div class="roi-cum-grid">
+          <div class="cum">
+            <div class="cum-y">Año 1</div>
+            <div class="cum-v" id="cum1">4,72 M€</div>
+          </div>
+          <div class="cum">
+            <div class="cum-y">Acumulado año 2</div>
+            <div class="cum-v" id="cum2">9,45 M€</div>
+          </div>
+          <div class="cum accent">
+            <div class="cum-y">Acumulado año 3</div>
+            <div class="cum-v" id="cum3">14,17 M€</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="roi-foot">
+        <strong>Base de partida:</strong> 2,25% es la media del rango 2–2,5% indicado por Alimerka; la reducción del 30% es la media observada con clientes Smartway.
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="ft-logos">
+    <img src="https://25665345.fs1.hubspotusercontent-eu1.net/hubfs/25665345/ABM%20Productions/Smartway%20logo%20whit%20epng.png" alt="smartway">
+    <span class="x">×</span>
+    <span style="color:rgba(238,241,234,.5);font-weight:600;font-size:.85rem">Alimerka</span>
+  </div>
+  Documento preparado por Smartway para Alimerka · Cifras orientativas para la conversación comercial.
+</footer>
+
+<script>
+// NAV scroll
+const nav=document.getElementById('nav');
+window.addEventListener('scroll',()=>{nav.classList.toggle('scrolled',window.scrollY>60)},{passive:true});
+
+// REVEAL
+const obs=new IntersectionObserver(e=>{e.forEach(x=>{if(x.isIntersecting)x.target.classList.add('v')})},{threshold:.12,rootMargin:'0px 0px -50px 0px'});
+document.querySelectorAll('.r').forEach(el=>obs.observe(el));
+
+// ROI CALCULATOR
+const NUM_TIENDAS=173; // red propia Alimerka
+const sFact=document.getElementById('sFact'),sMerma=document.getElementById('sMerma'),sRed=document.getElementById('sRed');
+const vFact=document.getElementById('vFact'),vMerma=document.getElementById('vMerma'),vRed=document.getElementById('vRed');
+const vMermaEur=document.getElementById('vMermaEur'),rMerma=document.getElementById('rMerma'),rRecup=document.getElementById('rRecup'),rTienda=document.getElementById('rTienda');
+const cum1=document.getElementById('cum1'),cum2=document.getElementById('cum2'),cum3=document.getElementById('cum3');
+
+function fmtM(n){
+  // n en millones de euros
+  if(n>=10) return n.toFixed(1).replace('.',',')+' M€';
+  return n.toFixed(2).replace('.',',')+' M€';
+}
+function fmtK(n){
+  // n en millones de euros -> mostrar en k€ por tienda
+  const k=n*1000/NUM_TIENDAS; // k€
+  return k.toFixed(1).replace('.',',')+' k€';
+}
+function calcROI(){
+  const fact=+sFact.value;            // M€
+  const merma=+sMerma.value;          // %
+  const red=+sRed.value;              // %
+  const mermaEur=fact*(merma/100);    // M€
+  const recup=mermaEur*(red/100);     // M€ recuperable / año
+
+  vFact.textContent=fact+' M€';
+  vMerma.textContent=merma.toFixed(2).replace('.',',')+' %';
+  vRed.textContent=red+' %';
+  vMermaEur.textContent=fmtM(mermaEur);
+  rMerma.textContent=fmtM(mermaEur);
+  rRecup.textContent=fmtM(recup);
+  rTienda.textContent=fmtK(recup);
+
+  cum1.textContent=fmtM(recup);
+  cum2.textContent=fmtM(recup*2);
+  cum3.textContent=fmtM(recup*3);
+}
+[sFact,sMerma,sRed].forEach(s=>s.addEventListener('input',calcROI));
+calcROI();
+</script>
+</body>
+</html>
