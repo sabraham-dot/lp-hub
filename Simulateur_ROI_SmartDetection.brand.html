@@ -1,0 +1,759 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Votre projection SmartDetection</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{--bg:#243C36;--bg2:#243C36;--card:#31715B;--lime:#CDE7A1;--gold:#FFD712;--coral:#F47C6D;--white:#FFFFFF;--muted:rgba(238,241,234,.62)}
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  html,body{min-height:100%}
+  body{font-family:'Poppins',sans-serif;background:#243C36;color:var(--white);margin:0}
+  .band{background:#243C36}
+  .band.alt{background:#243C36}
+  .inner{max-width:1180px;margin:0 auto;padding:clamp(26px,3.4vw,48px) clamp(18px,3vw,40px)}
+  header{display:flex;align-items:flex-start;gap:18px;margin-bottom:clamp(16px,2.2vw,28px)}
+  .tree{flex:none;margin-top:6px}
+  h1{font-weight:600;font-size:clamp(22px,2.7vw,34px);line-height:1.1;letter-spacing:-.5px}
+  h1 .l{color:var(--lime)}
+  .sub{color:var(--muted);font-weight:400;font-size:clamp(13px,1.1vw,15px);margin-top:6px}
+  .step-label{display:flex;align-items:center;gap:10px;font-size:12px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:var(--lime);margin-bottom:14px}
+  .step-label .n{background:var(--lime);color:#243C36;width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:600;flex:none}
+  .grid{display:grid;grid-template-columns:0.92fr 1.08fr;gap:clamp(16px,2vw,26px);align-items:stretch}
+  @media(max-width:860px){.grid{grid-template-columns:1fr}}
+  .panel{background:var(--bg2);border:1px solid rgba(205,231,161,.22);border-radius:14px;padding:clamp(18px,2vw,26px)}
+  .field{margin-bottom:24px}.field:last-child{margin-bottom:0}
+  .field .top{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:12px;gap:12px}
+  .field label{font-size:14px;font-weight:500;color:#EEF1EA}
+  .valbox{display:flex;align-items:baseline;gap:5px;background:var(--card);border:1px solid rgba(205,231,161,.3);border-radius:8px;padding:5px 10px}
+  .valbox input{width:74px;background:transparent;border:none;color:var(--gold);font-family:'Poppins';font-weight:600;font-size:18px;text-align:right;outline:none}
+  .valbox.wide input{width:110px}
+  .valbox .unit{color:var(--muted);font-size:13px;font-weight:500}
+  input[type=range]{-webkit-appearance:none;appearance:none;width:100%;height:6px;border-radius:6px;background:rgba(205,231,161,.25);outline:none;cursor:pointer}
+  input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:22px;height:22px;border-radius:50%;background:var(--lime);border:3px solid var(--bg2);cursor:pointer;transition:transform .12s}
+  input[type=range]::-webkit-slider-thumb:hover{transform:scale(1.15)}
+  input[type=range]::-moz-range-thumb{width:22px;height:22px;border-radius:50%;background:var(--lime);border:3px solid var(--bg2);cursor:pointer}
+  .scale{display:flex;justify-content:space-between;color:var(--muted);font-size:11px;margin-top:7px}
+  .row{display:flex;justify-content:space-between;align-items:center}
+  .stepper{display:flex;align-items:center;background:var(--card);border:1px solid rgba(205,231,161,.3);border-radius:8px;overflow:hidden}
+  .stepper button{background:transparent;border:none;color:var(--lime);font-size:18px;font-weight:600;width:30px;height:32px;cursor:pointer;font-family:'Poppins'}
+  .stepper button:hover{background:rgba(205,231,161,.14)}
+  .stepper input{width:46px;background:transparent;border:none;color:var(--gold);text-align:center;font-family:'Poppins';font-weight:600;font-size:16px;outline:none}
+  .hint{font-size:11.5px;color:rgba(238,241,234,.5);margin-top:8px}
+  .seg{display:inline-flex;background:var(--card);border:1px solid rgba(205,231,161,.25);border-radius:9px;padding:3px;margin-bottom:22px}
+  .seg button{background:transparent;border:none;color:var(--muted);font-family:'Poppins';font-weight:600;font-size:12.5px;padding:7px 14px;border-radius:7px;cursor:pointer}
+  .seg button.active{background:var(--lime);color:#243C36}
+  .hide{display:none!important}
+  .optfield{margin-top:20px;padding-top:18px;border-top:1px dashed rgba(205,231,161,.18)}
+  .hero{background:var(--card);border:1px solid var(--lime);border-radius:14px;padding:clamp(20px,2.4vw,30px);height:100%;display:flex;flex-direction:column;justify-content:center}
+  .hero .lab{font-size:13px;font-weight:500;color:var(--lime);letter-spacing:.5px;margin-bottom:6px}
+  .hero .big{font-weight:600;font-size:clamp(38px,5.8vw,66px);line-height:1;color:var(--gold);letter-spacing:-1.5px}
+  .hero .demarque{color:#EEF1EA;font-size:14px;margin-top:14px;line-height:1.4}
+  .hero .demarque b{color:var(--white);font-weight:600}
+  .hero .demarque .grey{color:var(--muted)}
+  .netline{margin-top:13px;padding-top:13px;border-top:1px dashed rgba(205,231,161,.2);font-size:13.5px;color:#EEF1EA;line-height:1.4}
+  .netline b{color:var(--gold);font-weight:600}
+  .reveal-btn{margin:22px auto 0;display:flex;align-items:center;gap:10px;background:transparent;border:1px solid var(--lime);color:var(--lime);font-family:'Poppins';font-weight:600;font-size:14px;padding:12px 22px;border-radius:10px;cursor:pointer;transition:background .15s}
+  .reveal-btn:hover{background:rgba(205,231,161,.12)}
+  .reveal-btn .arr{transition:transform .25s}
+  .reveal-btn.open .arr{transform:rotate(90deg)}
+  .reveal-row{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:22px}
+  .reveal-row .reveal-btn{margin:0;flex:0 1 auto}
+  .cost{overflow:hidden;max-height:0;opacity:0;transition:max-height .4s ease,opacity .35s ease,margin .4s ease;margin-top:0}
+  .cost.open{max-height:1600px;opacity:1;margin-top:18px}
+  .cost-grid{display:grid;grid-template-columns:0.92fr 1.08fr;gap:clamp(16px,2vw,26px);align-items:stretch}
+  @media(max-width:860px){.cost-grid{grid-template-columns:1fr}}
+  .priceinfo{font-size:12px;color:rgba(238,241,234,.5);margin-top:16px;line-height:1.5}
+  .results-net{display:flex;flex-direction:column;gap:13px}
+  .netbox{background:var(--card);border:1px solid var(--lime);border-radius:13px;padding:clamp(16px,1.8vw,22px)}
+  .netbox .lab{font-size:12px;font-weight:500;color:var(--lime);margin-bottom:5px}
+  .netbox .big{font-weight:600;font-size:clamp(30px,4.4vw,44px);line-height:1;color:var(--gold);letter-spacing:-1px}
+  .netbox .after{color:#EEF1EA;font-size:13px;margin-top:8px}
+  .netbox .after b{color:var(--white);font-weight:600}
+  .cards{display:grid;grid-template-columns:1fr 1fr;gap:11px}
+  .mini{background:var(--card);border:1px solid rgba(205,231,161,.18);border-radius:11px;padding:14px 16px}
+  .mini .lab{font-size:12px;color:var(--muted);margin-bottom:6px;line-height:1.3}
+  .mini .num{font-weight:600;font-size:clamp(18px,2vw,22px);color:var(--gold);letter-spacing:-.5px}
+  .payback{display:flex;align-items:center;gap:13px;background:var(--card);border:1px solid rgba(205,231,161,.18);border-radius:11px;padding:13px 16px}
+  .payback .pill{flex:none;background:var(--lime);color:#243C36;font-weight:600;border-radius:8px;padding:7px 12px;font-size:18px}
+  .payback .txt{font-size:13px;color:#EEF1EA;line-height:1.35}
+  .payback .txt b{color:var(--white)}
+  /* intro hero */
+  .intro{margin-bottom:clamp(18px,2.4vw,30px)}
+  .hero-intro{display:grid;grid-template-columns:1.45fr 1fr;gap:clamp(18px,2.2vw,30px);background:#243C36;border:1px solid rgba(205,231,161,.28);border-radius:18px;padding:clamp(22px,2.8vw,38px);margin-bottom:14px;align-items:center;position:relative;overflow:hidden}
+  @media(max-width:760px){.hero-intro{grid-template-columns:1fr;gap:20px}}
+  .hero-intro .tag{font-size:11.5px;font-weight:600;letter-spacing:1.6px;text-transform:uppercase;color:var(--lime);margin-bottom:14px;display:flex;align-items:center;gap:8px}
+  .hero-intro .tag .leaf{width:15px;height:15px;flex:none}
+  .hero-intro .stmt{font-size:clamp(22px,2.9vw,34px);font-weight:600;line-height:1.16;letter-spacing:-.6px}
+  .hero-intro .stmt .l{color:var(--lime)}
+  .hero-intro .desc{color:rgba(238,241,234,.8);font-size:13.5px;line-height:1.55;margin-top:14px;max-width:95%}
+  .stats{display:flex;flex-direction:column;gap:11px;position:relative;z-index:1}
+  .stat{display:flex;align-items:center;gap:14px;background:rgba(36,60,54,.5);border:1px solid rgba(205,231,161,.18);border-radius:11px;padding:13px 18px}
+  .stat .v{font-size:clamp(24px,2.8vw,32px);font-weight:600;color:var(--gold);line-height:1;min-width:96px}
+  .stat .k{font-size:12.5px;color:rgba(238,241,234,.85);line-height:1.3}
+  .obj{display:grid;grid-template-columns:repeat(3,1fr);gap:13px}
+  @media(max-width:680px){.obj{grid-template-columns:1fr}}
+  .obj .o{background:var(--card);border:1px solid rgba(205,231,161,.18);border-radius:13px;padding:18px 19px}
+  .obj .o .ic{width:40px;height:40px;border-radius:11px;background:rgba(205,231,161,.12);display:flex;align-items:center;justify-content:center;margin-bottom:13px}
+  .obj .o .ic svg{width:22px;height:22px}
+  .obj .o .h{font-weight:600;font-size:15.5px;color:var(--white);margin-bottom:5px;display:flex;align-items:baseline;gap:8px}
+  .obj .o .h .m{color:var(--gold);font-weight:600}
+  .obj .o .d{font-size:12.5px;color:var(--muted);line-height:1.45}
+  /* proof */
+  .proof{margin-top:clamp(24px,3.4vw,42px)}
+  .proof-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:14px}
+  @media(max-width:760px){.proof-stats{grid-template-columns:1fr 1fr}}
+  .pstat{background:var(--card);border:1px solid rgba(205,231,161,.18);border-radius:12px;padding:16px 17px}
+  .pstat .v{font-size:clamp(20px,2.4vw,26px);font-weight:600;color:var(--gold);line-height:1;letter-spacing:-.5px}
+  .pstat .k{font-size:12px;color:var(--muted);margin-top:8px;line-height:1.35}
+  .proof-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  @media(max-width:760px){.proof-grid{grid-template-columns:1fr}}
+  .ptable{background:var(--bg2);border:1px solid rgba(205,231,161,.18);border-radius:12px;padding:18px}
+  .ptable h4{font-size:13px;font-weight:600;color:var(--lime);margin-bottom:12px;display:flex;align-items:center;gap:9px}
+  .ptable h4::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--lime);flex:none}
+  .ptable table{width:100%;border-collapse:collapse;font-size:12.5px}
+  .ptable th{color:var(--muted);font-weight:500;text-align:center;padding:5px 6px;border-bottom:1px solid rgba(205,231,161,.14)}
+  .ptable th:first-child,.ptable td:first-child{text-align:left}
+  .ptable td{padding:5px 6px;color:#EEF1EA;border-bottom:1px solid rgba(205,231,161,.06);text-align:center}
+  .ptable td .g,.ptable td b{color:var(--gold)}
+  .ptable .src{font-size:10.5px;color:rgba(238,241,234,.5);margin-top:11px;line-height:1.5}
+  .ptable .src a{color:var(--lime);text-decoration:none;border-bottom:1px solid rgba(205,231,161,.4)}
+  .monitor{display:flex;flex-direction:column;gap:8px}
+  .mlead{font-size:12.5px;color:#EEF1EA;line-height:1.55;margin-bottom:14px}
+  .mrow{display:flex;align-items:center;gap:11px;background:var(--card);border:1px solid rgba(205,231,161,.12);border-radius:9px;padding:11px 14px;font-size:13.5px;color:#EEF1EA;font-weight:500}
+  .mrow .dot{width:9px;height:9px;border-radius:50%;flex:none}
+  .mrow .badge{margin-left:auto;font-size:11px;font-weight:600;padding:3px 10px;border-radius:6px}
+  .dot.ok{background:#CDE7A1}.badge.ok{background:rgba(205,231,161,.16);color:#CDE7A1}
+  .dot.warn{background:#F47C6D}.badge.warn{background:rgba(244,124,109,.18);color:#F47C6D}
+  .quote{margin-top:14px;padding:13px 16px;background:rgba(205,231,161,.07);border-left:3px solid var(--lime);border-radius:0 8px 8px 0;font-size:13px;font-style:italic;color:#EEF1EA;line-height:1.5}
+  .quote .qauth{display:block;margin-top:9px;font-style:normal;font-size:11.5px;font-weight:600;color:var(--lime)}
+  .refs{background:var(--bg2);border:1px solid rgba(205,231,161,.18);border-radius:12px;padding:18px 20px;margin-top:14px;display:flex;flex-wrap:wrap;gap:18px;align-items:center;justify-content:space-between}
+  .refs .names{font-weight:600;color:#EEF1EA;font-size:14px}
+  .refs .facts{font-size:12px;color:var(--muted);line-height:1.5}
+  .refs .facts b{color:var(--lime)}
+  .logo{width:46px;height:46px;border-radius:11px;flex:none;margin-top:2px}
+  footer{padding:6px 0 4px;font-size:11px;color:rgba(238,241,234,.5);text-align:center}
+  /* en-tête découverte */
+  .disco{background:rgba(205,231,161,.07);border:1px solid rgba(205,231,161,.22);border-left:3px solid var(--lime);border-radius:0 12px 12px 0;padding:16px 20px;margin-bottom:clamp(16px,2vw,24px)}
+  .disco-tag{font-size:11px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:var(--lime);margin-bottom:7px}
+  .disco-txt{font-size:13.5px;color:#EEF1EA;line-height:1.5}
+  .disco-txt b{color:var(--white);font-weight:600}
+  .disco-q{list-style:none;margin:13px 0 0;display:grid;grid-template-columns:1fr 1fr;gap:9px 24px}
+  @media(max-width:760px){.disco-q{grid-template-columns:1fr}}
+  .disco-q li{position:relative;padding-left:18px;font-size:13px;color:#EEF1EA;line-height:1.4}
+  .disco-q li::before{content:"";position:absolute;left:0;top:6px;width:7px;height:7px;border-radius:50%;background:var(--lime)}
+  .disco-foot{margin-top:13px;font-size:11.5px;color:rgba(238,241,234,.5)}
+  /* frise FOMO */
+  .timeline{padding:clamp(20px,2.4vw,30px)}
+  .tl-head{display:flex;justify-content:space-between;gap:24px;flex-wrap:wrap;margin-bottom:22px}
+  .tl-lab{font-size:12px;color:var(--lime);font-weight:500;margin-bottom:5px}
+  .tl-date{font-size:clamp(19px,2.3vw,25px);font-weight:600;color:var(--white);line-height:1}
+  .tl-sub{font-size:12px;color:var(--muted);margin-top:5px}
+  .tl-loss{text-align:right}
+  .tl-big{font-size:clamp(34px,5vw,52px);font-weight:600;color:var(--coral);line-height:1;letter-spacing:-1px}
+  .tl-scale{display:flex;justify-content:space-between;color:var(--muted);font-size:11px;margin-top:8px}
+  .tl-msg{margin-top:18px;padding:13px 16px;background:rgba(244,124,109,.12);border:1px solid rgba(244,124,109,.3);border-radius:9px;color:#EEF1EA;font-size:14px;font-weight:500;line-height:1.45}
+  .tl-msg b{color:#F47C6D}
+  .contract-btn{display:inline-flex;margin-top:18px;background:var(--lime);color:#243C36;font-weight:600;font-size:13.5px;padding:11px 20px;border-radius:9px;text-decoration:none}
+  .contract-btn:hover{filter:brightness(1.06)}
+  /* dashboard blanc — suivi à distance */
+  .proof-dash{margin-top:14px}
+  .proof-dash h4{font-size:13px;font-weight:600;color:var(--lime);margin-bottom:10px;display:flex;align-items:center;gap:9px}
+  .proof-dash h4::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--lime);flex:none}
+  .dash{background:var(--card);border-radius:14px;overflow:hidden;margin-top:13px;border:1px solid rgba(205,231,161,.22)}
+  .dash-top{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:15px 20px;border-bottom:1px solid rgba(205,231,161,.16);background:#243C36}
+  .dash-top .t{font-weight:600;font-size:14px;color:var(--white)}
+  .dash-top .wk{font-size:12px;color:var(--muted);font-weight:500}
+  .dash-kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:rgba(205,231,161,.14)}
+  .dash-kpi{background:var(--card);padding:15px 20px;text-align:center}
+  .dash-kpi .v{font-size:23px;font-weight:600;color:var(--gold);line-height:1}
+  .dash-kpi .k{font-size:11.5px;color:var(--muted);margin-top:6px}
+  .dash-scroll{overflow-x:auto}
+  .dash table{width:100%;border-collapse:collapse;font-size:12.5px;min-width:640px}
+  .dash thead th{background:var(--card);color:var(--muted);font-weight:500;text-align:center;padding:10px 12px;border-bottom:1px solid rgba(205,231,161,.14)}
+  .dash thead th:first-child{text-align:left}
+  .dash tbody td{padding:9px 12px;color:#EEF1EA;text-align:center;border-bottom:1px solid rgba(205,231,161,.06)}
+  .dash tbody td:first-child{text-align:left;font-weight:500}
+  .dash tbody tr:last-child td{border-bottom:none;font-weight:600;background:#243C36}
+  .dash .ok{color:var(--lime);font-weight:600}
+  .dash .warn{color:var(--coral);font-weight:600}
+  .dash-foot{display:flex;flex-wrap:wrap;gap:7px;padding:14px 20px;border-top:1px solid rgba(205,231,161,.14);align-items:center}
+  .dash-foot .lab{font-size:11.5px;color:var(--muted);margin-right:2px}
+  .chip{font-size:11px;font-weight:600;padding:3px 11px;border-radius:20px}
+  .chip.up{background:rgba(205,231,161,.16);color:var(--lime)}
+  .chip.down{background:rgba(244,124,109,.18);color:var(--coral)}
+  /* encarts résultats centrés */
+  .hero,.netbox{text-align:center}
+
+  /* formulaire demande de contrat (inline) */
+  .cform{background:var(--bg2);border:1px solid rgba(205,231,161,.28);border-radius:16px;padding:clamp(20px,2.4vw,30px);margin-top:14px}
+  .cform .lead{font-size:13.5px;color:rgba(238,241,234,.8);line-height:1.5;margin-bottom:20px;max-width:680px}
+  .cform .grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px 18px}
+  @media(max-width:680px){.cform .grid2{grid-template-columns:1fr}}
+  .cform label{display:block;font-size:12.5px;font-weight:500;color:#EEF1EA;margin-bottom:6px}
+  .cform input{width:100%;background:var(--card);border:1px solid rgba(205,231,161,.3);border-radius:8px;color:#EEF1EA;font-family:'Poppins';font-size:14px;padding:11px 12px;outline:none}
+  .cform input::placeholder{color:rgba(238,241,234,.5)}
+  .cform input:focus{border-color:var(--lime)}
+  .cform .hint{font-size:11.5px;color:rgba(238,241,234,.5);margin-top:6px}
+  .cform .send{-webkit-appearance:none;appearance:none;margin-top:20px;background:var(--lime);color:#243C36;border:none;font-family:'Poppins';font-weight:600;font-size:14.5px;padding:13px 28px;border-radius:10px;cursor:pointer}
+  .cform .send:hover{filter:brightness(1.06)}
+  .cform .ok{font-size:14px;color:var(--lime);line-height:1.5;display:none}
+  .cform .fail{font-size:13px;color:#F47C6D;line-height:1.5;display:none;margin-top:10px}
+</style>
+</head>
+<body>
+  <div class="band"><div class="inner">
+  <header>
+    <svg class="logo" width="46" height="46" viewBox="0 0 305 306" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M162.135 266.776C158.948 267.017 155.642 267.167 152.515 267.167C149.389 267.167 146.322 267.047 143.286 266.807V127.053C144.909 122.243 149.449 118.756 154.8 118.756H162.135V266.776Z" fill="#CDE7A1" /><path d="M126.903 91.7614C131.172 88.7253 135.981 86.4108 141.182 85.028C144.849 84.036 148.727 83.5249 152.695 83.5249H153.988C153.988 83.5249 186.476 83.5247 186.484 83.5548H187.476C189.911 83.5548 192.286 83.194 194.54 82.5627C195.743 82.232 196.945 81.7813 198.087 81.2703C198.298 81.1802 198.478 81.0901 198.659 80.9999C198.689 80.9698 198.749 80.9396 198.779 80.9396C199.47 80.609 200.162 80.2183 200.823 79.8275C201.003 79.7374 201.184 79.617 201.364 79.4968C202.115 79.0159 202.807 78.5044 203.499 77.9633C203.919 77.6026 204.34 77.2418 204.761 76.8811L204.851 76.791C205.212 76.4603 205.573 76.0998 205.933 75.7392C206.144 75.5287 206.324 75.318 206.534 75.1076C206.685 74.9573 206.835 74.8068 206.986 74.6265C207.527 73.9953 208.038 73.364 208.519 72.6727C208.699 72.4022 208.91 72.1316 209.09 71.8311C209.391 71.3501 209.721 70.8688 209.991 70.3578C210.172 70.0873 210.322 69.8167 210.472 69.5162C211.014 68.4941 211.465 67.4119 211.856 66.3297C211.946 66.1194 212.006 65.939 212.066 65.7286C212.336 64.947 212.547 64.1653 212.727 63.3236C212.787 63.0531 212.817 62.8125 212.877 62.5721C213.178 61.009 213.328 59.4158 213.328 57.7626V56.4696H213.418V55.5981H213.449C219.641 59.506 225.443 63.9852 230.764 68.9753C230.644 69.4563 230.523 69.9372 230.373 70.4181C230.253 70.8089 230.133 71.1999 230.012 71.5606C229.682 72.5826 229.321 73.5745 228.93 74.5363C228.78 74.9571 228.629 75.318 228.449 75.7087C228.329 76.0093 228.178 76.3101 228.058 76.6107C227.757 77.272 227.427 77.9337 227.096 78.565C226.676 79.3766 226.225 80.1581 225.744 80.9396C225.353 81.5408 224.962 82.1418 224.571 82.743C224.181 83.3141 223.76 83.9155 223.339 84.4866C222.918 85.0577 222.467 85.6289 222.016 86.1699C221.565 86.741 221.054 87.3122 220.573 87.8533C220.242 88.2441 219.881 88.6052 219.521 88.966C218.89 89.5671 218.258 90.1682 217.627 90.7693C217.116 91.2503 216.545 91.7317 215.974 92.2127C215.703 92.423 215.403 92.6331 215.132 92.8735C214.741 93.2041 214.351 93.5053 213.93 93.8059C213.78 93.896 213.659 93.986 213.509 94.1061C210.262 96.4208 206.715 98.3148 202.927 99.6976C201.605 100.179 200.252 100.599 198.899 100.96C195.292 101.892 191.504 102.373 187.596 102.373H152.786C149.659 102.373 146.683 102.914 143.918 103.936C143.707 104.027 143.527 104.087 143.317 104.177C142.625 104.478 141.933 104.778 141.272 105.109C141.002 105.229 140.731 105.379 140.491 105.499C132.434 109.858 126.963 118.396 126.963 128.196V264.282C120.47 262.809 114.187 260.765 108.145 258.24V188.077C108.145 187.626 108.115 187.205 108.115 186.754C108.055 185.852 107.965 184.981 107.844 184.139C107.754 183.718 107.694 183.297 107.604 182.876C107.574 182.666 107.544 182.455 107.484 182.245C107.394 181.854 107.273 181.433 107.153 181.013C105.229 174.189 100.6 168.598 94.4374 165.351C92.2431 164.179 90.1386 163.457 88.1547 163.006C88.0045 162.976 87.8541 162.916 87.7339 162.916C87.4934 162.855 87.2527 162.766 87.0122 162.766C86.1705 162.615 85.3284 162.495 84.5469 162.435L81.0297 162.255H38.4333C38.1628 159.068 38.0125 155.671 38.0125 152.575C38.0125 149.479 38.1332 146.442 38.3736 143.406H82.4427C86.561 143.436 91.1907 143.917 94.287 144.789C94.9182 144.97 95.5494 145.15 96.1506 145.36C96.4212 145.451 96.6919 145.541 96.9624 145.631C97.3231 145.751 97.684 145.902 98.0447 146.022C98.3752 146.142 98.6758 146.262 99.0063 146.382C99.2168 146.473 99.4274 146.563 99.6379 146.653C100.179 146.893 100.72 147.134 101.261 147.374C102.644 148.036 103.996 148.757 105.289 149.539C105.62 149.719 105.95 149.93 106.281 150.14C106.912 150.501 107.484 150.921 108.085 151.342V46.8805C114.097 44.3554 120.41 42.3114 126.903 40.8384V91.7614Z" fill="#CDE7A1" /><path d="M197.246 258.119C191.233 260.704 184.921 262.748 178.427 264.251V118.696H183.538C183.898 118.726 184.259 118.726 184.62 118.726H185.943C189.791 118.726 193.578 118.335 197.246 117.614V258.119Z" fill="#CDE7A1" /><path d="M80.1284 178.547C86.1706 178.548 91.1906 182.997 92.1225 188.799V249.942C85.3588 245.734 79.0459 240.834 73.3043 235.333V178.578H80.1284V178.547Z" fill="#CDE7A1" /><path d="M232.267 234.762C226.525 240.353 220.242 245.343 213.449 249.611V113.165C220.693 109.528 227.097 104.447 232.267 98.2847V234.762Z" fill="#CDE7A1" /><path d="M57.1316 216.064C49.6465 204.821 44.1154 192.165 40.959 178.578H57.1316V216.064Z" fill="#CDE7A1" /><path d="M248.169 89.6572C260.073 107.724 266.987 129.338 266.987 152.605C266.987 175.872 260.043 197.486 248.169 215.552V89.6572Z" fill="#CDE7A1" /><path d="M92.1524 128.406C88.3949 127.624 84.5472 127.173 80.6393 127.173H73.3347V69.8469C79.0762 64.3759 85.3888 59.446 92.1524 55.2376V128.406Z" fill="#CDE7A1" /><path d="M57.0713 127.173H40.8688C43.9651 113.465 49.5261 100.689 57.0713 89.3265V127.173Z" fill="#CDE7A1" /><path d="M152.515 38.0125C155.762 38.0125 158.978 38.1628 162.165 38.4333V67.6824H154.86V67.6525C150.952 67.6525 147.104 68.0435 143.346 68.7951V38.3731C146.352 38.1326 149.269 38.0125 152.515 38.0125Z" fill="#CDE7A1" /><path d="M178.337 40.9285C184.83 42.4316 191.113 44.5056 197.156 47.0608V59.9569C195.412 64.466 191.023 67.7128 185.913 67.7128C185.552 67.6828 185.191 67.6824 184.831 67.6824V67.6525H178.337V40.9285Z" fill="#CDE7A1" /></svg>
+    <div>
+      <h1><span class="l">Votre projection</span> SmartDetection</h1>
+      <div class="sub">Ajustez avec les chiffres de votre magasin, les gains financiers, gains de temps et ROI se recalculent en direct.</div>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <div class="intro">
+    <div class="hero-intro">
+      <div>
+        <div class="tag">
+          <svg class="leaf" viewBox="0 0 24 24" fill="none" stroke="#CDE7A1" stroke-width="2"><path d="M11 20A7 7 0 0 1 4 13c0-5 5-9 16-9 0 11-4 16-9 16z"/><path d="M4 20c2-5 6-9 12-11"/></svg>
+          Smartway · SmartDetection, la date courte repérée à temps
+        </div>
+        <div class="stmt">Les bons produits repérés <span class="l">au bon moment</span>, automatiquement, sans que tout repose sur l'œil et la mémoire des équipes.</div>
+        <div class="desc">Vos équipes savent déjà revaloriser. Ce qui change la donne, c'est de repérer chaque produit en date courte à temps — sans y passer des heures. SmartDetection pointe les seuls produits à traiter, le jour où il faut les traiter.</div>
+      </div>
+      <div class="stats">
+        <div class="stat"><span class="v">+310 M</span><span class="k">produits sauvés</span></div>
+        <div class="stat"><span class="v">+2 000</span><span class="k">magasins équipés · 12 pays</span></div>
+        <div class="stat"><span class="v">+150 M€</span><span class="k">de profit additionnel généré</span></div>
+      </div>
+    </div>
+    <div class="obj">
+      <div class="o">
+        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="#CDE7A1" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M8 12.5l2.5 2.5L16 9"/></svg></div>
+        <div class="h">Zéro périmé</div>
+        <div class="d">Plus aucun produit périmé en rayon, sans passer tout le linéaire au contrôle visuel.</div>
+      </div>
+      <div class="o">
+        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="#CDE7A1" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7.5V12l3 2" stroke-linecap="round"/></svg></div>
+        <div class="h">Temps de contrôle <span class="m">÷ 4</span></div>
+        <div class="d">Du temps équipe rendu, réorienté du contrôle des dates vers la vente et le service.</div>
+      </div>
+      <div class="o">
+        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="#CDE7A1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 16l5-5 4 4 7-8"/><path d="M16 4h5v5"/></svg></div>
+        <div class="h">Marge récupérée</div>
+        <div class="d">Produits revalorisés au bon moment plutôt que jetés en pure perte.</div>
+      </div>
+    </div>
+  </div>
+
+  </div></div>
+  <div class="band alt"><div class="inner">
+  <!-- EN-TÊTE DÉCOUVERTE -->
+  <div style="margin-bottom:clamp(16px,2.2vw,26px)">
+    <div class="disco-tag" style="margin-bottom:13px">Phase découverte · ce qu'on regarde ensemble</div>
+    <div class="obj">
+      <div class="o">
+        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="#CDE7A1" stroke-width="2" stroke-linecap="round"><circle cx="9" cy="8" r="3.2"/><path d="M3.5 19a5.5 5.5 0 0 1 11 0"/><path d="M16 6.6a3 3 0 0 1 0 5.4M17.6 19a5.5 5.5 0 0 0-3-4.9"/></svg></div>
+        <div class="h">Votre organisation</div>
+        <div class="d">Qui gère le contrôle des dates aujourd'hui, et de quelle manière.</div>
+      </div>
+      <div class="o">
+        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="#CDE7A1" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7.5V12l3 2" stroke-linecap="round"/></svg></div>
+        <div class="h">Le temps passé</div>
+        <div class="d">Ce que le contrôle des dates représente chaque jour pour vos équipes.</div>
+      </div>
+      <div class="o">
+        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="#CDE7A1" stroke-width="2" stroke-linecap="round"><path d="M16 8.5a4.5 4.5 0 1 0 0 7"/><path d="M5 11h7M5 14h6"/></svg></div>
+        <div class="h">Votre démarque</div>
+        <div class="d">Le poids des pertes et de la casse sur vos rayons aujourd'hui.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ÉTAPE 1 : GAIN FINANCIER -->
+  <div class="step-label"><span class="n">1</span> Le gain financier</div>
+  <div class="grid">
+    <div class="panel">
+      <div class="seg">
+        <button id="segPct" class="active">Taux de casse (%)</button>
+        <button id="segEur">Montant de casse (€)</button>
+      </div>
+
+      <div id="modePct">
+        <div class="field">
+          <div class="top">
+            <label>Chiffre d'affaires du magasin</label>
+            <div class="valbox"><input id="caN" type="number" value="100" min="5" max="350" step="1"><span class="unit">M€</span></div>
+          </div>
+          <input id="caR" type="range" min="5" max="350" step="1" value="100">
+          <div class="scale"><span>5 M€</span><span>350 M€</span></div>
+        </div>
+        <div class="field">
+          <div class="top">
+            <label>Taux de casse brute</label>
+            <div class="valbox"><input id="cassN" type="number" value="1.5" min="0.3" max="4" step="0.05"><span class="unit">%</span></div>
+          </div>
+          <input id="cassR" type="range" min="0.3" max="4" step="0.05" value="1.5">
+          <div class="scale"><span>0,3 %</span><span>4 %</span></div>
+        </div>
+      </div>
+
+      <div id="modeEur" class="hide">
+        <div class="field">
+          <div class="top">
+            <label>Montant de casse brute / an</label>
+            <div class="valbox wide"><input id="montN" type="number" value="1500000" min="50000" max="6000000" step="10000"><span class="unit">€</span></div>
+          </div>
+          <input id="montR" type="range" min="50000" max="6000000" step="10000" value="1500000">
+          <div class="scale"><span>50 K€</span><span>6 M€</span></div>
+          <div class="hint">À utiliser quand le client ne connaît pas son % mais a un montant en tête.</div>
+        </div>
+      </div>
+
+      <div class="field">
+        <div class="row">
+          <label>Points de revalorisation gagnés</label>
+          <div class="stepper"><button data-t="revalo" data-d="-1">&minus;</button><input id="revalo" type="number" value="10" min="1" max="20"><button data-t="revalo" data-d="1">+</button></div>
+        </div>
+      </div>
+
+      <div class="optfield">
+        <div class="row">
+          <label>Casse nette aujourd'hui <span style="color:rgba(238,241,234,.5)">(facultatif)</span></label>
+          <div class="valbox wide"><input id="netActuel" type="number" placeholder="—" min="0" step="1000"><span class="unit">€</span></div>
+        </div>
+        <div class="hint">Pour répondre à « à combien passerait ma casse nette ? »</div>
+      </div>
+    </div>
+
+    <div class="hero">
+      <div class="lab">Gain de revalorisation récupérable / an</div>
+      <div class="big" id="gainRevalo">&mdash;</div>
+      <div class="demarque">sur une démarque brute de <b id="demarque">&mdash;</b></div>
+      <div class="netline hide" id="netLine">Votre casse nette passerait de <b id="netNow">&mdash;</b> à <b id="netProj">&mdash;</b> avec SmartDetection.</div>
+    </div>
+  </div>
+
+  <!-- boutons reveal côte à côte -->
+  <div class="reveal-row">
+    <button class="reveal-btn" id="timeBtn"><span class="arr">&#9654;</span> <span id="timeTxt">Ajouter le gain de temps (ETP)</span></button>
+    <button class="reveal-btn" id="revealBtn"><span class="arr">&#9654;</span> <span id="revealTxt">Passer au coût &amp; au ROI</span></button>
+  </div>
+
+  <!-- ÉTAPE 2 : GAIN DE TEMPS (révélable) -->
+  <div class="cost" id="timeSection">
+  <div class="step-label"><span class="n">2</span> Le gain de temps (ETP)</div>
+  <div class="grid">
+    <div class="panel">
+      <div class="field">
+        <div class="row">
+          <label>Nombre de rayons contrôlés</label>
+          <div class="stepper"><button data-t="rayons" data-d="-1">&minus;</button><input id="rayons" type="number" value="20" min="1" max="60"><button data-t="rayons" data-d="1">+</button></div>
+        </div>
+        <div class="hint">ex. 10 en frais + 10 en sec = 20</div>
+      </div>
+      <div class="field">
+        <div class="top">
+          <label>Temps de contrôle par rayon aujourd'hui</label>
+          <div class="valbox"><input id="tmN" type="number" value="40" min="5" max="120" step="1"><span class="unit">min</span></div>
+        </div>
+        <input id="tmR" type="range" min="5" max="120" step="1" value="40">
+        <div class="scale"><span>5 min</span><span>120 min</span></div>
+      </div>
+      <div class="field">
+        <div class="top">
+          <label>Coût horaire chargé</label>
+          <div class="valbox"><input id="tjN" type="number" value="20" min="12" max="45" step="0.5"><span class="unit">€/h</span></div>
+        </div>
+        <input id="tjR" type="range" min="12" max="45" step="0.5" value="20">
+        <div class="scale"><span>12 €</span><span>45 €</span></div>
+      </div>
+      <div class="field">
+        <div class="row">
+          <label>Jours d'ouverture / an</label>
+          <div class="valbox"><input id="joursAn" type="number" value="310" min="200" max="365" step="1"><span class="unit">j/an</span></div>
+        </div>
+        <div class="hint">Pour les plus précis : retirez vos fériés et fermetures.</div>
+      </div>
+      <div class="priceinfo">Avec SmartDetection, le contrôle passe à <b style="color:#CDE7A1">~10 min/rayon</b> (÷4). Benchmark E.Leclerc : 10 min/rayon en moyenne.</div>
+    </div>
+
+    <div class="hero">
+      <div class="lab">Économie de main-d'œuvre / an</div>
+      <div class="big" id="gainTemps">&mdash;</div>
+      <div class="demarque"><b id="etp">&mdash;</b> <span class="grey">en équivalent temps plein</span> &middot; <b id="hAn">&mdash;</b> <span class="grey">rendues / an</span></div>
+      <div class="netline"><b id="tmAfter">&mdash;</b> par rayon avec SmartDetection, au lieu de <b id="tmBefore">&mdash;</b> aujourd'hui.</div>
+    </div>
+  </div>
+  </div>
+
+
+  <!-- ÉTAPE 3 : COÛT & ROI -->
+  <div class="cost" id="costSection">
+    <div class="step-label"><span class="n">3</span> Le coût &amp; le retour sur investissement</div>
+    <div class="cost-grid">
+      <div class="panel">
+        <div class="field">
+          <div class="row">
+            <label>Nombre de terminaux (licences)</label>
+            <div class="stepper"><button data-t="term" data-d="-1">&minus;</button><input id="term" type="number" value="6" min="1" max="20"><button data-t="term" data-d="1">+</button></div>
+          </div>
+        </div>
+        <div class="priceinfo">Abonnement 150 €/licence/mois &middot; installation 1 000 € (une seule fois).<br>Le ROI ci-contre est calculé sur la <b style="color:#CDE7A1">seule revalorisation</b> — le gain de temps de l'étape 2 vient <b style="color:#CDE7A1">en plus</b>.</div>
+      </div>
+      <div class="results-net">
+        <div class="netbox">
+          <div class="lab">Gain net la première année</div>
+          <div class="big" id="netY1">&mdash;</div>
+          <div class="after">puis <b id="netRec">&mdash;</b> par an ensuite</div>
+          <div class="after" style="color:rgba(238,241,234,.62);font-size:11.5px;margin-top:7px">Revalorisation moins coût Smartway — le gain de temps (étape 2) n'est pas compté ici, il s'ajoute.</div>
+        </div>
+        <div class="cards">
+          <div class="mini"><div class="lab">Coût Smartway année 1</div><div class="num" id="coutY1">&mdash;</div></div>
+          <div class="mini"><div class="lab">Gain de temps / an (rappel étape 2)</div><div class="num" id="gainTempsEcho">&mdash;</div></div>
+        </div>
+        <div class="payback">
+          <div class="pill" id="paybackWk">&mdash;</div>
+          <div class="txt">Investissement <b>remboursé en <span id="paybackTxt">&mdash;</span> semaines</b> par la seule revalorisation — le temps gagné est en plus.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  </div></div>
+  <div class="band"><div class="inner">
+  <!-- RESULTATS & REFERENCES -->
+  <div class="proof">
+    <div class="step-label"><span class="n">&#10003;</span> Résultats &amp; références</div>
+    <div class="proof-grid">
+      <div class="ptable">
+        <h4>Benchmark temps réel — E.Leclerc</h4>
+        <table>
+          <tr><th>Rayon</th><th>Éléments</th><th>SKU</th><th>Alertes/j</th><th>Temps</th></tr>
+          <tr><td>Yaourts</td><td>23</td><td>2 208</td><td>57</td><td class="g">7 min</td></tr>
+          <tr><td>Traiteur</td><td>13</td><td>1 208</td><td>60</td><td class="g">9 min</td></tr>
+          <tr><td>Fromages</td><td>12</td><td>1 116</td><td>26</td><td class="g">15 min</td></tr>
+          <tr><td>Boucherie / Vol.</td><td>15</td><td>1 405</td><td>62</td><td class="g">14 min</td></tr>
+          <tr><td><b>Total</b></td><td><b>63</b></td><td><b>5 937</b></td><td><b>205</b></td><td><b>45 min</b></td></tr>
+        </table>
+        <div class="src">Magasin E.Leclerc, CA 60 M€ (global magasin + carburant) — 5 937 références contrôlées en 45 min.</div>
+      </div>
+      <div class="ptable">
+        <h4>Add-on : étiquettes électroniques</h4>
+        <div class="mlead">Compatible avec <b style="color:#CDE7A1">plusieurs acteurs</b> du marché des étiquettes électroniques : le produit en date courte <b style="color:#CDE7A1">clignote directement en rayon</b>, repérage visuel et instantané, l'équipe ne cherche plus.</div>
+        <div class="quote">« Les étiquettes clignotent, nous savons exactement où aller. »<span class="qauth">— Luc Duluard, directeur, Carrefour Market Pénestin</span></div>
+        <div class="src">Cas client Pénestin : de 2 à 2,5 h de contrôle/jour à 30 min, zéro périmé. <a href="https://smartway.ai/fr/case-studies/carrefour-market-penestin-france" target="_blank">Lire le cas client &rarr;</a></div>
+      </div>
+    </div>
+    <div class="proof-dash">
+      <h4>Suivi à distance — dashboard de pilotage</h4>
+      <div class="mlead">Depuis votre bureau ou le siège, suivez la performance du contrôle date <b style="color:#CDE7A1">magasin par magasin et rayon par rayon</b>, sans vous déplacer. Vous repérez en un coup d'œil ce qui tourne et ce qu'il faut relancer.</div>
+      <div class="dash">
+        <div class="dash-top"><span class="t">Dashboard performance hebdo</span><span class="wk">Format Hyper · semaine 2025-21</span></div>
+        <div class="dash-kpis">
+          <div class="dash-kpi"><div class="v">2 221</div><div class="k">alertes sur la semaine</div></div>
+          <div class="dash-kpi"><div class="v">91,5 %</div><div class="k">traité</div></div>
+          <div class="dash-kpi"><div class="v">0,2 %</div><div class="k">après expiration</div></div>
+        </div>
+        <div class="dash-scroll">
+        <table>
+          <thead><tr><th>Rayon</th><th>Alertes</th><th>Traité</th><th>En avance</th><th>En retard</th><th>Après exp.</th><th>Non traité</th></tr></thead>
+          <tbody>
+            <tr><td>Bio</td><td>47</td><td class="ok">97,9 %</td><td>95,7 %</td><td>2,1 %</td><td>0,0 %</td><td>0,0 %</td></tr>
+            <tr><td>Charcuterie LS</td><td>348</td><td>94,8 %</td><td>22,7 %</td><td>5,2 %</td><td>0,0 %</td><td>0,0 %</td></tr>
+            <tr><td>Confiserie</td><td>23</td><td class="ok">100 %</td><td>87,0 %</td><td>0,0 %</td><td>0,0 %</td><td>0,0 %</td></tr>
+            <tr><td>Corps Gras</td><td>66</td><td class="ok">100 %</td><td>6,1 %</td><td>0,0 %</td><td>0,0 %</td><td>0,0 %</td></tr>
+            <tr><td>Crème UHT</td><td>7</td><td class="warn">28,6 %</td><td>0,0 %</td><td class="warn">71,4 %</td><td class="warn">28,6 %</td><td>0,0 %</td></tr>
+            <tr><td>Fromage LS</td><td>222</td><td class="ok">100 %</td><td>30,6 %</td><td>0,0 %</td><td>0,0 %</td><td>0,0 %</td></tr>
+            <tr><td>Lait Frais</td><td>47</td><td class="ok">100 %</td><td>8,5 %</td><td>0,0 %</td><td>0,0 %</td><td>0,0 %</td></tr>
+            <tr><td>Œufs</td><td>13</td><td class="ok">100 %</td><td>23,1 %</td><td>0,0 %</td><td>0,0 %</td><td>0,0 %</td></tr>
+            <tr><td>Pâtisserie indus</td><td>111</td><td class="warn">82,0 %</td><td>0,0 %</td><td class="warn">18,0 %</td><td>0,0 %</td><td>0,0 %</td></tr>
+            <tr><td>Saucisson</td><td>4</td><td class="warn">0,0 %</td><td>0,0 %</td><td class="warn">100 %</td><td>0,0 %</td><td>0,0 %</td></tr>
+            <tr><td>Traiteur LS</td><td>573</td><td>91,8 %</td><td>7,0 %</td><td>8,2 %</td><td class="warn">0,2 %</td><td>0,0 %</td></tr>
+            <tr><td>Yaourt</td><td>539</td><td class="ok">100 %</td><td>32,1 %</td><td>0,0 %</td><td>0,0 %</td><td>0,0 %</td></tr>
+            <tr><td>Total magasin</td><td>2 221</td><td>91,5 %</td><td>25,2 %</td><td>8,3 %</td><td>0,2 %</td><td>0,0 %</td></tr>
+          </tbody>
+        </table>
+        </div>
+        <div class="dash-foot">
+          <span class="lab">Top &gt; 95 % :</span>
+          <span class="chip up">Bio</span><span class="chip up">Confiserie</span><span class="chip up">Corps Gras</span><span class="chip up">Fromage</span><span class="chip up">Lait</span><span class="chip up">Œufs</span><span class="chip up">Yaourt</span>
+          <span class="lab" style="margin-left:8px">À surveiller :</span>
+          <span class="chip down">Crème UHT</span><span class="chip down">Saucisson</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="refs">
+      <div>
+        <div class="names">Auchan · Carrefour · E.Leclerc · Intermarché · U · Biocoop · Monoprix</div>
+        <div class="facts">Déploiement en quelques jours · 100 % autonome, sans WiFi · terminal Android standard.</div>
+      </div>
+      <div class="facts" style="text-align:right">Magasins de référence&nbsp;:<br><b style="color:#CDE7A1">Basse-Goulaine · Pont-l'Abbé · Baléone</b></div>
+    </div>
+  </div>
+
+  </div></div>
+  <div class="band alt"><div class="inner">
+  <!-- FRISE : LE COÛT DE L'ATTENTE -->
+  <div class="proof" style="margin-top:clamp(22px,3vw,38px)">
+    <div class="step-label"><span class="n">!</span> Le coût de l'attente</div>
+    <div class="panel timeline">
+      <div class="tl-head">
+        <div>
+          <div class="tl-lab">Si vous installez le</div>
+          <div class="tl-date" id="instDate">&mdash;</div>
+          <div class="tl-sub" id="instDelay">&mdash;</div>
+        </div>
+        <div class="tl-loss">
+          <div class="tl-lab">Manque à gagner d'ici là</div>
+          <div class="tl-big" id="lost">&mdash;</div>
+          <div class="tl-sub">de revalorisation non récupérée</div>
+        </div>
+      </div>
+      <input id="delayR" type="range" min="15" max="180" step="1" value="30">
+      <div class="tl-scale"><span>Aujourd'hui + 15 j (délai mini)</span><span>+ 6 mois</span></div>
+      <div class="tl-msg" id="lostMsg">&mdash;</div>
+      <a class="contract-btn" id="contractBtn" href="#demander">Demander mon contrat &rarr;</a>
+    </div>
+  </div>
+
+  </div></div>
+  <div class="band alt" id="demanderBand" style="display:none"><div class="inner">
+  <div class="proof" id="demander">
+    <div class="step-label"><span class="n">&#9993;</span> Demander mon contrat</div>
+    <div class="cform">
+      <div class="lead">Renseignez vos coordonnées : nous revenons vers vous avec le contrat SmartDetection établi pour votre point de vente, sur la base de votre projection.</div>
+      <div class="cwrap">
+        <form id="contractForm" name="Demande-contrat-SmartDetection" data-name="Demande contrat SmartDetection" method="post">
+          <div class="grid2">
+            <div><label for="cName">Nom du magasin / enseigne</label><input id="cName" name="Magasin" type="text" maxlength="120" placeholder="ex. Carrefour Market Pénestin" required></div>
+            <div><label for="cEmail">Votre e-mail</label><input id="cEmail" name="Email" type="email" placeholder="vous@magasin.fr" required></div>
+            <div><label for="cTerm">Nombre de terminaux (licences)</label><input id="cTerm" name="Terminaux" type="number" min="1" max="20" placeholder="ex. 6"><div class="hint">Préconisation établie à partir des chiffres de votre magasin.</div></div>
+            <div><label for="cDate">Date d'installation souhaitée</label><input id="cDate" name="Date-installation" type="date"></div>
+          </div>
+          <input type="submit" class="send" value="Envoyer ma demande">
+        </form>
+        <div class="cdone ok">Merci, votre demande est bien envoyée. Nous revenons vers vous rapidement avec votre contrat.</div>
+        <div class="cfail fail">Une erreur s'est produite. Réessayez, ou écrivez-nous à g.lemestre@smartway.ai.</div>
+      </div>
+    </div>
+  </div>
+  </div></div>
+  <div class="band"><div class="inner">
+  <footer>Smartway · SmartDetection — outil d'aide à la projection, à ajuster avec les données réelles du point de vente.</footer>
+  </div></div>
+
+<script>
+  var eur=new Intl.NumberFormat('fr-FR',{style:'currency',currency:'EUR',maximumFractionDigits:0});
+  function g(id){return document.getElementById(id);}
+  var MODE='pct';
+
+  function sync(rangeId,numId){
+    var r=g(rangeId),n=g(numId);
+    function pct(){var p=(r.value-r.min)/(r.max-r.min)*100;r.style.setProperty('--p',p+'%');}
+    r.addEventListener('input',function(){n.value=r.value;pct();calc();});
+    n.addEventListener('input',function(){r.value=n.value;pct();calc();});
+    pct();
+  }
+  sync('caR','caN');sync('cassR','cassN');sync('montR','montN');
+  sync('tmR','tmN');sync('tjR','tjN');
+
+  var btns=document.querySelectorAll('.stepper button');
+  for(var i=0;i<btns.length;i++){
+    btns[i].addEventListener('click',function(){
+      var inp=g(this.getAttribute('data-t'));
+      var v=parseInt(inp.value||0)+parseInt(this.getAttribute('data-d'));
+      v=Math.max(parseInt(inp.min),Math.min(parseInt(inp.max),v));
+      inp.value=v;calc();
+    });
+  }
+  g('revalo').addEventListener('input',calc);
+  g('term').addEventListener('input',calc);
+  g('joursAn').addEventListener('input',calc);
+  g('netActuel').addEventListener('input',calc);
+  g('delayR').addEventListener('input',calc);
+
+  function setRangeP(id){var r=g(id);r.style.setProperty('--p',((r.value-r.min)/(r.max-r.min)*100)+'%');}
+  function setMode(m){
+    // reporter la valeur d'un onglet à l'autre pour rester cohérent
+    if(m==='eur' && MODE==='pct'){
+      var ca=parseFloat(g('caN').value||0)*1e6, casse=parseFloat(g('cassN').value||0)/100;
+      var d=Math.round(ca*casse);
+      g('montN').value=d;
+      g('montR').value=Math.min(parseFloat(g('montR').max),Math.max(parseFloat(g('montR').min),d));
+      setRangeP('montR');
+    } else if(m==='pct' && MODE==='eur'){
+      var ca2=parseFloat(g('caN').value||0)*1e6, mont=parseFloat(g('montN').value||0);
+      if(ca2>0){
+        var pc=Math.min(4,Math.max(0.3,Math.round((mont/ca2*100)*20)/20));
+        g('cassN').value=pc; g('cassR').value=pc; setRangeP('cassR');
+      }
+    }
+    MODE=m;
+    g('segPct').classList.toggle('active',m==='pct');
+    g('segEur').classList.toggle('active',m==='eur');
+    g('modePct').classList.toggle('hide',m!=='pct');
+    g('modeEur').classList.toggle('hide',m!=='eur');
+    calc();
+  }
+  g('segPct').addEventListener('click',function(){setMode('pct');});
+  g('segEur').addEventListener('click',function(){setMode('eur');});
+
+  var tb=g('timeBtn'),ts=g('timeSection');
+  tb.addEventListener('click',function(){
+    var open=ts.classList.toggle('open');
+    tb.classList.toggle('open',open);
+    g('timeTxt').textContent=open?'Masquer le gain de temps':'Ajouter le gain de temps (ETP)';
+  });
+
+  var rb=g('revealBtn'),cs=g('costSection');
+  rb.addEventListener('click',function(){
+    var open=cs.classList.toggle('open');
+    rb.classList.toggle('open',open);
+    g('revealTxt').textContent=open?'Masquer le coût & le ROI':'Passer au coût & au ROI';
+  });
+
+  function animateTo(el,target){
+    var start=el._cur||0,t0=performance.now(),dur=420;
+    function step(t){
+      var k=Math.min(1,(t-t0)/dur),e=1-Math.pow(1-k,3);
+      el.textContent=eur.format(start+(target-start)*e);
+      if(k<1)requestAnimationFrame(step);else el._cur=target;
+    }
+    requestAnimationFrame(step);
+  }
+
+  function calc(){
+    var revalo=parseFloat(g('revalo').value||0)/100;
+    var demarque;
+    if(MODE==='pct'){
+      var ca=parseFloat(g('caN').value||0)*1e6;
+      var casse=parseFloat(g('cassN').value||0)/100;
+      demarque=ca*casse;
+    }else{
+      demarque=parseFloat(g('montN').value||0);
+    }
+    var gainRevalo=demarque*revalo;
+    animateTo(g('gainRevalo'),gainRevalo);
+    g('demarque').textContent=eur.format(demarque);
+
+    // casse nette projetée
+    var netA=parseFloat(g('netActuel').value||0);
+    if(netA>0){
+      g('netLine').classList.remove('hide');
+      g('netNow').textContent=eur.format(netA);
+      g('netProj').textContent=eur.format(Math.max(0,netA-gainRevalo));
+    }else{
+      g('netLine').classList.add('hide');
+    }
+
+    // étape 2 — temps au rayon
+    var rayons=parseInt(g('rayons').value||0);
+    var tmBefore=parseFloat(g('tmN').value||0);
+    var tmAfter=tmBefore/4;
+    var tj=parseFloat(g('tjN').value||0);
+    var joursAn=parseInt(g('joursAn').value||0);
+    var savedMinDay=rayons*(tmBefore-tmAfter);
+    var savedH=savedMinDay/60*joursAn;
+    var gainTemps=savedH*tj;
+    var etp=savedH/1607;
+    animateTo(g('gainTemps'),gainTemps);
+    g('etp').textContent=etp.toFixed(1).replace('.',',')+' ETP';
+    g('hAn').textContent=Math.round(savedH).toLocaleString('fr-FR')+' h';
+    g('tmBefore').textContent=Math.round(tmBefore)+' min';
+    g('tmAfter').textContent=Math.round(tmAfter)+' min';
+
+    // étape 3 — coût & ROI
+    var term=parseInt(g('term').value||0);
+    var coutRec=term*150*12;
+    var coutY1=coutRec+1000;
+    var netY1=gainRevalo-coutY1;
+    var netRec=gainRevalo-coutRec;
+    var weekly=gainRevalo/52;
+    var payback=weekly>0?Math.max(1,Math.round(coutY1/weekly)):0;
+    animateTo(g('netY1'),netY1);
+    animateTo(g('coutY1'),coutY1);
+    g('gainTempsEcho').textContent=eur.format(gainTemps);
+    g('netRec').textContent=eur.format(netRec);
+    g('paybackWk').textContent=payback+' sem.';
+    g('paybackTxt').textContent=payback;
+
+    // frise — le coût de l'attente
+    var delay=parseInt(g('delayR').value||15);
+    var today=new Date();
+    var inst=new Date(today.getTime()+delay*86400000);
+    var fmtD=new Intl.DateTimeFormat('fr-FR',{day:'numeric',month:'long',year:'numeric'});
+    var lost=(gainRevalo/365)*delay;
+    g('instDate').textContent=fmtD.format(inst);
+    g('instDelay').textContent='dans '+delay+' jours · délai mini 15 j';
+    animateTo(g('lost'),lost);
+    g('lostMsg').innerHTML='En attendant le <b>'+fmtD.format(inst)+'</b> pour installer, vous laissez filer <b>'+eur.format(lost)+'</b> de revalorisation que vous auriez déjà récupérée.';
+    var dr=g('delayR');dr.style.setProperty('--p',((dr.value-dr.min)/(dr.max-dr.min)*100)+'%');
+  }
+  calc();
+</script>
+
+<script>
+(function(){
+  var btn=document.getElementById('contractBtn');
+  var params=new URLSearchParams(location.search);
+  var direct=params.get('contrat');
+  if(direct && /^https?:\/\//i.test(direct)){ btn.setAttribute('href',direct); btn.setAttribute('target','_blank'); }
+  else { btn.addEventListener('click',function(e){ e.preventDefault(); var band=document.getElementById('demanderBand'); if(band)band.style.display=''; var tgt=document.getElementById('demander'); if(tgt)tgt.scrollIntoView({behavior:'smooth',block:'start'}); var em=document.getElementById('cEmail'); if(em)em.focus({preventScroll:true}); }); }
+  function txt(id){var e=document.getElementById(id);return e?e.textContent.trim():'';}
+  var cTermEl=document.getElementById('cTerm'),cDateEl=document.getElementById('cDate');
+  var termDirty=false,dateDirty=false;
+  cTermEl.addEventListener('input',function(){termDirty=true;});
+  cDateEl.addEventListener('input',function(){dateDirty=true;});
+  function syncForm(){
+    var t=document.getElementById('term');
+    if(t&&!termDirty)cTermEl.value=t.value;
+    var min=new Date();min.setDate(min.getDate()+15);cDateEl.min=min.toISOString().slice(0,10);
+    if(!dateDirty){var dr=document.getElementById('delayR');var delay=dr?(parseInt(dr.value)||15):15;cDateEl.value=new Date(Date.now()+delay*86400000).toISOString().slice(0,10);}
+  }
+  syncForm();
+  // raccroche la synchro au moteur du simulateur (couvre sliders, steppers, bascule %/€)
+  if(typeof calc==='function'){var _calc=calc;window.calc=function(){_calc.apply(this,arguments);syncForm();};}
+  document.addEventListener('input',function(e){if(e.target&&e.target.closest&&e.target.closest('#demander'))return;syncForm();});
+  // === Config HubSpot ===
+  var HS_PORTAL='25665345';
+  var HS_FORM='f8cf519f-10f7-46a1-890d-adf0ae25296e';
+  document.getElementById('contractForm').addEventListener('submit',function(e){
+    e.preventDefault();
+    var form=this,w=form.closest('.cwrap');
+    var ce=document.getElementById('cEmail');var email=(ce.value||'').trim();
+    if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)){ce.focus();ce.style.borderColor='#F47C6D';return;}
+    var cn=document.getElementById('cName');var name=(cn.value||'').trim();
+    if(!name){cn.focus();cn.style.borderColor='#F47C6D';return;}
+    var term=(cTermEl.value||'').trim();
+    var dval=cDateEl.value;
+    var dfr=dval?new Date(dval+'T00:00').toLocaleDateString('fr-FR',{day:'numeric',month:'long',year:'numeric'}):'(non précisée)';
+    var L=[];
+    L.push('Nombre de terminaux souhaités : '+(term||'(non précisé)'));
+    L.push('Date d\'installation souhaitée : '+dfr);
+    L.push('');
+    L.push('--- Projection issue du simulateur ---');
+    L.push('Gain de revalorisation / an : '+txt('gainRevalo')+' (sur une démarque brute de '+txt('demarque')+')');
+    L.push('Gain de temps / an : '+txt('gainTemps')+' ('+txt('etp')+', '+txt('hAn')+')');
+    L.push('Coût Smartway année 1 : '+txt('coutY1'));
+    L.push('Gain net année 1 : '+txt('netY1')+' (puis '+txt('netRec')+'/an)');
+    L.push('Retour sur investissement : '+txt('paybackTxt')+' semaines');
+    function done(){form.style.display='none';var d=w.querySelector('.cdone');if(d)d.style.display='block';}
+    function fail(){var f=w.querySelector('.cfail');if(f)f.style.display='block';}
+    var url='https://api.hsforms.com/submissions/v3/integration/submit/'+HS_PORTAL+'/'+HS_FORM;
+    fetch(url,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({
+      fields:[{name:'email',value:email},{name:'company',value:name},{name:'message',value:L.join('\n')}],
+      context:{pageUri:location.href,pageName:document.title}
+    })}).then(function(r){if(r.ok)return r;return r.text().then(function(t){throw new Error('HubSpot '+r.status+': '+t);});}).then(done).catch(function(err){console.error('[Form contrat]',err&&err.message);fail();});
+  });
+})();
+</script>
+
+</body>
+</html>
