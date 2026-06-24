@@ -747,8 +747,12 @@
     function done(){form.style.display='none';var d=w.querySelector('.cdone');if(d)d.style.display='block';}
     function fail(){var f=w.querySelector('.cfail');if(f)f.style.display='block';}
     var url='https://api.hsforms.com/submissions/v3/integration/submit/'+HS_PORTAL+'/'+HS_FORM;
+    var hsFields=[{name:'email',value:email},{name:'company',value:name}];
+    if(term){hsFields.push({name:'number_of_device',value:term});}
+    if(dval){hsFields.push({name:'installation_date_project',value:dval});}
+    hsFields.push({name:'message',value:L.join('\n')});
     fetch(url,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({
-      fields:[{name:'email',value:email},{name:'company',value:name},{name:'message',value:L.join('\n')}],
+      fields:hsFields,
       context:{pageUri:location.href,pageName:document.title}
     })}).then(function(r){if(r.ok)return r;return r.text().then(function(t){throw new Error('HubSpot '+r.status+': '+t);});}).then(done).catch(function(err){console.error('[Form contrat]',err&&err.message);fail();});
   });
