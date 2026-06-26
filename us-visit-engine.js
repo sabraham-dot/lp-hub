@@ -47,17 +47,27 @@
     gallery: cmsJSON('gallery'),
     transform: cmsJSON('transform'),
     problemTitleRaw: cms('problem-title'),
+    problemSubtitleRaw: cms('problem-subtitle'),
     transformTitleRaw: cms('transform-title')
   };
 
-  /* Transform points — falls back to defaults if the CMS field is empty,
-     so existing visits keep working. Each item = { problem:{title,text}, solution:{title,text} } */
+  /* ── Transform points ──
+     OFFICIAL CMS schema (one object per point):
+       { "today_title", "today_desc", "photo"(optional), "tomorrow_title", "tomorrow_desc" }
+     Empty field → defaults below (keeps existing visits working). */
   var DEFAULT_TRANSFORM = [
-    { problem: { title: 'Every product checked, aisle by aisle.', text: "One person's full day spent walking the shelves for date checks." }, solution: { title: 'Check only the ~4% that actually needs a look.', text: 'A daily shortlist replaces the full aisle-by-aisle walk.' } },
-    { problem: { title: 'Expired stock reaches the shelf.', text: 'A product one day past Best Before, still on sale at full price.' }, solution: { title: 'Zero expired on the shelf.', text: 'Every short date is flagged and located before it hits, never the day after.' } },
-    { problem: { title: 'Markdowns run on the clock.', text: 'Fixed 50% / 75% / 90%, applied by hand. Margin given away too early.' }, solution: { title: 'The right markdown, at the right moment.', text: 'Timing and depth set per product, not by the clock, so margin is recovered, not given away.' } }
+    { today_title: 'Every product checked, aisle by aisle.', today_desc: "One person's full day spent walking the shelves for date checks.", tomorrow_title: 'Check only the ~4% that actually needs a look.', tomorrow_desc: 'A daily shortlist replaces the full aisle-by-aisle walk.' },
+    { today_title: 'Expired stock reaches the shelf.', today_desc: 'A product one day past Best Before, still on sale at full price.', tomorrow_title: 'Zero expired on the shelf.', tomorrow_desc: 'Every short date is flagged and located before it hits, never the day after.' },
+    { today_title: 'Markdowns run on the clock.', today_desc: 'Fixed 50% / 75% / 90%, applied by hand. Margin given away too early.', tomorrow_title: 'The right markdown, at the right moment.', tomorrow_desc: 'Timing and depth set per product, not by the clock, so margin is recovered, not given away.' }
   ];
   if (!d.transform.length) d.transform = DEFAULT_TRANSFORM;
+  /* normalize: accept today/tomorrow (official) OR legacy problem/solution → {left,right,photo} */
+  d.transform = d.transform.map(function (p) {
+    p = p || {};
+    var left = p.problem || { title: p.today_title, text: p.today_desc };
+    var right = p.solution || { title: p.tomorrow_title, text: p.tomorrow_desc };
+    return { left: left || {}, right: right || {}, photo: p.photo || '' };
+  });
 
   /* featured proof = gallery item flagged featured, else first */
   var featured = d.gallery.filter(function (g) { return g && g.featured; })[0] || d.gallery[0] || {};
@@ -128,17 +138,23 @@
   function gImg(i) { return (d.gallery[i] && d.gallery[i].url) || ''; }
   function gCap(i) { return (d.gallery[i] && d.gallery[i].caption) || ''; }
 
-  /* transform lists (variable count) — left = problem (photo hover), right = solution */
+  /* per-point photo for the left column: point.photo → gallery[i] → '' */
+  function trPhoto(i) { return d.transform[i].photo || gImg(i); }
+  function trTag(i) { return (d.transform[i].left && d.transform[i].left.title) || gCap(i); }
+  var trPhotos = d.transform.map(function (p, i) { return { src: trPhoto(i), tag: trTag(i) }; }).filter(function (x) { return x.src; });
+
+  /* transform lists (variable count) — left = today (photo hover), right = tomorrow */
   var trLeft = d.transform.map(function (p, i) {
-    var x = p.problem || {};
-    return '<li data-photo="' + attr(gImg(i)) + '" data-tag="' + attr(gCap(i)) + '"><div><strong>' + esc(x.title) + '</strong><span>' + esc(x.text) + '</span></div></li>';
+    var x = p.left || {};
+    return '<li data-photo="' + attr(trPhoto(i)) + '" data-tag="' + attr(trTag(i)) + '"><div><strong>' + esc(x.title) + '</strong><span>' + esc(x.text) + '</span></div></li>';
   }).join('');
   var trRight = d.transform.map(function (p) {
-    var x = p.solution || {};
+    var x = p.right || {};
     return '<li><div><strong>' + esc(x.title) + '</strong><span>' + esc(x.text) + '</span></div></li>';
   }).join('');
   var trCountWord = (function (n) { return ({ 1: 'one point', 2: 'two points', 3: 'three points', 4: 'four points', 5: 'five points', 6: 'six points' })[n] || (n + ' points'); })(d.transform.length);
   var problemTitle = accentize(d.problemTitleRaw || 'Three things we saw on the shelves');
+  var problemSubtitle = d.problemSubtitleRaw ? accentize(d.problemSubtitleRaw) : '';
   var transformTitle = accentize(d.transformTitleRaw || ('The same ' + trCountWord + ', *turned around*'));
 
   /* ════════════════ PAGE HTML ════════════════ */
@@ -179,7 +195,7 @@
     + '<div class="r" style="display:flex;justify-content:center;margin-bottom:18px"><img src="' + attr(d.logoBlack) + '" alt="' + attr(d.retailer) + '" style="height:34px;object-fit:contain"></div>'
     + '<div class="prob-line r">From our visit · ' + esc(d.retailer) + ', ' + esc(d.city) + ' · ' + esc(d.date) + '</div>'
     + '<h2 class="s-title r">' + problemTitle + '</h2>'
-    + '<p class="s-desc c r">None of this is unusual for a store managing dates manually. But each one quietly costs a little margin and a lot of time, every day.</p>'
+    + (problemSubtitle ? '<p class="s-desc c r">' + problemSubtitle + '</p>' : '')
     + '</div><div class="prob-grid" data-n="' + d.problems.length + '">' + problemCards + '</div></div></section>';
 
   /* PROOF */
@@ -204,7 +220,7 @@
     /* left */
     + '<div class="tr-col r d1"><div class="tr-col-head"><div class="ico"><img src="' + IC + 'Target--Streamline-Core@4x.png" alt=""></div>'
     + '<div class="ttl"><span>What we saw</span><h3>Today · by hand</h3></div></div>'
-    + '<div class="tr-photo" id="trPhoto" data-tag="' + attr(gCap(0)) + '"><img id="trPhotoImg" src="' + attr(gImg(0)) + '" alt=""><span class="tr-photo__zoom" aria-hidden="true">⤢</span></div>'
+    + (trPhotos.length ? '<div class="tr-photo" id="trPhoto" data-tag="' + attr(trPhotos[0].tag) + '"><img id="trPhotoImg" src="' + attr(trPhotos[0].src) + '" alt=""><span class="tr-photo__zoom" aria-hidden="true">⤢</span></div>' : '')
     + '<ul class="tr-list">' + trLeft + '</ul></div>'
     /* right */
     + '<div class="tr-col tr-col--dark r d2"><div class="tr-col-head"><div class="ico"><img src="' + IC + 'Ai-Upscale-Spark--Streamline-Core.png" alt=""></div>'
@@ -412,8 +428,8 @@
   /* TRANSFORM slideshow */
   (function () {
     var box = $('trPhoto'), img = $('trPhotoImg');
-    if (!box || !img || !d.gallery.length) return;
-    var PHOTOS = d.gallery.map(function (g) { return { src: g.url, tag: g.caption || '' }; });
+    if (!box || !img || !trPhotos.length) return;
+    var PHOTOS = trPhotos;
     var idx = 0, timer = null, paused = false;
     function show(i) { var p = PHOTOS[i]; img.style.opacity = '0'; setTimeout(function () { img.src = p.src; img.alt = p.tag; box.dataset.tag = p.tag; img.style.opacity = '1'; }, 200); }
     function next() { idx = (idx + 1) % PHOTOS.length; show(idx); }
