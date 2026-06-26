@@ -44,8 +44,18 @@
     logoBlack: cms('logo-black'),
     vimeoId: cms('vimeo-id'),
     problems: cmsJSON('problems'),
-    gallery: cmsJSON('gallery')
+    gallery: cmsJSON('gallery'),
+    transform: cmsJSON('transform')
   };
+
+  /* Transform points — falls back to defaults if the CMS field is empty,
+     so existing visits keep working. Each item = { problem:{title,text}, solution:{title,text} } */
+  var DEFAULT_TRANSFORM = [
+    { problem: { title: 'Every product checked, aisle by aisle.', text: "One person's full day spent walking the shelves for date checks." }, solution: { title: 'Check only the ~4% that actually needs a look.', text: 'A daily shortlist replaces the full aisle-by-aisle walk.' } },
+    { problem: { title: 'Expired stock reaches the shelf.', text: 'A product one day past Best Before, still on sale at full price.' }, solution: { title: 'Zero expired on the shelf.', text: 'Every short date is flagged and located before it hits, never the day after.' } },
+    { problem: { title: 'Markdowns run on the clock.', text: 'Fixed 50% / 75% / 90%, applied by hand. Margin given away too early.' }, solution: { title: 'The right markdown, at the right moment.', text: 'Timing and depth set per product, not by the clock, so margin is recovered, not given away.' } }
+  ];
+  if (!d.transform.length) d.transform = DEFAULT_TRANSFORM;
 
   /* featured proof = gallery item flagged featured, else first */
   var featured = d.gallery.filter(function (g) { return g && g.featured; })[0] || d.gallery[0] || {};
@@ -114,6 +124,17 @@
   function gImg(i) { return (d.gallery[i] && d.gallery[i].url) || ''; }
   function gCap(i) { return (d.gallery[i] && d.gallery[i].caption) || ''; }
 
+  /* transform lists (variable count) — left = problem (photo hover), right = solution */
+  var trLeft = d.transform.map(function (p, i) {
+    var x = p.problem || {};
+    return '<li data-photo="' + attr(gImg(i)) + '" data-tag="' + attr(gCap(i)) + '"><div><strong>' + esc(x.title) + '</strong><span>' + esc(x.text) + '</span></div></li>';
+  }).join('');
+  var trRight = d.transform.map(function (p) {
+    var x = p.solution || {};
+    return '<li><div><strong>' + esc(x.title) + '</strong><span>' + esc(x.text) + '</span></div></li>';
+  }).join('');
+  var trCountWord = (function (n) { return ({ 1: 'one point', 2: 'two points', 3: 'three points', 4: 'four points', 5: 'five points', 6: 'six points' })[n] || (n + ' points'); })(d.transform.length);
+
   /* ════════════════ PAGE HTML ════════════════ */
   var html = '';
 
@@ -153,7 +174,7 @@
     + '<div class="prob-line r">From our visit · ' + esc(d.retailer) + ', ' + esc(d.city) + ' · ' + esc(d.date) + '</div>'
     + '<h2 class="s-title r">Three things we saw on the shelves</h2>'
     + '<p class="s-desc c r">None of this is unusual for a store managing dates manually. But each one quietly costs a little margin and a lot of time, every day.</p>'
-    + '</div><div class="prob-grid">' + problemCards + '</div></div></section>';
+    + '</div><div class="prob-grid" data-n="' + d.problems.length + '">' + problemCards + '</div></div></section>';
 
   /* PROOF */
   html +=
@@ -172,27 +193,19 @@
   html +=
     '<section class="s-transform" id="transform"><div class="inner"><div class="tr-head">'
     + '<span class="tr-label r">From problem to advantage</span>'
-    + '<h2 class="tr-title r">The same three points, <span class="accent">turned around</span></h2></div>'
+    + '<h2 class="tr-title r">The same ' + trCountWord + ', <span class="accent">turned around</span></h2></div>'
     + '<div class="tr-stakes">'
     /* left */
     + '<div class="tr-col r d1"><div class="tr-col-head"><div class="ico"><img src="' + IC + 'Target--Streamline-Core@4x.png" alt=""></div>'
     + '<div class="ttl"><span>What we saw</span><h3>Today · by hand</h3></div></div>'
     + '<div class="tr-photo" id="trPhoto" data-tag="' + attr(gCap(0)) + '"><img id="trPhotoImg" src="' + attr(gImg(0)) + '" alt=""><span class="tr-photo__zoom" aria-hidden="true">⤢</span></div>'
-    + '<ul class="tr-list">'
-    + '<li data-photo="' + attr(gImg(0)) + '" data-tag="' + attr(gCap(0)) + '"><div><strong>Every product checked, aisle by aisle.</strong><span>One person\'s full day spent walking the shelves for date checks.</span></div></li>'
-    + '<li data-photo="' + attr(gImg(1)) + '" data-tag="' + attr(gCap(1)) + '"><div><strong>Expired stock reaches the shelf.</strong><span>A product one day past Best Before, still on sale at full price.</span></div></li>'
-    + '<li data-photo="' + attr(gImg(2)) + '" data-tag="' + attr(gCap(2)) + '"><div><strong>Markdowns run on the clock.</strong><span>Fixed 50% / 75% / 90%, applied by hand. Margin given away too early.</span></div></li>'
-    + '</ul></div>'
+    + '<ul class="tr-list">' + trLeft + '</ul></div>'
     /* right */
     + '<div class="tr-col tr-col--dark r d2"><div class="tr-col-head"><div class="ico"><img src="' + IC + 'Ai-Upscale-Spark--Streamline-Core.png" alt=""></div>'
     + '<div class="ttl"><span>What changes with Smartway</span><h3>Tomorrow · supported</h3></div></div>'
     + '<div class="tr-media"><video autoplay muted loop playsinline crossorigin="anonymous" preload="metadata"><source src="' + TRANSFORM_VIDEO + '" type="video/mp4"></video>'
     + '<div class="tr-media-meta"><span class="tr-media-tag">Inside a store with Smartway</span><span class="tr-media-sub">The team is guided straight to the right product, in the right aisle.</span></div></div>'
-    + '<ul class="tr-list">'
-    + '<li><div><strong>Check only the ~4% that actually needs a look.</strong><span>A daily shortlist replaces the full aisle-by-aisle walk.</span></div></li>'
-    + '<li><div><strong>Zero expired on the shelf.</strong><span>Every short date is flagged and located before it hits, never the day after.</span></div></li>'
-    + '<li><div><strong>The right markdown, at the right moment.</strong><span>Timing and depth set per product, not by the clock, so margin is recovered, not given away.</span></div></li>'
-    + '</ul></div></div></div></section>';
+    + '<ul class="tr-list">' + trRight + '</ul></div></div></div></section>';
 
   /* DEMO */
   html +=
