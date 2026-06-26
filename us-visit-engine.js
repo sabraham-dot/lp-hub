@@ -45,7 +45,9 @@
     vimeoId: cms('vimeo-id'),
     problems: cmsJSON('problems'),
     gallery: cmsJSON('gallery'),
-    transform: cmsJSON('transform')
+    transform: cmsJSON('transform'),
+    problemTitleRaw: cms('problem-title'),
+    transformTitleRaw: cms('transform-title')
   };
 
   /* Transform points — falls back to defaults if the CMS field is empty,
@@ -96,6 +98,8 @@
 
   function esc(s) { return String(s == null ? '' : s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;'); }
   function attr(s) { return esc(s).replace(/"/g, '&quot;'); }
+  /* title text → escaped HTML, with *word* turned into a green accent span */
+  function accentize(s) { return esc(s).replace(/\*([^*]+)\*/g, '<span class="accent">$1</span>'); }
 
   /* ─── build dynamic chunks ─── */
   var problemCards = d.problems.map(function (c, i) {
@@ -134,6 +138,8 @@
     return '<li><div><strong>' + esc(x.title) + '</strong><span>' + esc(x.text) + '</span></div></li>';
   }).join('');
   var trCountWord = (function (n) { return ({ 1: 'one point', 2: 'two points', 3: 'three points', 4: 'four points', 5: 'five points', 6: 'six points' })[n] || (n + ' points'); })(d.transform.length);
+  var problemTitle = accentize(d.problemTitleRaw || 'Three things we saw on the shelves');
+  var transformTitle = accentize(d.transformTitleRaw || ('The same ' + trCountWord + ', *turned around*'));
 
   /* ════════════════ PAGE HTML ════════════════ */
   var html = '';
@@ -172,7 +178,7 @@
     '<section class="s-problem" id="problem"><div class="inner"><div class="prob-head">'
     + '<div class="r" style="display:flex;justify-content:center;margin-bottom:18px"><img src="' + attr(d.logoBlack) + '" alt="' + attr(d.retailer) + '" style="height:34px;object-fit:contain"></div>'
     + '<div class="prob-line r">From our visit · ' + esc(d.retailer) + ', ' + esc(d.city) + ' · ' + esc(d.date) + '</div>'
-    + '<h2 class="s-title r">Three things we saw on the shelves</h2>'
+    + '<h2 class="s-title r">' + problemTitle + '</h2>'
     + '<p class="s-desc c r">None of this is unusual for a store managing dates manually. But each one quietly costs a little margin and a lot of time, every day.</p>'
     + '</div><div class="prob-grid" data-n="' + d.problems.length + '">' + problemCards + '</div></div></section>';
 
@@ -193,7 +199,7 @@
   html +=
     '<section class="s-transform" id="transform"><div class="inner"><div class="tr-head">'
     + '<span class="tr-label r">From problem to advantage</span>'
-    + '<h2 class="tr-title r">The same ' + trCountWord + ', <span class="accent">turned around</span></h2></div>'
+    + '<h2 class="tr-title r">' + transformTitle + '</h2></div>'
     + '<div class="tr-stakes">'
     /* left */
     + '<div class="tr-col r d1"><div class="tr-col-head"><div class="ico"><img src="' + IC + 'Target--Streamline-Core@4x.png" alt=""></div>'
