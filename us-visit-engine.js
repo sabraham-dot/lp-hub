@@ -192,7 +192,7 @@
   /* PROBLEM */
   html +=
     '<section class="s-problem" id="problem"><div class="inner"><div class="prob-head">'
-    + '<div class="r" style="display:flex;justify-content:center;margin-bottom:18px"><img src="' + attr(d.logoBlack) + '" alt="' + attr(d.retailer) + '" style="height:34px;object-fit:contain"></div>'
+    + '<div class="r" style="display:flex;justify-content:center;margin-bottom:18px"><img src="' + attr(d.logoBlack) + '" alt="' + attr(d.retailer) + '" style="height:60px;object-fit:contain"></div>'
     + '<div class="prob-line r">From our visit · ' + esc(d.retailer) + ', ' + esc(d.city) + ' · ' + esc(d.date) + '</div>'
     + '<h2 class="s-title r">' + problemTitle + '</h2>'
     + (problemSubtitle ? '<p class="s-desc c r">' + problemSubtitle + '</p>' : '')
